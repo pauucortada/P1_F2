@@ -14,6 +14,5 @@ import java.util.Iterator;
 
 public class JSONMonsters {
 
-
     
 }
