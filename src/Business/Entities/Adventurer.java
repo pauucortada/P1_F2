@@ -1,4 +1,5 @@
 package Business.Entities;
 
-public class Adventurer {
+public class Adventurer extends Character{
+
 }
