@@ -1,5 +1,6 @@
 package Business.Managers;
 
+import Business.Entities.Adventurer;
 import Business.Entities.Character;
 
 import java.util.ArrayList;
@@ -8,30 +9,34 @@ import java.util.Random;
 public class CharacterManager {
 
     public void createCharacter(String name, String namePlayer, int level) {
-        Character character = new Character();
+        Adventurer adventurer = new Adventurer();
 
-        character.setName(name);
-        character.setNamePlayer(namePlayer);
-        character.setExperience(levelExperience(level));
-        character.setBody(dausEstadistiques());
-        character.setMind(dausEstadistiques());
-        character.setSpirit(dausEstadistiques());
-        character.setClasse("Adventurer");
+        adventurer.setName(name);
+        adventurer.setNamePlayer(namePlayer);
+        adventurer.setExperience(levelExperience(level));
+        adventurer.setBody(dausEstadistiques());
+        adventurer.setMind(dausEstadistiques());
+        adventurer.setSpirit(dausEstadistiques());
+        adventurer.setClasse("Adventurer");
 
-        //Función crearPersonaje en el JSON
+        Character character = adventurer;
+
+        //Función crearPersonaje(character) en el JSON
     }
 
-    /*public ArrayList <Character> listCharacters (String nameCharacter) {
-        ArrayList <Character> list =new ArrayList<>();
-        //Función que lee los personajes del JSON
+    public ArrayList <Character> listCharacters (String namePlayer) {
+        ArrayList <Character> list = new ArrayList<>();
 
-        if (nameCharacter.equals("\n")){
+        if (namePlayer.equals("\n")){
+            //Función que lee TODOS los personajes del JSON
             return list;
         } else {
-            int i = 0;
-            while (list.get(i).equals())
+            //Función que lee los personajes de un jugador
+            return list;
         }
-    }*/
+    }
+
+
 
     public int levelExperience(int level) {
         if (level == 1) {
@@ -64,7 +69,15 @@ public class CharacterManager {
         return num1 + num2;
     }
 
+    public void deleteCharacter(String name, ArrayList<Character> characters) {
+        int i = 0;
 
+        while (!characters.get(i).getName().equals(name)){
+            i++;
+        }
+        characters.remove(i);
+        // Actualitzem JSON amb funció actualitzarDades(characters)
+    }
 
-
+    
 }
