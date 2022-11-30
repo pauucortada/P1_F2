@@ -14,9 +14,9 @@ public class CharacterManager {
         adventurer.setName(name);
         adventurer.setNamePlayer(namePlayer);
         adventurer.setExperience(levelExperience(level));
-        adventurer.setBody(dausEstadistiques());
-        adventurer.setMind(dausEstadistiques());
-        adventurer.setSpirit(dausEstadistiques());
+        adventurer.setBody(valorEstadistiques());
+        adventurer.setMind(valorEstadistiques());
+        adventurer.setSpirit(valorEstadistiques());
         adventurer.setClasse("Adventurer");
 
         Character character = adventurer;
@@ -62,6 +62,20 @@ public class CharacterManager {
         }
     }
 
+    public int valorEstadistiques(){
+        if (dausEstadistiques() == 2){
+            return -1;
+        } else if (dausEstadistiques() >= 3 && dausEstadistiques() <= 5) {
+            return 0;
+        } else if (dausEstadistiques() >= 6 && dausEstadistiques() <= 9) {
+            return 1;
+        } else if (dausEstadistiques() == 10 || dausEstadistiques() == 11) {
+            return 2;
+        } else {
+            return 3;
+        }
+    }
+
     public int dausEstadistiques() {
         Random random1 = new Random();
         int num1 = random1.nextInt(6) + 1;
@@ -79,5 +93,33 @@ public class CharacterManager {
         // Actualitzem JSON amb funció actualitzarDades(characters)
     }
 
-    
+    public int whichLevel(Character character) {
+        int exp = character.getExperience();
+
+        if (exp < 100){
+            return 1;
+        } else if (exp < 200) {
+            return 2;
+        } else if (exp < 300) {
+            return 3;
+        } else if (exp < 400) {
+            return 4;
+        } else if (exp < 500) {
+            return 5;
+        } else if (exp < 600) {
+            return 6;
+        } else if (exp < 700) {
+            return 7;
+        } else if (exp < 800) {
+            return 8;
+        } else if (exp < 900) {
+            return 9;
+        }
+        return 10;
+    }
+
+
+
+
+
 }
