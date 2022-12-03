@@ -118,8 +118,4 @@ public class CharacterManager {
         return 10;
     }
 
-
-
-
-
 }

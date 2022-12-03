@@ -67,4 +67,5 @@ public class Monster {
     public void setDamageType(String damageType) {
         this.damageType = damageType;
     }
+
 }
