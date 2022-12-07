@@ -36,6 +36,15 @@ public class CharacterManager {
         }
     }
 
+    public ArrayList<Integer> staistics(Character character) {
+        ArrayList<Integer> stats = new ArrayList<>();
+        stats.add(character.getBody());
+        stats.add(character.getMind());
+        stats.add(character.getSpirit());
+
+        return stats;
+    }
+
 
 
     public int levelExperience(int level) {
@@ -63,24 +72,29 @@ public class CharacterManager {
     }
 
     public int valorEstadistiques(){
-        if (dausEstadistiques() == 2){
+        if (dausEstadistiques().get(2) == 2){
             return -1;
-        } else if (dausEstadistiques() >= 3 && dausEstadistiques() <= 5) {
+        } else if (dausEstadistiques().get(2) >= 3 && dausEstadistiques().get(2) <= 5) {
             return 0;
-        } else if (dausEstadistiques() >= 6 && dausEstadistiques() <= 9) {
+        } else if (dausEstadistiques().get(2) >= 6 && dausEstadistiques().get(2) <= 9) {
             return 1;
-        } else if (dausEstadistiques() == 10 || dausEstadistiques() == 11) {
+        } else if (dausEstadistiques().get(2) == 10 || dausEstadistiques().get(2) == 11) {
             return 2;
         } else {
             return 3;
         }
     }
 
-    public int dausEstadistiques() {
+    public ArrayList<Integer> dausEstadistiques() {
+        ArrayList<Integer> statisticsNumbers = new ArrayList<>();
         Random random1 = new Random();
         int num1 = random1.nextInt(6) + 1;
         int num2 = random1.nextInt(6) + 1;
-        return num1 + num2;
+        int suma = num1 + num2;
+        statisticsNumbers.add(num1);
+        statisticsNumbers.add(num2);
+        statisticsNumbers.add(suma);
+        return statisticsNumbers;
     }
 
     public void deleteCharacter(String name, ArrayList<Character> characters) {
