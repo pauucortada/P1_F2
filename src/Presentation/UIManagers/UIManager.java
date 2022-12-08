@@ -219,12 +219,14 @@ public class UIManager {
                 "Your party (" + i + " / " + numCharacters + "):\n");
         while (chosenCharacters.size() > j) {
             System.out.print(j + 1 + ". ");
-            if (chosenCharacters.get(j).equals(" ")){
-                System.out.println("Empty");
-            } else {
-                System.out.println(chosenCharacters.get(j).getName());
-            }
+            System.out.println(chosenCharacters.get(j).getName());
             j++;
+        }
+        j = 0;
+        if (!(chosenCharacters.size() == numCharacters)) {
+            while ((numCharacters - chosenCharacters.size()) > j) {
+                System.out.println(j + 1 + ". Empty");
+            }
         }
         System.out.println("""
                 ------------------------------
@@ -243,6 +245,52 @@ public class UIManager {
                 "The ”" + name + "” will start soon...");
     }
 
+    public void printIncreaseSpirit(ArrayList<Monster> monsters, int numEncounter, ArrayList<Character> characters) {
+        int j = 0;
+        System.out.println("---------------------\n" +
+                "Starting Encounter " + numEncounter + ":\n");
+        while (monsters.size() > j) {
+            System.out.println("\t- " + counterNameInList(monsters.get(j).getName(), monsters) +
+                    "x " + monsters.get(j).getName());
+            j++;
+        }
+        System.out.println("""
+                ---------------------
 
+                -------------------------
+                *** Preparation stage ***
+                -------------------------""");
+        j = 0;
+        while (characters.size() > j) {
+            System.out.println(characters.get(j).getName() + " uses Self-Motivated. Their Spirit increases in +1.");
+            j++;
+        }
+    }
+
+    public void printMonstersInitiative(ArrayList<Monster> monsters) {
+        int i = 0;
+        System.out.println("\nRolling initiative...");
+        while (monsters.size() > i) {
+            System.out.println("\n- " + monsters.get(i).getInitiative() + "\t" + monsters.get(i).getName());
+            i++;
+        }
+        System.out.println("""
+
+                --------------------
+                *** Combat stage ***
+                --------------------
+                """);
+    }
+
+    public void printCombatStageIntroduction(int round, ArrayList<Character> characters, ArrayList<Integer> actualPoints, ArrayList<Integer> totalPoints) {
+        int i = 0;
+        System.out.println("Round" + round + ":");
+        System.out.println("Party:");
+        while (characters.size() > i) {
+            System.out.println("\t-" + characters.get(i).getName() + "\t\t" +
+                    actualPoints.get(i) + " / " + totalPoints.get(i) + " hit points");
+            i++;
+        }
+    }
 
 }

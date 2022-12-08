@@ -131,4 +131,14 @@ public class CharacterManager {
         return 10;
     }
 
+    public ArrayList<Integer> calculateTotalHitPoints(ArrayList<Character> characters) {
+        int i = 0, maxHitPoints;
+        ArrayList<Integer> hitPoints = new ArrayList<>();
+        while (characters.size() > i){
+            maxHitPoints = (10 + characters.get(i).getBody()) * whichLevel(characters.get(i));
+            hitPoints.add(maxHitPoints);
+            i++;
+        }
+        return hitPoints;
+    }
 }

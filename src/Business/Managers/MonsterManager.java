@@ -3,6 +3,7 @@ package Business.Managers;
 import Business.Entities.Monster;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class MonsterManager {
 
