@@ -1,8 +1,13 @@
 package Presentation.UIManagers;
 
+import Business.Entities.Adventure;
+import Business.Entities.Character;
+import Business.Entities.Monster;
+import Business.Managers.CharacterManager;
 import Presentation.Controllers.Controller;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class UIManager {
 
@@ -29,7 +34,7 @@ public class UIManager {
                 The tavern keeper looks at you and says:
                 “Welcome adventurer! How can I help you?”
                 """);
-        System.out.println("""
+        System.out.print("""
                     1) Character creation
                     2) List characters
                     3) Create an adventure
@@ -38,26 +43,26 @@ public class UIManager {
                 Your answer:""");
     }
 
-    public void printCreateAdventureName(){
-        System.out.println("""
+    public void printCreateCharacterName(){
+        System.out.print("""
                 Tavern keeper: “Oh, so you are new to this land.”
                 “What’s your name?”
                 -> Enter your name:""");
     }
 
-    public void printCreateAdventurePlayer(String name){
-        System.out.println("Tavern keeper: “Hello " + name + ", be welcome.”\n" +
-                "“And now, if I may break the fourth wall, who is your Player?” -> Enter the player’s name:");
+    public void printCreateCharacterPlayer(String name){
+        System.out.print("Tavern keeper: “Hello " + name + ", be welcome.”\n" +
+                "“And now, if I may break the fourth wall, who is your Player?” \n-> Enter the player’s name:");
     }
 
-    public void printCreateAdventureLevel() {
-        System.out.println("""
+    public void printCreateCharacterLevel() {
+        System.out.print("""
                 Tavern keeper: “I see, I see...”
                 “Now, are you an experienced adventurer?”
                 -> Enter the character’s level [1..10]:""");
     }
 
-    public void printCreateAdventureStatistics(int level, ArrayList<Integer> dacesResults, ArrayList<Integer> stats, String name) {
+    public void printCreateCharacterStatistics(int level, ArrayList<Integer> dacesResults, ArrayList<Integer> stats, String name) {
         System.out.println("Tavern keeper: “Oh, so you are level " + level + "!”\n" +
                 "“Great, let me get a closer look at you...”\n" +
                 "Generating your stats...\n" +
@@ -73,7 +78,7 @@ public class UIManager {
 
 
     public void printListCharactersMenu(){
-        System.out.println("""
+        System.out.print("""
                 Tavern keeper: “Lads! They want to see you!”
                 “Who piques your interest?”
                 -> Enter the name of the Player to filter:""");
@@ -87,13 +92,156 @@ public class UIManager {
             i++;
         }
         System.out.println("\n0. Back\n");
-        System.out.println("Who would you like to meet [0.."+ i+1 +"]: ");
+        System.out.print("Who would you like to meet [0.."+ i + 1 +"]: ");
     }
 
     public void printExit() {
         System.out.println("\nTavern keeper: “Are you leaving already? See you soon, adventurer.”\n");
     }
 
+    public void printCharacter(Character character, int level) {
+        System.out.println("\nTavern keeper: “Hey " + character.getName() + " get here; the boss wants to see you!”\n");
+        System.out.println(
+                "* Name: " + character.getName() + "\n" +
+                "* Player: " + character.getNamePlayer() + "\n" +
+                "* Class: " + character.getClass() + "\n" +
+                "* Level: " + level + "\n" +
+                "* XP: " + character.getExperience() + "\n" +
+                "* Body: " + character.getBody() + "\n" +
+                "* Mind: " + character.getMind() + "\n" +
+                "* Spirit: " + character.getSpirit() + "\n");
+        System.out.print("[Enter name to delete, or press enter to cancel] \nDo you want to delete " + character.getName() + "?");
+    }
+
+    public void printdeleteCharacter(String name) {
+        System.out.println("Tavern keeper: “I’m sorry kiddo, but you have to leave.”\n" +
+                "Character " + name + " left the Guild.");
+    }
+
+    public void printCreateAdventureName() {
+        System.out.print("Tavern keeper: “Planning an adventure? Good luck with that!” \n-> Name your adventure:");
+    }
+
+    public void printCreateAdventureEncounters(String name) {
+        System.out.print("Tavern keeper: “You plan to undertake " + name + ", really?”\n" +
+                "“How long will that take?”\n" +
+                "-> How many encounters do you want [1..4]:");
+    }
+
+    public void printStartAdventure(int numCmbt) {
+        System.out.println("Tavern keeper: “"+ numCmbt + " encounters? That is too much for me...”\n");
+    }
+
+    public void printAdventureFights(int i, int numCmbt, ArrayList<Monster> monsters) {
+        int j = 0;
+
+        System.out.println("* Encounter "+ i +" / " + numCmbt + "\n" +
+                "* Monsters in encounter");
+        if (monsters.size() == 0) {
+            System.out.println("# Empty");
+        } else {
+            while (monsters.size() > j) {
+                System.out.println(j + 1 + ". " + monsters.get(j).getName() + " (x" + counterNameInList(monsters.get(j).getName(), monsters) + ")");
+                j++;
+            }
+        }
+
+        System.out.println("""
+                1. Add monster
+                2. Remove monster
+                3. Continue
+                -> Enter an option [1..3]:""");
+    }
+
+    public int counterNameInList(String name, ArrayList<Monster> monsters) {
+        int i = 0, counter = 0;
+
+        while (monsters.size() > i) {
+            if (Objects.equals(monsters.get(i).getName(), name)) {
+                counter++;
+            }
+            i++;
+        }
+        return counter;
+    }
+
+    public void printAdventureAddMonster(ArrayList<Monster> monsters) {
+        int i = 0;
+        while (monsters.size() > i) {
+            System.out.println(i + 1 + ". " + monsters.get(i).getName() + " (" + monsters.get(i).getChallenge() + ")");
+            i++;
+        }
+        System.out.print("\n" +
+                "-> Choose a monster to add [1.." + monsters.size() + "]: ");
+    }
+
+    public void printMonsterToAdd(String name) {
+        System.out.print("-> How many " + name + "(s) do you want to add: ");
+    }
+
+    public void printDeleteMonster() {
+        System.out.print("-> Which monster do you want to delete: ");
+    }
+
+    public void printDeletedMonster(String name, ArrayList<Monster> monsters) {
+        System.out.println(counterNameInList(name, monsters) + " " + name + " were removed from the encounter.");
+    }
+
+    public void printPlayAdventureMenu(ArrayList<Adventure> adventures) {
+        int i = 0;
+        System.out.println("""
+                Tavern keeper: “So, you are looking to go on an adventure?”
+                “Where do you fancy going?”
+                Available adventures:""");
+        while (adventures.size() > i) {
+            System.out.println("\t"+ i + 1 + ". " + adventures.get(i).getName());
+            i++;
+        }
+        System.out.print("\n" +
+                "-> Choose an adventure: ");
+    }
+
+    public void printPlayAdventureNumCharacters(String name) {
+        System.out.print("Tavern keeper: “" + name + "”\n" +
+                "“And how many people shall join you?”\n" +
+                "-> Choose a number of characters [3..5]: ");
+    }
+
+    public void printNumOfCharacters(int numCharacters) {
+        System.out.println("Tavern keeper: “Great, " + numCharacters + " it is.”\n" +
+                "“Who among these lads shall join you?”");
+    }
+
+    public void printPlayAdventureChooseCharacters(ArrayList<Character> totalCharacters, ArrayList<Character> chosenCharacters, int numCharacters, int i) {
+        int j = 0;
+        System.out.println("\n" +
+                "------------------------------\n" +
+                "Your party (" + i + " / " + numCharacters + "):\n");
+        while (chosenCharacters.size() > j) {
+            System.out.print(j + 1 + ". ");
+            if (chosenCharacters.get(j).equals(" ")){
+                System.out.println("Empty");
+            } else {
+                System.out.println(chosenCharacters.get(j).getName());
+            }
+            j++;
+        }
+        System.out.println("""
+                ------------------------------
+                Available characters:
+                """);
+        j = 0;
+        while (totalCharacters.size() > j) {
+            System.out.println(j + 1 + ". " + totalCharacters.get(j).getName());
+            j++;
+        }
+        System.out.println("-> Choose character " + i + " in your party: ");
+    }
+
+    public void printPlayAdventureEnd (String name){
+        System.out.println("Tavern keeper: “Great, good luck on your adventure lads!\n" +
+                "The ”" + name + "” will start soon...");
+    }
 
 
 

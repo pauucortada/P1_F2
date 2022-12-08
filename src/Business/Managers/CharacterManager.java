@@ -17,7 +17,6 @@ public class CharacterManager {
         adventurer.setBody(valorEstadistiques());
         adventurer.setMind(valorEstadistiques());
         adventurer.setSpirit(valorEstadistiques());
-        adventurer.setClasse("Adventurer");
 
         Character character = adventurer;
 

@@ -8,7 +8,10 @@ public class Character {
     private int body;
     private int mind;
     private int spirit;
-    private String classe;
+
+    public Character() {
+    }
+
 
     // Getters and Setters
 
@@ -36,10 +39,6 @@ public class Character {
         return spirit;
     }
 
-    public String getClasse() {
-        return classe;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -62,9 +61,5 @@ public class Character {
 
     public void setSpirit(int spirit) {
         this.spirit = spirit;
-    }
-
-    public void setClasse(String classe) {
-        this.classe = classe;
     }
 }
