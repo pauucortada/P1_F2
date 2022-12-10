@@ -68,15 +68,13 @@ public class JSONCharacters {
                 JSONObject object = characterListJSON_iterator.next();
                 Character character = new Character();
 
-
                 character.setName(object.get("name").toString());
-                // TODO: FALTA ABAIX
-                character.setChallenge(object.get("challenge").toString());
-                character.setExperience(Integer.parseInt(object.get("experience").toString()));
-                character.setExperience(Integer.parseInt(object.get("hitPoints").toString()));
-                character.setExperience(Integer.parseInt(object.get("initiative").toString()));
-                character.setChallenge(object.get("damageDice").toString());
-                character.setChallenge(object.get("Physical").toString());
+                character.setNamePlayer(object.get("player").toString());
+                character.setExperience(Integer.parseInt(object.get("xp").toString()));
+                character.setBody(Integer.parseInt(object.get("body").toString()));
+                character.setMind(Integer.parseInt(object.get("mind").toString()));
+                character.setSpirit(Integer.parseInt(object.get("spirit").toString()));
+                character.setClasse(object.get("class").toString());
 
                 characterList.add(character);
             }

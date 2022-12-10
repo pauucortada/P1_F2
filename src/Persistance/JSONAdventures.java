@@ -41,6 +41,8 @@ public class JSONAdventures {
 
     public ArrayList<Adventure> getAdventuresFromFile (){
 
+
+        return
     }
 
 
