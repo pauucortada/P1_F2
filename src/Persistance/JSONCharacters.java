@@ -65,6 +65,7 @@ public class JSONCharacters {
 
             while (characterListJSON_iterator.hasNext()){
 
+
                 JSONObject object = characterListJSON_iterator.next();
                 Character character = new Character();
 
