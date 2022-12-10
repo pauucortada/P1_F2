@@ -1,6 +1,7 @@
 package Presentation.UIManagers;
 
 import Business.Entities.Adventure;
+import Business.Entities.Adventurer;
 import Business.Entities.Character;
 import Business.Entities.Monster;
 import Business.Managers.CharacterManager;
@@ -291,6 +292,72 @@ public class UIManager {
                     actualPoints.get(i) + " / " + totalPoints.get(i) + " hit points");
             i++;
         }
+    }
+
+    public void printAttacks(Monster monster, Character character, int damage, boolean isMonsterAttacking, boolean isHitting, boolean criticalDamage) {
+        if (isMonsterAttacking) {
+            System.out.println(monster.getName() + " attacks " + character.getName() + ".\n");
+            if (isHitting) {
+                System.out.println("Hits and deals " + damage + " " + monster.getDamageType() + ".");
+            } else if (criticalDamage) {
+                System.out.println("Critical hit and deals " + damage + " " + monster.getDamageType() + ".");
+            } else {
+                System.out.println("Fails and deals 0 " + monster.getDamageType() + ".");
+            }
+        } else {
+            if (character instanceof Adventurer) {
+                System.out.println(character.getName() + " attacks " + monster.getName() + " with " + ((Adventurer) character).getTypeAttack() + "\n");
+                if (isHitting) {
+                    System.out.println("Hits and deals " + damage + " physical damage.");
+                } else if (criticalDamage) {
+                    System.out.println("Critical hit and deals " + damage + " physical damage.");
+                } else {
+                    System.out.println("Fails and deals 0 physical damage.");
+                }
+
+            } else {
+                System.out.println("Something went wrong");
+            }
+
+        }
+    }
+
+    public void printMonsterDied (Monster monster) {
+        System.out.println(monster.getName() + "dies.");
+    }
+
+    public void printAllEnemiesDefeated(ArrayList<Monster> monsters) {
+        System.out.println("All enemies are defeated.");
+    }
+
+    public void printCharacterToSleep(Character character) {
+        System.out.println(character.getName() + " falls unconscious.");
+    }
+
+    public void printEndOfRound(int round) {
+        System.out.println("End of round " + round + ".");
+    }
+
+    public void printShortStageTitle (){
+        System.out.println("""
+
+                ------------------------
+                *** Short rest stage ***
+                ------------------------""");
+    }
+
+    public void printShortStageGainPoints(Character character, int experience, boolean levelUp, int level) {
+        System.out.print(character.getName() + " gains " + experience + " xp.");
+
+        if (levelUp) {
+            System.out.println(" " + character.getName() + " levels up. They are now lvl " + level + "!");
+        } else {
+            System.out.println();
+        }
+    }
+
+    public void printShortStageHealPoints(Character character, int pointsHealed) {
+        System.out.println(character.getName() + " uses Bandage time. Heals " + pointsHealed + " hit points.");
     }
 
 }

@@ -17,6 +17,7 @@ public class CharacterManager {
         adventurer.setBody(valorEstadistiques());
         adventurer.setMind(valorEstadistiques());
         adventurer.setSpirit(valorEstadistiques());
+        adventurer.setTypeAttack("Sword Slash");
 
         Character character = adventurer;
 
