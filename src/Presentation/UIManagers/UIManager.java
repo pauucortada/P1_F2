@@ -100,6 +100,11 @@ public class UIManager {
         System.out.println("\nTavern keeper: “Are you leaving already? See you soon, adventurer.”\n");
     }
 
+    public boolean printErrorMainMenu() {
+        System.out.println("This is not an option, please, introduce a valid option.");
+        return true;
+    }
+
     public void printCharacter(Character character, int level) {
         System.out.println("\nTavern keeper: “Hey " + character.getName() + " get here; the boss wants to see you!”\n");
         System.out.println(

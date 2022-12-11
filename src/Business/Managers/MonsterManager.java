@@ -13,4 +13,12 @@ public class MonsterManager {
         return monsters;
     }
 
+    public boolean dataLoaded() {
+        boolean isDataLoaded = false;
+        if (listMonsters().size() == 0) {
+            return isDataLoaded;
+        }
+        return !isDataLoaded;
+    }
+
 }
