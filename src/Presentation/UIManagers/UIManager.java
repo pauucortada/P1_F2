@@ -4,8 +4,6 @@ import Business.Entities.Adventure;
 import Business.Entities.Adventurer;
 import Business.Entities.Character;
 import Business.Entities.Monster;
-import Business.Managers.CharacterManager;
-import Presentation.Controllers.Controller;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -100,9 +98,8 @@ public class UIManager {
         System.out.println("\nTavern keeper: “Are you leaving already? See you soon, adventurer.”\n");
     }
 
-    public boolean printErrorMainMenu() {
+    public void printErrorMainMenu() {
         System.out.println("This is not an option, please, introduce a valid option.");
-        return true;
     }
 
     public void printCharacter(Character character, int level) {

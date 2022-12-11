@@ -64,7 +64,7 @@ public class Controller {
 
     }
     public void createCharacter() {
-        uiManager.
+
     }
 
     public void listCharacters() {
