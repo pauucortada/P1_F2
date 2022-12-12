@@ -1,7 +1,6 @@
 package Persistance;
 
 import Business.Entities.Adventure;
-import Business.Entities.Character;
 import Business.Entities.Fight;
 import com.google.gson.Gson;
 import java.io.File;
