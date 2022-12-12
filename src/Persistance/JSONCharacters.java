@@ -75,7 +75,7 @@ public class JSONCharacters {
                 character.setBody(Integer.parseInt(object.get("body").toString()));
                 character.setMind(Integer.parseInt(object.get("mind").toString()));
                 character.setSpirit(Integer.parseInt(object.get("spirit").toString()));
-                character.setClasse(object.get("class").toString());
+                character.setClas(object.get("class").toString());
 
                 characterList.add(character);
             }

@@ -8,12 +8,31 @@ public class Character {
     private int body;
     private int mind;
     private int spirit;
+    private String clas;
 
     public Character() {
     }
 
+    public Character(String name, String namePlayer, int experience, int body, int mind, int spirit, String clas) {
+        this.name = name;
+        this.namePlayer = namePlayer;
+        this.experience = experience;
+        this.body = body;
+        this.mind = mind;
+        this.spirit = spirit;
+        this.clas = clas;
+    }
 
-    // Getters and Setters
+// Getters and Setters
+
+
+    public String getClas() {
+        return clas;
+    }
+
+    public void setClas(String clas) {
+        this.clas = clas;
+    }
 
     public String getName() {
         return name;
