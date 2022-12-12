@@ -1,7 +1,6 @@
 package Persistance;
 
 import Business.Entities.Character;
-import Business.Entities.Monster;
 import com.google.gson.Gson;
 import java.io.File;
 import java.io.FileWriter;
@@ -12,31 +11,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import java.io.FileReader;
-import java.util.Iterator;
 
-/*      FORMAT JSON CHARACTERS
-[
-    {
-        "name": "Amrod",
-        "player": "SonsOfFeanor",
-        "xp": 229,
-        "body": 2,
-        "mind": 0,
-        "spirit": 0,
-        "class": "Adventurer"
-
-    },
-    {
-        "name": "Caranthir",
-        "player": "SonsOfFeanor",
-        "xp": 306,
-        "body": 2,
-        "mind": 0,
-        "spirit": 1,
-        "class": "Adventurer"
-    }
-]
- */
 
 public class JSONCharacters {
 
@@ -61,12 +36,7 @@ public class JSONCharacters {
             Object obj = jsonParser.parse(new FileReader(jsonCharactersFile));
             JSONArray characterJSONList = (JSONArray) obj;
 
-            Iterator<JSONObject> characterListJSON_iterator = characterJSONList.iterator();
-
-            while (characterListJSON_iterator.hasNext()){
-
-
-                JSONObject object = characterListJSON_iterator.next();
+            for (JSONObject object : (Iterable<JSONObject>) characterJSONList) {
                 Character character = new Character();
 
                 character.setName(object.get("name").toString());

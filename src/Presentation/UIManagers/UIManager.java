@@ -61,6 +61,11 @@ public class UIManager {
                 -> Enter the character’s level [1..10]:""");
     }
 
+    public void printLevelError() {
+        System.out.print("This is not a valid option. Please, introduce a number from 1 to 10." +
+                "\n-> Enter the character’s level [1..10]: ");
+    }
+
     public void printCreateCharacterStatistics(int level, ArrayList<Integer> dacesResults, ArrayList<Integer> stats, String name) {
         System.out.println("Tavern keeper: “Oh, so you are level " + level + "!”\n" +
                 "“Great, let me get a closer look at you...”\n" +
@@ -83,11 +88,11 @@ public class UIManager {
                 -> Enter the name of the Player to filter:""");
     }
 
-    public void printListCharactersPlayer(ArrayList<String> characters){
+    public void printListCharactersPlayer(ArrayList<Character> characters){
         int i = 0;
         System.out.println("You watch as some adventurers get up from their chairs and approach you.\n");
         while (characters.size() > i){
-            System.out.println(i + 1 + ". " + characters.get(i));
+            System.out.println(i + 1 + ". " + characters.get(i).getName());
             i++;
         }
         System.out.println("\n0. Back\n");

@@ -2,9 +2,14 @@ package Business.Managers;
 
 import Business.Entities.Adventurer;
 import Business.Entities.Character;
+import Persistance.JSONCharacters;
 
 import java.util.ArrayList;
 import java.util.Random;
+
+import static java.lang.Character.isWhitespace;
+import static java.lang.Character.toUpperCase;
+import static java.lang.Integer.parseInt;
 
 public class CharacterManager {
 
@@ -25,14 +30,22 @@ public class CharacterManager {
     }
 
     public ArrayList <Character> listCharacters (String namePlayer) {
-        ArrayList <Character> list = new ArrayList<>();
+        JSONCharacters jsonCharacters = new JSONCharacters();
+        ArrayList<Character> characters = jsonCharacters.getCharactersFromFile();
+        int i = 0;
 
         if (namePlayer.equals("\n")){
-            //Función que lee TODOS los personajes del JSON
-            return list;
+            return characters;
         } else {
-            //Función que lee los personajes de un jugador
-            return list;
+            ArrayList<Character> charactersFiltered = new ArrayList<>();
+            String name = namePlayer.toLowerCase();
+            while (characters.size() > i) {
+                if (characters.get(i).getNamePlayer().toLowerCase().equals(name)) {
+                    charactersFiltered.add(characters.get(i));
+                }
+                i++;
+            }
+            return charactersFiltered;
         }
     }
 
@@ -142,4 +155,56 @@ public class CharacterManager {
         }
         return hitPoints;
     }
+
+    public boolean isNameValid(String chain) {
+        JSONCharacters jsonCharacters = new JSONCharacters();
+        ArrayList<Character> characters = jsonCharacters.getCharactersFromFile();
+        int i = 0;
+        String name = chain.toUpperCase();
+
+        if (!name.matches("[A-Z]*")){
+            return false;
+        }
+        name = capitalizeString(name);
+        while (characters.size() > i){
+            if (characters.get(i).getName().equals(name)){
+                return false;
+            }
+            i++;
+        }
+        return true;
+    }
+
+    public boolean isLevelValid(String strlevel) {
+        int level;
+        if (!strlevel.matches("[0-9]*")){
+            return false;
+        }
+        level = parseInt(strlevel);
+        return level >= 1 && level <= 10;
+    }
+
+    public boolean isOptionValid(String strOption) {
+        int option;
+        return strOption.matches("[0-9]*") || strOption.equals("\n");
+    }
+
+    public String capitalizeString(String chain) {
+        return toUpperCase(chain.charAt(0)) + chain.substring(1);
+    }
+
+    public Character nameToCharacter(String name) {
+        JSONCharacters jsonCharacters = new JSONCharacters();
+        ArrayList<Character> characters = jsonCharacters.getCharactersFromFile();
+        int i = 0;
+
+        while (characters.size() > i) {
+            if (characters.get(i).getName().equals(name)){
+                return characters.get(i);
+            }
+            i++;
+        }
+        return null;
+    }
+
 }

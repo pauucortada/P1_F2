@@ -1,5 +1,6 @@
 package Presentation.Controllers;
 
+import Business.Entities.Character;
 import Business.Managers.AdventureManager;
 import Business.Managers.CharacterManager;
 import Business.Managers.FightManager;
@@ -8,6 +9,9 @@ import Presentation.UIManagers.UIManager;
 
 import java.util.Objects;
 import java.util.Scanner;
+
+import static java.lang.Character.toUpperCase;
+import static java.lang.Integer.parseInt;
 
 public class Controller {
 
@@ -39,7 +43,7 @@ public class Controller {
         String option;
 
         uiManager.printMainMenu();
-        option = sc.next();
+        option = sc.nextLine();
 
         while (true) {
             if (Objects.equals(option, "1")){
@@ -64,14 +68,69 @@ public class Controller {
 
     }
     public void createCharacter() {
+        Scanner sc = new Scanner(System.in);
+        String name, namePlayer, strlevel;
+        int level;
+
+        uiManager.printCreateCharacterName();
+        name = sc.nextLine();
+        if (!characterManager.isNameValid(name)){
+            return;
+        } else {
+            name = capitalizeString(name);
+        }
+
+        uiManager.printCreateCharacterPlayer(name);
+        namePlayer = sc.nextLine();
+
+        uiManager.printCreateCharacterLevel();
+        strlevel = sc.nextLine();
+        while (!characterManager.isLevelValid(strlevel)){
+            uiManager.printLevelError();
+        }
+
+        level = parseInt(strlevel);
+        characterManager.createCharacter(name, namePlayer, level);
+
+        Character character = characterManager.nameToCharacter(name);
+        uiManager.printCreateCharacterStatistics(level, characterManager.dausEstadistiques(), characterManager.staistics(character), name);
 
     }
 
     public void listCharacters() {
+        Scanner sc = new Scanner(System.in);
+        String name, stroption;
+        int option;
+
+        uiManager.printListCharactersMenu();
+        name = sc.nextLine();
+        uiManager.printListCharactersPlayer(characterManager.listCharacters(name));
+        stroption = sc.nextLine();
+
+        if (characterManager.isOptionValid(stroption)){
+            option = parseInt(stroption);
+        } else {
+            uiManager.printErrorMainMenu();
+            return;
+        }
+
+        int listSize = characterManager.listCharacters(name).size();
+        if (option == 0) {
+            uiManager.printExit();
+        } else if (option < 0 || option > listSize) {
+            uiManager.printErrorMainMenu();
+        } else {
+            uiManager.printCharacter(characterManager.listCharacters(name).get(option - 1), characterManager.whichLevel(characterManager.listCharacters(name).get(option - 1)));
+        }
 
     }
 
     public void createAdventure() {
+        Scanner sc = new Scanner(System.in);
+        String name;
+
+        uiManager.printCreateAdventureName();
+        name = sc.nextLine();
 
     }
 
@@ -81,5 +140,9 @@ public class Controller {
 
     public void exitMainMenu() {
         uiManager.printExit();
+    }
+
+    public String capitalizeString(String chain) {
+        return toUpperCase(chain.charAt(0)) + chain.substring(1);
     }
 }
