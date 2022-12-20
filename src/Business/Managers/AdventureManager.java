@@ -14,6 +14,7 @@ public class AdventureManager {
         adventure.setNumFights(numFights);
         adventure.setFights(fights);
 
+        // Guardar a DAO
     }
 
     public boolean checkAdventureName(String name) {

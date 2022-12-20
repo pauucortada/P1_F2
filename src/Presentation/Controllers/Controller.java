@@ -128,9 +128,13 @@ public class Controller {
     public void createAdventure() {
         Scanner sc = new Scanner(System.in);
         String name;
+        int fights;
 
         uiManager.printCreateAdventureName();
         name = sc.nextLine();
+
+        uiManager.printCreateAdventureEncounters(name);
+        fights = sc.nextInt();
 
     }
 
