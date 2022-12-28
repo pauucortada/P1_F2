@@ -19,14 +19,18 @@ public class AdventureManager {
 
     public boolean checkAdventureName(String name) {
         ArrayList<Adventure> adventures = null; //= funcio que llegeixi aventures
-        int i = 0;
-        while (adventures.size() > i){
-            if (adventures.get(i).getName().equals(name)){
-                return false;
+        try {
+            int i = 0;
+            while (adventures.size() > i){
+                if (adventures.get(i).getName().equals(name)){
+                    return false;
+                }
+                i++;
             }
-            i++;
+            return true;
+        } catch (NullPointerException npe) {
+            return true;
         }
-        return true;
     }
 
     public ArrayList<Adventure> listAdventures(){

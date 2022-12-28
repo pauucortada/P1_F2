@@ -1,12 +1,16 @@
 package Presentation.Controllers;
 
+import Business.Entities.Adventure;
 import Business.Entities.Character;
+import Business.Entities.Fight;
+import Business.Entities.Monster;
 import Business.Managers.AdventureManager;
 import Business.Managers.CharacterManager;
 import Business.Managers.FightManager;
 import Business.Managers.MonsterManager;
 import Presentation.UIManagers.UIManager;
 
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -127,19 +131,83 @@ public class Controller {
 
     public void createAdventure() {
         Scanner sc = new Scanner(System.in);
-        String name;
-        int fights;
+        String name, numFights, option, nameMonster, monsterIndex, monstersToAdd;
+        int countFights = 1, monstersToDel;
+        ArrayList<Monster> monsters = monsterManager.listMonsters();
+        ArrayList<Monster> monstersFightList = new ArrayList<>();
+        ArrayList<Fight> fights = new ArrayList<>();
 
         uiManager.printCreateAdventureName();
         name = sc.nextLine();
+        while (adventureManager.checkAdventureName(name)) {
+            uiManager.printAdventureNameError(name);
+            uiManager.printCreateAdventureName();
+            name = sc.nextLine();
+        }
 
         uiManager.printCreateAdventureEncounters(name);
-        fights = sc.nextInt();
+        numFights = sc.nextLine();
+        uiManager.printStartAdventure(parseInt(numFights));
 
+        while (parseInt(numFights) >= countFights) {
+            uiManager.printAdventureFights(countFights, parseInt(numFights), monsters);
+            option = sc.nextLine();
+
+            switch (option) {
+                case "3" -> {
+                    fights.add(fightManager.createFight(monstersFightList, countFights));
+                    countFights++;
+                }
+                case "2" -> {
+                    int j = 0;
+
+                    uiManager.printDeleteMonster();
+                    monsterIndex = sc.nextLine();
+                    nameMonster = monstersFightList.get(parseInt(monsterIndex)).getName();
+                    monstersToDel = fightManager.countMonsterName(nameMonster, monstersFightList);
+                    while (monstersToDel > j) {
+                        if (monstersFightList.get(j).getName().equals(nameMonster)) {
+                            monstersFightList.remove(j);
+                        }
+                        j++;
+                    }
+
+                    uiManager.printDeletedMonster(nameMonster, monstersFightList);
+
+                    break;
+                }
+                case "1" -> {
+                    int j = 0;
+
+                    uiManager.printAdventureAddMonster(monsters);
+                    monsterIndex = sc.nextLine();
+                    nameMonster = monsters.get(parseInt(monsterIndex) - 1).getName();
+
+                    uiManager.printMonsterToAdd(nameMonster);
+                    monstersToAdd = sc.nextLine();
+                    while (parseInt(monstersToAdd) > j) {
+                        monstersFightList.add(monsters.get(parseInt(monsterIndex) - 1));
+                        j++;
+                    }
+                    break;
+                }
+                default -> uiManager.invalidOption();
+            }
+        }
+        adventureManager.createAdventure(name, parseInt(numFights), fights);
     }
 
     public void startAdventure() {
+        Scanner sc = new Scanner(System.in);
+        String adventureIndex, adventureName, numCharcaters;
+        ArrayList<Adventure> adventures = adventureManager.listAdventures();
 
+        uiManager.printPlayAdventureMenu(adventures);
+        adventureIndex = sc.nextLine();
+        adventureName = adventures.get(parseInt(adventureIndex)).getName();
+
+        uiManager.printPlayAdventureNumCharacters(adventureName);
+        numCharcaters = sc.nextLine();
     }
 
     public void exitMainMenu() {

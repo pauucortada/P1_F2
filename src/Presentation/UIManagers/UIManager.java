@@ -137,6 +137,10 @@ public class UIManager {
                 "-> How many encounters do you want [1..4]:");
     }
 
+    public void printAdventureNameError(String name) {
+        System.out.println("Sorry, there is an adventure called: " + name + ". Please, choose another name.");
+    }
+
     public void printStartAdventure(int numCmbt) {
         System.out.println("Tavern keeper: “"+ numCmbt + " encounters? That is too much for me...”\n");
     }
@@ -194,6 +198,10 @@ public class UIManager {
 
     public void printDeletedMonster(String name, ArrayList<Monster> monsters) {
         System.out.println(counterNameInList(name, monsters) + " " + name + " were removed from the encounter.");
+    }
+
+    public void invalidOption() {
+        System.out.println("This is not a valid option, please, choose a number between 1 and 3.");
     }
 
     public void printPlayAdventureMenu(ArrayList<Adventure> adventures) {

@@ -15,10 +15,10 @@ public class FightManager {
         return fight;
     } // Invocar en controller y hacer lista de fights para pasarsela a createAdventure
 
-    public int countMonsterName(Monster monster, ArrayList<Monster> monsters) {
+    public int countMonsterName(String monster, ArrayList<Monster> monsters) {
         int i = 0, count = 0;
         while (monsters.size() > i){
-            if (monsters.get(i).getName().equals(monster.getName())){
+            if (monsters.get(i).getName().equals(monster)){
                 count++;
             }
             i++;
