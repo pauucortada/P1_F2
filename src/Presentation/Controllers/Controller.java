@@ -108,7 +108,7 @@ public class Controller {
 
         uiManager.printListCharactersMenu();
         name = sc.nextLine();
-        uiManager.printListCharactersPlayer(characterManager.listCharacters(name));
+        uiManager.printListCharactersPlayer(characterManager.listChosenCharactersByName(name));
         stroption = sc.nextLine();
 
         if (characterManager.isOptionValid(stroption)){
@@ -118,13 +118,13 @@ public class Controller {
             return;
         }
 
-        int listSize = characterManager.listCharacters(name).size();
+        int listSize = characterManager.listChosenCharactersByName(name).size();
         if (option == 0) {
             uiManager.printExit();
         } else if (option < 0 || option > listSize) {
             uiManager.printErrorMainMenu();
         } else {
-            uiManager.printCharacter(characterManager.listCharacters(name).get(option - 1), characterManager.whichLevel(characterManager.listCharacters(name).get(option - 1)));
+            uiManager.printCharacter(characterManager.listChosenCharactersByName(name).get(option - 1), characterManager.whichLevel(characterManager.listChosenCharactersByName(name).get(option - 1)));
         }
 
     }
@@ -199,15 +199,33 @@ public class Controller {
 
     public void startAdventure() {
         Scanner sc = new Scanner(System.in);
-        String adventureIndex, adventureName, numCharcaters;
+        String adventureIndex, adventureName;
+        int numCharcaters;
         ArrayList<Adventure> adventures = adventureManager.listAdventures();
+        ArrayList<Character> mainCharacters = characterManager.listCharacters();
 
         uiManager.printPlayAdventureMenu(adventures);
         adventureIndex = sc.nextLine();
         adventureName = adventures.get(parseInt(adventureIndex)).getName();
 
-        uiManager.printPlayAdventureNumCharacters(adventureName);
-        numCharcaters = sc.nextLine();
+        try {
+            uiManager.printPlayAdventureNumCharacters(adventureName);
+            numCharcaters = sc.nextInt();
+            while (numCharcaters < 3 || numCharcaters > 5) {
+                uiManager.printNumCharactersError();
+                uiManager.printPlayAdventureNumCharacters(adventureName);
+                numCharcaters = sc.nextInt();
+            }
+        } catch (NumberFormatException nfe) {
+            uiManager.printNumCharactersError();
+            uiManager.printPlayAdventureNumCharacters(adventureName);
+            numCharcaters = sc.nextInt();
+        }
+
+        uiManager.printNumOfCharacters(numCharcaters);
+
+
+
     }
 
     public void exitMainMenu() {

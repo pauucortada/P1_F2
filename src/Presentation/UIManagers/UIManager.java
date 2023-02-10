@@ -224,6 +224,10 @@ public class UIManager {
                 "-> Choose a number of characters [3..5]: ");
     }
 
+    public void printNumCharactersError() {
+        System.out.println("This is not a number between 3 and 5, please, introduce a correct value.");
+    }
+
     public void printNumOfCharacters(int numCharacters) {
         System.out.println("Tavern keeper: “Great, " + numCharacters + " it is.”\n" +
                 "“Who among these lads shall join you?”");
