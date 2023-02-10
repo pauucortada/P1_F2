@@ -53,21 +53,22 @@ public class Controller {
         while (true) {
             if (Objects.equals(option, "1")){
                 createCharacter();
-                break;
+
             } else if (Objects.equals(option, "2")) {
                 listCharacters();
-                break;
+
             } else if (Objects.equals(option, "3")) {
                 createAdventure();
-                break;
+
             } else if (Objects.equals(option, "4")) {
                 startAdventure();
-                break;
+
             } else if (Objects.equals(option, "5")) {
                 exitMainMenu();
                 break;
             } else {
                 uiManager.printErrorMainMenu();
+                break;
             }
         }
 
@@ -145,7 +146,7 @@ public class Controller {
 
         uiManager.printCreateAdventureName();
         name = sc.nextLine();
-        while (adventureManager.checkAdventureName(name)) {
+        while (!adventureManager.checkAdventureName(name)) {
             uiManager.printAdventureNameError(name);
             uiManager.printCreateAdventureName();
             name = sc.nextLine();
@@ -179,8 +180,6 @@ public class Controller {
                     }
 
                     uiManager.printDeletedMonster(nameMonster, monstersFightList);
-
-                    break;
                 }
                 case "1" -> {
                     int j = 0;
@@ -195,12 +194,13 @@ public class Controller {
                         monstersFightList.add(monsters.get(parseInt(monsterIndex) - 1));
                         j++;
                     }
-                    break;
                 }
                 default -> uiManager.invalidOption();
             }
         }
         adventureManager.createAdventure(name, parseInt(numFights), fights);
+
+        uiManager.printAdventureCreated(name);
     }
 
     public void startAdventure() {
@@ -229,8 +229,6 @@ public class Controller {
         }
 
         uiManager.printNumOfCharacters(numCharcaters);
-
-
 
     }
 
