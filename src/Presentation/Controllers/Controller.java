@@ -19,11 +19,11 @@ import static java.lang.Integer.parseInt;
 
 public class Controller {
 
-    private CharacterManager characterManager;
-    private AdventureManager adventureManager;
-    private FightManager fightManager;
-    private MonsterManager monsterManager;
-    private UIManager uiManager;
+    private CharacterManager characterManager = new CharacterManager();
+    private AdventureManager adventureManager = new AdventureManager();
+    private FightManager fightManager = new FightManager();
+    private MonsterManager monsterManager = new MonsterManager();
+    private UIManager uiManager = new UIManager();
 
     public Controller(CharacterManager characterManager, AdventureManager adventureManager, FightManager fightManager, MonsterManager monsterManager, UIManager uiManager) {
         this.characterManager = characterManager;
@@ -33,18 +33,19 @@ public class Controller {
         this.uiManager = uiManager;
     }
 
+    public Controller() {
+
+    }
+
     public void loadDataSuccess() {
         uiManager.printLogo();
-        if (monsterManager.dataLoaded()) {
-            uiManager.loadDataSuccessfully(true);
-        } else {
-            uiManager.loadDataSuccessfully(false);
-        }
+        uiManager.loadDataSuccessfully(monsterManager.dataLoaded());
     }
 
     public void mainMenu() {
         Scanner sc = new Scanner(System.in);
         String option;
+
 
         uiManager.printMainMenu();
         option = sc.nextLine();
@@ -108,23 +109,28 @@ public class Controller {
 
         uiManager.printListCharactersMenu();
         name = sc.nextLine();
-        uiManager.printListCharactersPlayer(characterManager.listChosenCharactersByName(name));
-        stroption = sc.nextLine();
+        try {
+            uiManager.printListCharactersPlayer(characterManager.listChosenCharactersByName(name));
+            stroption = sc.nextLine();
 
-        if (characterManager.isOptionValid(stroption)){
-            option = parseInt(stroption);
-        } else {
-            uiManager.printErrorMainMenu();
-            return;
-        }
+            if (characterManager.isOptionValid(stroption)){
+                option = parseInt(stroption);
+            } else {
+                uiManager.printErrorMainMenu();
+                return;
+            }
 
-        int listSize = characterManager.listChosenCharactersByName(name).size();
-        if (option == 0) {
-            uiManager.printExit();
-        } else if (option < 0 || option > listSize) {
-            uiManager.printErrorMainMenu();
-        } else {
-            uiManager.printCharacter(characterManager.listChosenCharactersByName(name).get(option - 1), characterManager.whichLevel(characterManager.listChosenCharactersByName(name).get(option - 1)));
+            int listSize = characterManager.listChosenCharactersByName(name).size();
+            if (option == 0) {
+                uiManager.printExit();
+            } else if (option < 0 || option > listSize) {
+                uiManager.printErrorMainMenu();
+            } else {
+                uiManager.printCharacter(characterManager.listChosenCharactersByName(name).get(option - 1), characterManager.whichLevel(characterManager.listChosenCharactersByName(name).get(option - 1)));
+            }
+
+        } catch (NullPointerException npe) {
+            uiManager.printThereAreNoCharacters();
         }
 
     }

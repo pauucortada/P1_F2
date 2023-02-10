@@ -122,6 +122,10 @@ public class UIManager {
         System.out.print("[Enter name to delete, or press enter to cancel] \nDo you want to delete " + character.getName() + "?");
     }
 
+    public void printThereAreNoCharacters(){
+        System.out.println("There are no characters to show, please, create one before listing.");
+    }
+
     public void printdeleteCharacter(String name) {
         System.out.println("Tavern keeper: “I’m sorry kiddo, but you have to leave.”\n" +
                 "Character " + name + " left the Guild.");

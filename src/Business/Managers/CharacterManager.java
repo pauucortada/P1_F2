@@ -59,7 +59,6 @@ public class CharacterManager {
         stats.add(character.getBody());
         stats.add(character.getMind());
         stats.add(character.getSpirit());
-
         return stats;
     }
 
