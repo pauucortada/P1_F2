@@ -6,9 +6,7 @@ public class Main {
     public static void main(String[] args) {
         Controller controller = new Controller();
         controller.mainMenu();
-
         // System.out.println("Hello wor1ld!");
-
 
     }
 }

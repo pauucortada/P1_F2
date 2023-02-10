@@ -105,7 +105,7 @@ public class UIManager {
     }
 
     public void printErrorMainMenu() {
-        System.out.println("This is not an option, please, introduce a valid option.");
+        System.out.println("This is not an option, please, introduce a valid option.\n");
     }
 
     public void printCharacter(Character character, int level) {

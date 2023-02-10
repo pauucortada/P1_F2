@@ -46,11 +46,11 @@ public class Controller {
         Scanner sc = new Scanner(System.in);
         String option;
 
-
-        uiManager.printMainMenu();
-        option = sc.nextLine();
-
         while (true) {
+
+            uiManager.printMainMenu();
+            option = sc.nextLine();
+
             if (Objects.equals(option, "1")){
                 createCharacter();
 
@@ -68,7 +68,6 @@ public class Controller {
                 break;
             } else {
                 uiManager.printErrorMainMenu();
-                break;
             }
         }
 
