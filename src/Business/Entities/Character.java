@@ -8,7 +8,6 @@ public class Character {
     private int body;
     private int mind;
     private int spirit;
-    private String clas;
 
     private String classe;
 
@@ -22,19 +21,10 @@ public class Character {
         this.body = body;
         this.mind = mind;
         this.spirit = spirit;
-        this.clas = clas;
+        this.classe = clas;
     }
 
 // Getters and Setters
-
-
-    public String getClas() {
-        return clas;
-    }
-
-    public void setClas(String clas) {
-        this.clas = clas;
-    }
 
     public String getName() {
         return name;

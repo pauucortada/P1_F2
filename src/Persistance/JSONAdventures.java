@@ -7,6 +7,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import com.google.gson.stream.JsonReader;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -58,9 +60,11 @@ public class JSONAdventures {
                 Fight fight = new Fight();
 
                 fight.setId(Integer.parseInt(object.get("id").toString()));
+
                 // TODO: AGAFAR ARRAYLIST DE MONSTRES DE CADA FIGHT
-
-
+                Gson g = new Gson();
+                JsonReader reader = new JsonReader(new FileReader(jsonAdventuresFile));
+                fight = g.fromJson(reader, Fight.class);
                 adventuresList.add(fight);
             }
 
@@ -70,8 +74,6 @@ public class JSONAdventures {
 
         return adventuresList;
     }
-
-
 
 
 }

@@ -6,8 +6,8 @@ public class Adventure {
 
     private String name;
     private int numFights;
-
     private ArrayList<Fight> fights;
+
 
     //Getters and Setters
 

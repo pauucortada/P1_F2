@@ -2,18 +2,29 @@ package Business.Managers;
 
 import Business.Entities.Adventure;
 import Business.Entities.Fight;
+import Persistance.JSONAdventures;
 
 import java.util.ArrayList;
 
 public class AdventureManager {
 
+    private ArrayList<Adventure> adventures;
+
     private FightManager fightManager;
+
+    private JSONAdventures jsonAdventures;
+
+    public AdventureManager() {
+        adventures = new ArrayList<>();
+    }
+
+
     public void createAdventure(String name, int numFights, ArrayList<Fight> fights) {
         Adventure adventure = new Adventure();
         adventure.setName(name);
         adventure.setNumFights(numFights);
         adventure.setFights(fights);
-
+        adventures.add(adventure);
     }
 
     public boolean checkAdventureName(String name) {
