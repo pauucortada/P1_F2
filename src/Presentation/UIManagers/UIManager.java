@@ -11,10 +11,11 @@ import java.util.Objects;
 public class UIManager {
 
     public void printLogo(){
-        System.out.println(" / __/(_)__ _   ___   / /___   / /   / __// _ \\ / _ \\ / ___/\n" +
-                " _\\ \\ / //  ' \\ / _ \\ / // -_) / /__ _\\ \\ / , _// ___// (_ /\n" +
-                "/___//_//_/_/_// .__//_/ \\__/ /____//___//_/|_|/_/    \\___/\n" +
-                "/_/");
+        System.out.println("""
+                 / __/(_)__ _   ___   / /___   / /   / __// _ \\ / _ \\ / ___/
+                 _\\ \\ / //  ' \\ / _ \\ / // -_) / /__ _\\ \\ / , _// ___// (_ /
+                /___//_//_/_/_// .__//_/ \\__/ /____//___//_/|_|/_/    \\___/
+                /_/""");
 
         System.out.println("\nWelcome to Simple LSRPG.\n");
     }
@@ -39,26 +40,26 @@ public class UIManager {
                     3) Create an adventure
                     4) Start an adventure
                     5) Exit
-                Your answer:""");
+                Your answer:\040""");
     }
 
     public void printCreateCharacterName(){
         System.out.print("""
                 Tavern keeper: “Oh, so you are new to this land.”
                 “What’s your name?”
-                -> Enter your name:""");
+                -> Enter your name:\040""");
     }
 
     public void printCreateCharacterPlayer(String name){
         System.out.print("Tavern keeper: “Hello " + name + ", be welcome.”\n" +
-                "“And now, if I may break the fourth wall, who is your Player?” \n-> Enter the player’s name:");
+                "“And now, if I may break the fourth wall, who is your Player?” \n-> Enter the player’s name: ");
     }
 
     public void printCreateCharacterLevel() {
         System.out.print("""
                 Tavern keeper: “I see, I see...”
                 “Now, are you an experienced adventurer?”
-                -> Enter the character’s level [1..10]:""");
+                -> Enter the character’s level [1..10]:\040""");
     }
 
     public void printLevelError() {
@@ -85,7 +86,7 @@ public class UIManager {
         System.out.print("""
                 Tavern keeper: “Lads! They want to see you!”
                 “Who piques your interest?”
-                -> Enter the name of the Player to filter:""");
+                -> Enter the name of the Player to filter:\040""");
     }
 
     public void printListCharactersPlayer(ArrayList<Character> characters){
@@ -104,7 +105,7 @@ public class UIManager {
     }
 
     public void printErrorMainMenu() {
-        System.out.println("This is not an option, please, introduce a valid option.");
+        System.out.println("This is not an option, please, introduce a valid option.\n");
     }
 
     public void printCharacter(Character character, int level) {
@@ -121,19 +122,31 @@ public class UIManager {
         System.out.print("[Enter name to delete, or press enter to cancel] \nDo you want to delete " + character.getName() + "?");
     }
 
+    public void printThereAreNoCharacters(){
+        System.out.println("There are no characters to show, please, create one before listing.");
+    }
+
     public void printdeleteCharacter(String name) {
         System.out.println("Tavern keeper: “I’m sorry kiddo, but you have to leave.”\n" +
                 "Character " + name + " left the Guild.");
     }
 
     public void printCreateAdventureName() {
-        System.out.print("Tavern keeper: “Planning an adventure? Good luck with that!” \n-> Name your adventure:");
+        System.out.print("Tavern keeper: “Planning an adventure? Good luck with that!” \n-> Name your adventure: ");
     }
 
     public void printCreateAdventureEncounters(String name) {
         System.out.print("Tavern keeper: “You plan to undertake " + name + ", really?”\n" +
                 "“How long will that take?”\n" +
-                "-> How many encounters do you want [1..4]:");
+                "-> How many encounters do you want [1..4]: ");
+    }
+
+    public void printAdventureNameError(String name) {
+        System.out.println("Sorry, there is an adventure called: " + name + ". Please, choose another name.");
+    }
+
+    public void printAdventureCreated (String name) {
+        System.out.println("Your adventure " + name + "has been created, good luck.");
     }
 
     public void printStartAdventure(int numCmbt) {
@@ -195,12 +208,16 @@ public class UIManager {
         System.out.println(counterNameInList(name, monsters) + " " + name + " were removed from the encounter.");
     }
 
+    public void invalidOption() {
+        System.out.println("This is not a valid option, please, choose a number between 1 and 3.");
+    }
+
     public void printPlayAdventureMenu(ArrayList<Adventure> adventures) {
         int i = 0;
         System.out.println("""
                 Tavern keeper: “So, you are looking to go on an adventure?”
                 “Where do you fancy going?”
-                Available adventures:""");
+                Available adventures:\040""");
         while (adventures.size() > i) {
             System.out.println("\t"+ i + 1 + ". " + adventures.get(i).getName());
             i++;
@@ -213,6 +230,10 @@ public class UIManager {
         System.out.print("Tavern keeper: “" + name + "”\n" +
                 "“And how many people shall join you?”\n" +
                 "-> Choose a number of characters [3..5]: ");
+    }
+
+    public void printNumCharactersError() {
+        System.out.println("This is not a number between 3 and 5, please, introduce a correct value.");
     }
 
     public void printNumOfCharacters(int numCharacters) {

@@ -29,7 +29,12 @@ public class CharacterManager {
         //Función crearPersonaje(character) en el JSON
     }
 
-    public ArrayList <Character> listCharacters (String namePlayer) {
+    public ArrayList <Character> listCharacters(){
+        JSONCharacters jsonCharacters = new JSONCharacters();
+        return jsonCharacters.getCharactersFromFile();
+    }
+
+    public ArrayList <Character> listChosenCharactersByName(String namePlayer) {
         JSONCharacters jsonCharacters = new JSONCharacters();
         ArrayList<Character> characters = jsonCharacters.getCharactersFromFile();
         int i = 0;
@@ -54,7 +59,6 @@ public class CharacterManager {
         stats.add(character.getBody());
         stats.add(character.getMind());
         stats.add(character.getSpirit());
-
         return stats;
     }
 
