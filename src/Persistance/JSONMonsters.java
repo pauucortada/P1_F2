@@ -17,7 +17,7 @@ public class JSONMonsters {
 
     File jsonMonstersFile = new File("Files/JSONMonstersFile.json");
 
-    public void saveMonstersFile(ArrayList<Monster> monstersList) {
+    /*public void saveMonstersFile(ArrayList<Monster> monstersList) {
         try {
             FileWriter f = new FileWriter(jsonMonstersFile,false);
             f.write(new Gson().toJson(monstersList));
@@ -25,7 +25,7 @@ public class JSONMonsters {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     public ArrayList<Monster> getCharactersFromFile (){
         ArrayList<Monster> monstersList = new ArrayList<>();

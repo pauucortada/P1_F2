@@ -12,8 +12,6 @@ public class AdventureManager {
 
     private FightManager fightManager;
 
-    private JSONAdventures jsonAdventures;
-
     public AdventureManager() {
         adventures = new ArrayList<>();
     }
@@ -21,10 +19,13 @@ public class AdventureManager {
 
     public void createAdventure(String name, int numFights, ArrayList<Fight> fights) {
         Adventure adventure = new Adventure();
+        JSONAdventures jsonAdventures = new JSONAdventures();
+
         adventure.setName(name);
         adventure.setNumFights(numFights);
         adventure.setFights(fights);
         adventures.add(adventure);
+        jsonAdventures.saveAdventuresToFile(adventures);
     }
 
     public boolean checkAdventureName(String name) {
@@ -40,8 +41,8 @@ public class AdventureManager {
     }
 
     public ArrayList<Adventure> listAdventures(){
-        ArrayList<Adventure> adventures = new ArrayList<Adventure>(); //Funcion JSON que lee las aventuras
-        return adventures;
+        JSONAdventures jsonAdventures = new JSONAdventures();
+        return jsonAdventures.getAdventuresFromFile();
     }
 
 

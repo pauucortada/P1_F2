@@ -7,7 +7,6 @@ import Persistance.JSONCharacters;
 import java.util.ArrayList;
 import java.util.Random;
 
-import static java.lang.Character.isWhitespace;
 import static java.lang.Character.toUpperCase;
 import static java.lang.Integer.parseInt;
 
@@ -15,6 +14,9 @@ public class CharacterManager {
 
     public void createCharacter(String name, String namePlayer, int level) {
         Adventurer adventurer = new Adventurer();
+        JSONCharacters jsonCharacters = new JSONCharacters();
+
+        ArrayList<Character> characters = jsonCharacters.getCharactersFromFile();
 
         adventurer.setName(name);
         adventurer.setNamePlayer(namePlayer);
@@ -24,9 +26,8 @@ public class CharacterManager {
         adventurer.setSpirit(valorEstadistiques());
         adventurer.setTypeAttack("Sword Slash");
 
-        Character character = adventurer;
-
-        //Función crearPersonaje(character) en el JSON
+        characters.add(adventurer);
+        jsonCharacters.savCharactersToFile(characters);
     }
 
     public ArrayList <Character> listCharacters(){

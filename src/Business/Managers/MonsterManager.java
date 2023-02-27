@@ -1,6 +1,7 @@
 package Business.Managers;
 
 import Business.Entities.Monster;
+import Persistance.JSONMonsters;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -8,9 +9,8 @@ import java.util.Random;
 public class MonsterManager {
 
     public ArrayList<Monster> listMonsters() {
-        ArrayList<Monster> monsters = new ArrayList<>();
-        //Funció de llegir monstres del JSON
-        return monsters;
+        JSONMonsters jsonMonsters = new JSONMonsters();
+        return jsonMonsters.getCharactersFromFile();
     }
 
     public boolean dataLoaded() {

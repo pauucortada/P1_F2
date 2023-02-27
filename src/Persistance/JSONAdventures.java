@@ -52,11 +52,8 @@ public class JSONAdventures {
             Object obj = jsonParser.parse(new FileReader(jsonAdventuresFile));
             JSONArray adventuresJSONList = (JSONArray) obj;
 
-            Iterator<JSONObject> adventuresListJSON_iterator = adventuresJSONList.iterator();
+            for (JSONObject object : (Iterable<JSONObject>) adventuresJSONList) {
 
-            while (adventuresListJSON_iterator.hasNext()){
-
-                JSONObject object = adventuresListJSON_iterator.next();
                 Fight fight = new Fight();
 
                 fight.setId(Integer.parseInt(object.get("id").toString()));
