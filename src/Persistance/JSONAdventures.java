@@ -34,7 +34,7 @@ public class JSONAdventures {
 
     public void saveAdventuresToFile(ArrayList<Adventure> adventuresList) {
         try {
-            FileWriter f = new FileWriter(jsonAdventuresFile ,false);
+            FileWriter f = new FileWriter(jsonAdventuresFile, false);
             f.write(new Gson().toJson(adventuresList));
             f.close();
         } catch (IOException e) {
@@ -42,7 +42,34 @@ public class JSONAdventures {
         }
     }
 
-    public ArrayList<Fight> getAdventuresFromFile (){
+    public ArrayList<Adventure> getAdventuresFromFile() {
+
+        ArrayList<Adventure> adventuresList = new ArrayList<>();
+        JSONParser jsonParser = new JSONParser();
+
+        try {
+
+            Object obj = jsonParser.parse(new FileReader(jsonAdventuresFile));
+            JSONArray adventuresJSONList = (JSONArray) obj;
+
+            for (JSONObject object : (Iterable<JSONObject>) adventuresJSONList) {
+
+                // TODO: AGAFAR ARRAYLIST DE MONSTRES DE CADA FIGHT
+                Gson g = new Gson();
+                JsonReader reader = new JsonReader(new FileReader(jsonAdventuresFile));
+                Adventure adventure = g.fromJson(reader, Adventure.class);
+                adventuresList.add(adventure);
+            }
+
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
+
+        return adventuresList;
+    }
+}
+
+    /*public ArrayList<Fight> getAdventuresFromFile (){
 
         ArrayList<Fight> adventuresList = new ArrayList<>();
         JSONParser jsonParser = new JSONParser();
@@ -70,7 +97,4 @@ public class JSONAdventures {
         }
 
         return adventuresList;
-    }
-
-
-}
+    }*/
