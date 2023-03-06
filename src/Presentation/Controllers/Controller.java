@@ -152,60 +152,64 @@ public class Controller {
             name = sc.nextLine();
         }
 
-        uiManager.printCreateAdventureEncounters(name);
-        numFights = sc.nextLine();
-        uiManager.printStartAdventure(parseInt(numFights));
 
-        while (parseInt(numFights) >= countFights) {
-            uiManager.printAdventureFights(countFights, parseInt(numFights), monstersFightList);
-            option = sc.nextLine();
+        try {
+            uiManager.printCreateAdventureEncounters(name);
+            numFights = sc.nextLine();
+            uiManager.printStartAdventure(parseInt(numFights));
 
-            switch (option) {
-                case "3" -> {
-                    fights.add(fightManager.createFight(monstersFightList, countFights));
-                    countFights++;
-                }
-                case "2" -> {
-                    int j = 0;
+            while (parseInt(numFights) >= countFights) {
+                uiManager.printAdventureFights(countFights, parseInt(numFights), monstersFightList);
+                option = sc.nextLine();
 
-                    uiManager.printDeleteMonster();
-                    monsterIndex = sc.nextLine();
-                    try {
-                        nameMonster = monstersFightList.get(parseInt(monsterIndex)).getName();
-                        monstersToDel = fightManager.countMonsterName(nameMonster, monstersFightList);
-                    } catch (NumberFormatException nfe) {
-                        System.out.println("This is not an option");
-                        break;
+                switch (option) {
+                    case "3" -> {
+                        fights.add(fightManager.createFight(monstersFightList, countFights));
+                        countFights++;
                     }
-                    while (monstersToDel >= j) {
-                        if (monstersFightList.get(j).getName().equals(nameMonster)) {
-                            monstersFightList.remove(j);
+                    case "2" -> {
+                        int j = 0, size = monstersFightList.size();
+
+                        uiManager.printDeleteMonster();
+                        monsterIndex = sc.nextLine();
+
+                        nameMonster = monstersFightList.get(parseInt(monsterIndex) - 1).getName();
+
+                        while (size >= j) {
+                            if (monstersFightList.get(j).getName().equals(nameMonster)) {
+                                monstersFightList.remove(j);
+                                size = monstersFightList.size();
+                            }
+                            j++;
                         }
-                        j++;
+
+                        uiManager.printDeletedMonster(nameMonster, monstersFightList);
                     }
+                    case "1" -> {
+                        int j = 0;
 
-                    uiManager.printDeletedMonster(nameMonster, monstersFightList);
-                }
-                case "1" -> {
-                    int j = 0;
+                        uiManager.printAdventureAddMonster(monsters);
+                        monsterIndex = sc.nextLine();
+                        nameMonster = monsters.get(parseInt(monsterIndex) - 1).getName();
 
-                    uiManager.printAdventureAddMonster(monsters);
-                    monsterIndex = sc.nextLine();
-                    nameMonster = monsters.get(parseInt(monsterIndex) - 1).getName();
-
-                    uiManager.printMonsterToAdd(nameMonster);
-                    monstersToAdd = sc.nextLine();
-                    while (parseInt(monstersToAdd) > j) {
-                        monstersFightList.add(monsters.get(parseInt(monsterIndex) - 1));
-                        j++;
+                        uiManager.printMonsterToAdd(nameMonster);
+                        monstersToAdd = sc.nextLine();
+                        while (parseInt(monstersToAdd) > j) {
+                            monstersFightList.add(monsters.get(parseInt(monsterIndex) - 1));
+                            j++;
+                        }
                     }
+                    default -> uiManager.invalidOption();
                 }
-                default -> uiManager.invalidOption();
             }
-        }
-        adventureManager.createAdventure(name, parseInt(numFights), fights);
+            adventureManager.createAdventure(name, parseInt(numFights), fights);
 
-        uiManager.printAdventureCreated(name);
+            uiManager.printAdventureCreated(name);
+
+        } catch (NumberFormatException nfe) {
+            uiManager.printNumberFormatError();
+        }
+
     }
 
     public void startAdventure() {

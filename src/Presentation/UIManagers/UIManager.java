@@ -160,6 +160,10 @@ public class UIManager {
         System.out.println("Tavern keeper: “"+ numCmbt + " encounters? That is too much for me...”\n");
     }
 
+    public void printNumberFormatError(){
+        System.out.print("This is not even a number!");
+    }
+
     public void printAdventureFights(int i, int numCmbt, ArrayList<Monster> monsters) {
         int j = 0, k = 0;
         String nameAux;
