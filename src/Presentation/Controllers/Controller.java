@@ -84,6 +84,7 @@ public class Controller {
             uiManager.printUserExist();
             return;
         } else {
+            name  = name.toLowerCase();
             name = capitalizeString(name);
         }
 
