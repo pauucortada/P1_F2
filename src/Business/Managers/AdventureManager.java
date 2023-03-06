@@ -8,18 +8,13 @@ import java.util.ArrayList;
 
 public class AdventureManager {
 
-    private final ArrayList<Adventure> adventures;
-
     private FightManager fightManager;
-
-    public AdventureManager() {
-        adventures = new ArrayList<>();
-    }
 
 
     public void createAdventure(String name, int numFights, ArrayList<Fight> fights) {
         Adventure adventure = new Adventure();
         JSONAdventures jsonAdventures = new JSONAdventures();
+        ArrayList<Adventure> adventures = jsonAdventures.getAdventuresFromFile();
 
         adventure.setName(name);
         adventure.setNumFights(numFights);

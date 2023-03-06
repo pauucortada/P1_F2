@@ -253,9 +253,9 @@ public class UIManager {
         System.out.println("""
                 Tavern keeper: “So, you are looking to go on an adventure?”
                 “Where do you fancy going?”
-                Available adventures:\040""");
+                Available adventures:""");
         while (adventures.size() > i) {
-            System.out.println("\t"+ i + 1 + ". " + adventures.get(i).getName());
+            System.out.println("\t"+ (i + 1)  + ". " + adventures.get(i).getName());
             i++;
         }
         System.out.print("\n" +

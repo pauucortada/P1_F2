@@ -95,6 +95,7 @@ public class Controller {
         strlevel = sc.nextLine();
         while (!characterManager.isLevelValid(strlevel)){
             uiManager.printLevelError();
+            strlevel = sc.nextLine();
         }
 
         level = parseInt(strlevel);
@@ -247,7 +248,7 @@ public class Controller {
 
         uiManager.printPlayAdventureMenu(adventures);
         adventureIndex = sc.nextLine();
-        adventureName = adventures.get(parseInt(adventureIndex)).getName();
+        adventureName = adventures.get(parseInt(adventureIndex) - 1).getName();
 
         try {
             uiManager.printPlayAdventureNumCharacters(adventureName);

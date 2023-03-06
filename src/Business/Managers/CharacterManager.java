@@ -18,7 +18,6 @@ public class CharacterManager {
         Adventurer adventurer = new Adventurer();
         JSONCharacters jsonCharacters = new JSONCharacters();
         ArrayList<Integer> valors = valorEstadistiques(daus);
-
         ArrayList<Character> characters = jsonCharacters.getCharactersFromFile();
 
         adventurer.setName(name);
