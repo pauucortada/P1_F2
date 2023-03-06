@@ -6,7 +6,9 @@ import Persistance.JSONCharacters;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.regex.Pattern;
 
+import static java.lang.Character.getName;
 import static java.lang.Character.toUpperCase;
 import static java.lang.Integer.parseInt;
 
@@ -46,12 +48,12 @@ public class CharacterManager {
 
     public ArrayList <Character> listChosenCharactersByName(String namePlayer) {
         ArrayList<Character> characters = listCharacters();
+        ArrayList<Character> charactersFiltered = new ArrayList<>();
         int i = 0;
 
         if (namePlayer.equals("")){
             return characters;
         } else {
-            ArrayList<Character> charactersFiltered = new ArrayList<>();
             String name = namePlayer.toLowerCase();
             while (characters.size() > i) {
                 if (characters.get(i).getNamePlayer().toLowerCase().equals(name)) {
@@ -139,14 +141,21 @@ public class CharacterManager {
         return daus;
     }
 
-    public void deleteCharacter(String name, ArrayList<Character> characters) {
+    public void deleteCharacter(String name) {
         int i = 0;
+        String nameC;
+        JSONCharacters jsonCharacters = new JSONCharacters();
+        ArrayList<Character> characters = jsonCharacters.getCharactersFromFile();
 
-        while (!characters.get(i).getName().equals(name)){
+        while (characters.size() > i) {
+            nameC = characters.get(i).getName();
+            if (nameC.equals(name)){
+                characters.remove(i);
+                jsonCharacters.savCharactersToFile(characters);
+            }
             i++;
         }
-        characters.remove(i);
-        // Actualitzem JSON amb funció actualitzarDades(characters)
+
     }
 
     public int whichLevel(Character character) {
@@ -189,15 +198,16 @@ public class CharacterManager {
         JSONCharacters jsonCharacters = new JSONCharacters();
         ArrayList<Character> characters = jsonCharacters.getCharactersFromFile();
         int i = 0;
-        String name = chain.toUpperCase();
+        String name = chain.toLowerCase();
 
-        if (!name.matches("[A-Z]*")){
+
+        if ((!name.matches("[a-z]*")) && (!Pattern.matches(".*[éèàùúíìáäëïüóòöâãåąæāêęėēîįīôõøœōûūšđñçćčń].*", name))){
             return false;
         }
-        name = capitalizeString(name);
+
         try {
             while (characters.size() > i){
-                if (characters.get(i).getName().equals(name)){
+                if (characters.get(i).getName().toLowerCase().equals(name)){
                     return false;
                 }
                 i++;

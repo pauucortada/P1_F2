@@ -40,7 +40,7 @@ public class UIManager {
                     3) Create an adventure
                     4) Start an adventure
                     5) Exit
-                Your answer:\040""");
+                \nYour answer:\040""");
     }
 
     public void printCreateCharacterName(){
@@ -48,6 +48,10 @@ public class UIManager {
                 Tavern keeper: “Oh, so you are new to this land.”
                 “What’s your name?”
                 -> Enter your name:\040""");
+    }
+
+    public void printUserExist() {
+        System.out.println("Sorry Lad, this username already exists!\n");
     }
 
     public void printCreateCharacterPlayer(String name){
@@ -126,7 +130,7 @@ public class UIManager {
                 "* Body: " + character.getBody() + "\n" +
                 "* Mind: " + character.getMind() + "\n" +
                 "* Spirit: " + character.getSpirit() + "\n");
-        System.out.print("[Enter name to delete, or press enter to cancel] \nDo you want to delete " + character.getName() + "?");
+        System.out.print("[Enter name to delete, or press enter to cancel] \nDo you want to delete " + character.getName() + "? ");
     }
 
     public void printThereAreNoCharacters(){
@@ -135,7 +139,7 @@ public class UIManager {
 
     public void printdeleteCharacter(String name) {
         System.out.println("Tavern keeper: “I’m sorry kiddo, but you have to leave.”\n" +
-                "Character " + name + " left the Guild.");
+                "Character " + name + " left the Guild.\n");
     }
 
     public void printCreateAdventureName() {
@@ -153,7 +157,7 @@ public class UIManager {
     }
 
     public void printAdventureCreated (String name) {
-        System.out.println("Your adventure " + name + "has been created, good luck.");
+        System.out.println("Your adventure " + name + "has been created, good luck.\n");
     }
 
     public void printStartAdventure(int numCmbt) {
@@ -193,8 +197,7 @@ public class UIManager {
                 \n1. Add monster
                 2. Remove monster
                 3. Continue
-                -> Enter an option [1..3]:""");
-        System.out.println();
+                -> Enter an option [1..3]:\040""");
     }
 
     public int counterNameInList(String name, ArrayList<Monster> monsters) {
@@ -227,13 +230,23 @@ public class UIManager {
         System.out.print("-> Which monster do you want to delete: ");
     }
 
-    public void printDeletedMonster(String name, ArrayList<Monster> monsters) {
-        System.out.println(counterNameInList(name, monsters) + " " + name + " were removed from the encounter.");
+    public void printMonsterChosenError() {
+        System.out.println("This is not a valid option.\n");
+    }
+
+    public void printDeletedMonster(String name, ArrayList<Monster> monsters, int counter) {
+        System.out.println(counter + " " + name + " were removed from the encounter.");
+    }
+
+    public void invalidOptionAdventure() {
+        System.out.println("This is not a valid option, please, choose a number between 1 and 3.");
     }
 
     public void invalidOption() {
-        System.out.println("This is not a valid option, please, choose a number between 1 and 3.");
+        System.out.println("This is not a valid option.");
     }
+
+
 
     public void printPlayAdventureMenu(ArrayList<Adventure> adventures) {
         int i = 0;
