@@ -1,13 +1,16 @@
 package Persistance;
 
 import Business.Entities.Adventure;
+import Business.Entities.Character;
 import Business.Entities.Fight;
 import com.google.gson.Gson;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
+import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -32,7 +35,34 @@ public class JSONAdventures {
 
     File jsonAdventuresFile = new File("Files/JSONAdventuresFile.json");
 
-    public void saveAdventuresToFile(ArrayList<Adventure> adventuresList) {
+    private static final Type REVIEW_TYPE = new TypeToken<ArrayList<Adventure>>() {}.getType();
+
+    public void savAdventuresToFile(ArrayList<Adventure> adventureList) {
+        Gson gson = new Gson();
+        String json = gson.toJson(adventureList);
+        try {
+            FileWriter fileWriter = new FileWriter(jsonAdventuresFile ,false);
+            fileWriter.write(json);
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList<Adventure> getAdventuresFromFile (){
+        Gson gson = new Gson();
+
+        try {
+
+            JsonReader jsonReader = new JsonReader(new FileReader(jsonAdventuresFile));
+            return gson.fromJson(jsonReader, REVIEW_TYPE);
+
+        } catch (IOException | NullPointerException e) {
+            return new ArrayList<>();
+        }
+    }
+
+    /*public void saveAdventuresToFile(ArrayList<Adventure> adventuresList) {
         try {
             FileWriter f = new FileWriter(jsonAdventuresFile, false);
             f.write(new Gson().toJson(adventuresList));
@@ -69,7 +99,7 @@ public class JSONAdventures {
     }
 }
 
-    /*public ArrayList<Fight> getAdventuresFromFile (){
+    public ArrayList<Fight> getAdventuresFromFile (){
 
         ArrayList<Fight> adventuresList = new ArrayList<>();
         JSONParser jsonParser = new JSONParser();
@@ -98,3 +128,4 @@ public class JSONAdventures {
 
         return adventuresList;
     }*/
+}

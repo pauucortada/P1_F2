@@ -1,0 +1,281 @@
+[
+  {
+    "name": "Snaga",
+    "challenge": "Minion",
+    "experience": 2,
+    "hitPoints": 4,
+    "initiative": 0,
+    "damageDice": "d4",
+    "damageType": "Physical"
+  },
+  {
+    "name": "Goblin",
+    "challenge": "Minion",
+    "experience": 2,
+    "hitPoints": 5,
+    "initiative": 0,
+    "damageDice": "d4",
+    "damageType": "Physical"
+  },
+  {
+    "name": "Snuffler",
+    "challenge": "Minion",
+    "experience": 2,
+    "hitPoints": 6,
+    "initiative": 0,
+    "damageDice": "d4",
+    "damageType": "Physical"
+  },
+  {
+    "name": "Warg Rider",
+    "challenge": "Minion",
+    "experience": 6,
+    "hitPoints": 6,
+    "initiative": 2,
+    "damageDice": "d6",
+    "damageType": "Physical"
+  },
+  {
+    "name": "Crebain",
+    "challenge": "Minion",
+    "experience": 5,
+    "hitPoints": 7,
+    "initiative": 1,
+    "damageDice": "d6",
+    "damageType": "Physical"
+  },
+  {
+    "name": "Orc Shaman",
+    "challenge": "Minion",
+    "experience": 5,
+    "hitPoints": 7,
+    "initiative": 1,
+    "damageDice": "d8",
+    "damageType": "Magical"
+  },
+  {
+    "name": "Easterling",
+    "challenge": "Minion",
+    "experience": 4,
+    "hitPoints": 8,
+    "initiative": 0,
+    "damageDice": "d6",
+    "damageType": "Physical"
+  },
+  {
+    "name": "Half-orc",
+    "challenge": "Minion",
+    "experience": 4,
+    "hitPoints": 8,
+    "initiative": 0,
+    "damageDice": "d6",
+    "damageType": "Physical"
+  },
+  {
+    "name": "Orc",
+    "challenge": "Minion",
+    "experience": 3,
+    "hitPoints": 9,
+    "initiative": -1,
+    "damageDice": "d6",
+    "damageType": "Physical"
+  },
+  {
+    "name": "Mirkwood Spider",
+    "challenge": "Minion",
+    "experience": 5,
+    "hitPoints": 9,
+    "initiative": 1,
+    "damageDice": "d4",
+    "damageType": "Physical"
+  },
+  {
+    "name": "Uruk",
+    "challenge": "Minion",
+    "experience": 5,
+    "hitPoints": 10,
+    "initiative": 1,
+    "damageDice": "d8",
+    "damageType": "Physical"
+  },
+  {
+    "name": "Warg",
+    "challenge": "Minion",
+    "experience": 8,
+    "hitPoints": 12,
+    "initiative": 2,
+    "damageDice": "d6",
+    "damageType": "Physical"
+  },
+  {
+    "name": "Wraith",
+    "challenge": "Minion",
+    "experience": 6,
+    "hitPoints": 14,
+    "initiative": 0,
+    "damageDice": "d6",
+    "damageType": "Magical"
+  },
+  {
+    "name": "Ogre",
+    "challenge": "Minion",
+    "experience": 9,
+    "hitPoints": 21,
+    "initiative": -1,
+    "damageDice": "d10",
+    "damageType": "Physical"
+  },
+  {
+    "name": "Mumakil",
+    "challenge": "Minion",
+    "experience": 11,
+    "hitPoints": 29,
+    "initiative": -1,
+    "damageDice": "d12",
+    "damageType": "Physical"
+  },
+  {
+    "name": "Ent",
+    "challenge": "Minion",
+    "experience": 11,
+    "hitPoints": 35,
+    "initiative": -3,
+    "damageDice": "d10",
+    "damageType": "Physical"
+  },
+  {
+    "name": "Goblin Captain",
+    "challenge": "Lieutenant",
+    "experience": 10,
+    "hitPoints": 10,
+    "initiative": 1,
+    "damageDice": "d8",
+    "damageType": "Physical"
+  },
+  {
+    "name": "Orc Captain",
+    "challenge": "Lieutenant",
+    "experience": 18,
+    "hitPoints": 18,
+    "initiative": 1,
+    "damageDice": "d10",
+    "damageType": "Physical"
+  },
+  {
+    "name": "Vampire",
+    "challenge": "Lieutenant",
+    "experience": 24,
+    "hitPoints": 24,
+    "initiative": 2,
+    "damageDice": "d10",
+    "damageType": "Magical"
+  },
+  {
+    "name": "Werewolf",
+    "challenge": "Lieutenant",
+    "experience": 24,
+    "hitPoints": 25,
+    "initiative": 2,
+    "damageDice": "d10",
+    "damageType": "Physical"
+  },
+  {
+    "name": "Troll",
+    "challenge": "Lieutenant",
+    "experience": 20,
+    "hitPoints": 27,
+    "initiative": -2,
+    "damageDice": "d12",
+    "damageType": "Physical"
+  },
+  {
+    "name": "Giant",
+    "challenge": "Lieutenant",
+    "experience": 26,
+    "hitPoints": 35,
+    "initiative": -1,
+    "damageDice": "d12",
+    "damageType": "Physical"
+  },
+  {
+    "name": "Caracharoth",
+    "challenge": "Lieutenant",
+    "experience": 38,
+    "hitPoints": 39,
+    "initiative": 3,
+    "damageDice": "d10",
+    "damageType": "Physical"
+  },
+  {
+    "name": "Nazgul",
+    "challenge": "Lieutenant",
+    "experience": 34,
+    "hitPoints": 44,
+    "initiative": 1,
+    "damageDice": "d10",
+    "damageType": "Psychical"
+  },
+  {
+    "name": "Olog-hai",
+    "challenge": "Lieutenant",
+    "experience": 40,
+    "hitPoints": 52,
+    "initiative": 0,
+    "damageDice": "d12",
+    "damageType": "Physical"
+  },
+  {
+    "name": "Smaug",
+    "challenge": "Boss",
+    "experience": 104,
+    "hitPoints": 61,
+    "initiative": 2,
+    "damageDice": "d20",
+    "damageType": "Physical"
+  },
+  {
+    "name": "Balrog",
+    "challenge": "Boss",
+    "experience": 120,
+    "hitPoints": 74,
+    "initiative": 2,
+    "damageDice": "d20",
+    "damageType": "Magical"
+  },
+  {
+    "name": "Glaurung the Great Worm",
+    "challenge": "Boss",
+    "experience": 140,
+    "hitPoints": 81,
+    "initiative": 3,
+    "damageDice": "d20",
+    "damageType": "Psychical"
+  },
+  {
+    "name": "Gothmog",
+    "challenge": "Boss",
+    "experience": 148,
+    "hitPoints": 87,
+    "initiative": 3,
+    "damageDice": "d20",
+    "damageType": "Magical"
+  },
+  {
+    "name": "Sauron",
+    "challenge": "Boss",
+    "experience": 148,
+    "hitPoints": 89,
+    "initiative": 3,
+    "damageDice": "d20",
+    "damageType": "Physical"
+  },
+  {
+    "name": "Morgoth",
+    "challenge": "Boss",
+    "experience": 168,
+    "hitPoints": 100,
+    "initiative": 4,
+    "damageDice": "d20",
+    "damageType": "Psychical"
+  }
+]

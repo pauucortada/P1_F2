@@ -10,7 +10,7 @@ public class MonsterManager {
 
     public ArrayList<Monster> listMonsters() {
         JSONMonsters jsonMonsters = new JSONMonsters();
-        return jsonMonsters.getCharactersFromFile();
+        return jsonMonsters.getMonstersFromFile();
     }
 
     public boolean dataLoaded() {

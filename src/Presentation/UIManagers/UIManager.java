@@ -98,9 +98,10 @@ public class UIManager {
                 i++;
             }
             System.out.println("\n0. Back\n");
-            System.out.print("Who would you like to meet [0.."+ i + 1 +"]: ");
+            System.out.print("Who would you like to meet [0.."+ i +"]: ");
         } else {
-            System.out.println("There are no characters, please, introduce 0 to go back: ");
+            printThereAreNoCharacters();
+            System.out.print("Please, put 0 to go back: ");
         }
 
     }
@@ -114,11 +115,12 @@ public class UIManager {
     }
 
     public void printCharacter(Character character, int level) {
+
         System.out.println("\nTavern keeper: “Hey " + character.getName() + " get here; the boss wants to see you!”\n");
         System.out.println(
                 "* Name: " + character.getName() + "\n" +
                 "* Player: " + character.getNamePlayer() + "\n" +
-                "* Class: " + character.getClass() + "\n" +
+                "* Class: " + "Adventurer" + "\n" +
                 "* Level: " + level + "\n" +
                 "* XP: " + character.getExperience() + "\n" +
                 "* Body: " + character.getBody() + "\n" +
@@ -159,24 +161,36 @@ public class UIManager {
     }
 
     public void printAdventureFights(int i, int numCmbt, ArrayList<Monster> monsters) {
-        int j = 0;
+        int j = 0, k = 0;
+        String nameAux;
 
         System.out.println("* Encounter "+ i +" / " + numCmbt + "\n" +
-                "* Monsters in encounter");
+                "* Monsters in encounter\n");
         if (monsters.size() == 0) {
             System.out.println("# Empty");
         } else {
             while (monsters.size() > j) {
-                System.out.println(j + 1 + ". " + monsters.get(j).getName() + " (x" + counterNameInList(monsters.get(j).getName(), monsters) + ")");
+                nameAux = monsters.get(j).getName();
+                if (j == 0){
+                    System.out.println(k + 1 + ". " + monsters.get(j).getName() + " (x" + counterNameInList(monsters.get(j).getName(), monsters) + ")");
+                    k++;
+                } else {
+                    if (!nameAux.equals(monsters.get(j - 1).getName())){
+                        System.out.println(k + 1 + ". " + monsters.get(j).getName() + " (x" + counterNameInList(monsters.get(j).getName(), monsters) + ")");
+                        k++;
+                    }
+                }
                 j++;
+
             }
         }
 
-        System.out.println("""
-                1. Add monster
+        System.out.print("""
+                \n1. Add monster
                 2. Remove monster
                 3. Continue
                 -> Enter an option [1..3]:""");
+        System.out.println();
     }
 
     public int counterNameInList(String name, ArrayList<Monster> monsters) {

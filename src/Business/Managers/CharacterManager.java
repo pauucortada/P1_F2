@@ -45,11 +45,10 @@ public class CharacterManager {
     }
 
     public ArrayList <Character> listChosenCharactersByName(String namePlayer) {
-        JSONCharacters jsonCharacters = new JSONCharacters();
-        ArrayList<Character> characters = jsonCharacters.getCharactersFromFile();
+        ArrayList<Character> characters = listCharacters();
         int i = 0;
 
-        if (namePlayer.equals("\n")){
+        if (namePlayer.equals("")){
             return characters;
         } else {
             ArrayList<Character> charactersFiltered = new ArrayList<>();
@@ -220,8 +219,13 @@ public class CharacterManager {
     }
 
     public boolean isOptionValid(String strOption) {
-        int option;
-        return strOption.matches("[0-9]*") || strOption.equals("\n");
+
+        try {
+            return strOption.matches("[0-9]*") || strOption.equals("\n");
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+
     }
 
     public String capitalizeString(String chain) {

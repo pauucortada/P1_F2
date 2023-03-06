@@ -97,7 +97,6 @@ public class Controller {
 
         level = parseInt(strlevel);
         characterManager.createCharacter(name, namePlayer, level, dausResults);
-
         Character character = characterManager.nameToCharacter(name);
 
         uiManager.printCreateCharacterStatistics(level, dausResults, characterManager.stats(character), name);
@@ -158,7 +157,7 @@ public class Controller {
         uiManager.printStartAdventure(parseInt(numFights));
 
         while (parseInt(numFights) >= countFights) {
-            uiManager.printAdventureFights(countFights, parseInt(numFights), monsters);
+            uiManager.printAdventureFights(countFights, parseInt(numFights), monstersFightList);
             option = sc.nextLine();
 
             switch (option) {
@@ -171,9 +170,14 @@ public class Controller {
 
                     uiManager.printDeleteMonster();
                     monsterIndex = sc.nextLine();
-                    nameMonster = monstersFightList.get(parseInt(monsterIndex)).getName();
-                    monstersToDel = fightManager.countMonsterName(nameMonster, monstersFightList);
-                    while (monstersToDel > j) {
+                    try {
+                        nameMonster = monstersFightList.get(parseInt(monsterIndex)).getName();
+                        monstersToDel = fightManager.countMonsterName(nameMonster, monstersFightList);
+                    } catch (NumberFormatException nfe) {
+                        System.out.println("This is not an option");
+                        break;
+                    }
+                    while (monstersToDel >= j) {
                         if (monstersFightList.get(j).getName().equals(nameMonster)) {
                             monstersFightList.remove(j);
                         }

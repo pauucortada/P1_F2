@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class AdventureManager {
 
-    private ArrayList<Adventure> adventures;
+    private final ArrayList<Adventure> adventures;
 
     private FightManager fightManager;
 
@@ -25,19 +25,25 @@ public class AdventureManager {
         adventure.setNumFights(numFights);
         adventure.setFights(fights);
         adventures.add(adventure);
-        jsonAdventures.saveAdventuresToFile(adventures);
+        jsonAdventures.savAdventuresToFile(adventures);
     }
 
     public boolean checkAdventureName(String name) {
-        ArrayList<Adventure> adventures = null; //= funcio que llegeixi aventures
+        JSONAdventures jsonAdventures = new JSONAdventures();
+        ArrayList<Adventure> adventures = jsonAdventures.getAdventuresFromFile();
         int i = 0;
-        while (adventures.size() > i){
-            if (adventures.get(i).getName().equals(name)){
-                return false;
+        try {
+            while (adventures.size() > i){
+                if (adventures.get(i).getName().equals(name)){
+                    return false;
+                }
+                i++;
             }
-            i++;
+            return true;
+        } catch (NullPointerException npe) {
+            return true;
         }
-        return true;
+
     }
 
     public ArrayList<Adventure> listAdventures(){
