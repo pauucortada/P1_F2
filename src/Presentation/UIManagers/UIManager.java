@@ -71,14 +71,14 @@ public class UIManager {
         System.out.println("Tavern keeper: “Oh, so you are level " + level + "!”\n" +
                 "“Great, let me get a closer look at you...”\n" +
                 "Generating your stats...\n" +
-                "Body:   You rolled " + dacesResults.get (2) + " ("+ dacesResults.get (0) + " and " + dacesResults.get (1) + ").\n" +
+                "\nBody:   You rolled " + dacesResults.get (2) + " ("+ dacesResults.get (0) + " and " + dacesResults.get (1) + ").\n" +
                 "Mind:   You rolled " + dacesResults.get (5) + " ("+ dacesResults.get (3) + " and " + dacesResults.get (4) + ").\n" +
                 "Spirit: You rolled " + dacesResults.get (8) + " ("+ dacesResults.get (6) + " and " + dacesResults.get (7) + ").\n" +
-                "Your stats are:\n" +
+                "\nYour stats are:\n" +
                 "  - Body: " + stats.get(0) + "\n" +
                 "  - Mind: " + stats.get(1) + "\n" +
                 "  - Spirit: " + stats.get(2) + "\n" +
-                "The new character " + name + " has been created.");
+                "The new character " + name + " has been created.\n");
     }
 
 
@@ -92,12 +92,17 @@ public class UIManager {
     public void printListCharactersPlayer(ArrayList<Character> characters){
         int i = 0;
         System.out.println("You watch as some adventurers get up from their chairs and approach you.\n");
-        while (characters.size() > i){
-            System.out.println(i + 1 + ". " + characters.get(i).getName());
-            i++;
+        if (characters.size() > 0){
+            while (characters.size() > i){
+                System.out.println(i + 1 + ". " + characters.get(i).getName());
+                i++;
+            }
+            System.out.println("\n0. Back\n");
+            System.out.print("Who would you like to meet [0.."+ i + 1 +"]: ");
+        } else {
+            System.out.println("There are no characters, please, introduce 0 to go back: ");
         }
-        System.out.println("\n0. Back\n");
-        System.out.print("Who would you like to meet [0.."+ i + 1 +"]: ");
+
     }
 
     public void printExit() {

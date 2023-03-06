@@ -41,10 +41,8 @@ public class JSONCharacters {
             return gson.fromJson(jsonReader, REVIEW_TYPE);
 
         } catch (IOException | NullPointerException e) {
-            e.printStackTrace();
+            return new ArrayList<>();
         }
-
-        return null;
     }
 
 }

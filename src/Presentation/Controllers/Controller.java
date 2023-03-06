@@ -74,8 +74,8 @@ public class Controller {
     }
     public void createCharacter() {
         Scanner sc = new Scanner(System.in);
-        ArrayList<Integer> dausResults = new ArrayList<>();
         String name, namePlayer, strlevel;
+        ArrayList<Integer> dausResults = new ArrayList<>(characterManager.dausResult());
         int level;
 
         uiManager.printCreateCharacterName();
@@ -96,15 +96,11 @@ public class Controller {
         }
 
         level = parseInt(strlevel);
-        characterManager.createCharacter(name, namePlayer, level);
+        characterManager.createCharacter(name, namePlayer, level, dausResults);
 
         Character character = characterManager.nameToCharacter(name);
 
-        dausResults.addAll(characterManager.dausEstadistiques());
-        dausResults.addAll(characterManager.dausEstadistiques());
-        dausResults.addAll(characterManager.dausEstadistiques());
-
-        uiManager.printCreateCharacterStatistics(level, dausResults, characterManager.staistics(character), name);
+        uiManager.printCreateCharacterStatistics(level, dausResults, characterManager.stats(character), name);
 
     }
 

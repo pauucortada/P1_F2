@@ -12,22 +12,31 @@ import static java.lang.Integer.parseInt;
 
 public class CharacterManager {
 
-    public void createCharacter(String name, String namePlayer, int level) {
+    public void createCharacter(String name, String namePlayer, int level, ArrayList<Integer> daus) {
         Adventurer adventurer = new Adventurer();
         JSONCharacters jsonCharacters = new JSONCharacters();
+        ArrayList<Integer> valors = valorEstadistiques(daus);
 
         ArrayList<Character> characters = jsonCharacters.getCharactersFromFile();
 
         adventurer.setName(name);
         adventurer.setNamePlayer(namePlayer);
         adventurer.setExperience(levelExperience(level));
-        adventurer.setBody(valorEstadistiques());
-        adventurer.setMind(valorEstadistiques());
-        adventurer.setSpirit(valorEstadistiques());
+        adventurer.setBody(valors.get(0));
+        adventurer.setMind(valors.get(1));
+        adventurer.setSpirit(valors.get(2));
         adventurer.setTypeAttack("Sword Slash");
 
-        characters.add(adventurer);
-        jsonCharacters.savCharactersToFile(characters);
+        try {
+            characters.add(adventurer);
+            jsonCharacters.savCharactersToFile(characters);
+        } catch (NullPointerException npe) {
+            ArrayList<Character> characterArrayList = new ArrayList<>();
+            characterArrayList.add(adventurer);
+            jsonCharacters.savCharactersToFile(characterArrayList);
+        }
+
+
     }
 
     public ArrayList <Character> listCharacters(){
@@ -55,16 +64,6 @@ public class CharacterManager {
         }
     }
 
-    public ArrayList<Integer> staistics(Character character) {
-        ArrayList<Integer> stats = new ArrayList<>();
-        stats.add(character.getBody());
-        stats.add(character.getMind());
-        stats.add(character.getSpirit());
-        return stats;
-    }
-
-
-
     public int levelExperience(int level) {
         if (level == 1) {
             return 0;
@@ -89,18 +88,36 @@ public class CharacterManager {
         }
     }
 
-    public int valorEstadistiques(){
-        if (dausEstadistiques().get(2) == 2){
-            return -1;
-        } else if (dausEstadistiques().get(2) >= 3 && dausEstadistiques().get(2) <= 5) {
-            return 0;
-        } else if (dausEstadistiques().get(2) >= 6 && dausEstadistiques().get(2) <= 9) {
-            return 1;
-        } else if (dausEstadistiques().get(2) == 10 || dausEstadistiques().get(2) == 11) {
-            return 2;
-        } else {
-            return 3;
+    public ArrayList<Integer> stats (Character character){
+        ArrayList<Integer> stats = new ArrayList<>();
+        stats.add(character.getBody());
+        stats.add(character.getMind());
+        stats.add(character.getSpirit());
+        return stats;
+    }
+
+    public ArrayList<Integer> valorEstadistiques(ArrayList<Integer> daus){
+        ArrayList<Integer> valors = new ArrayList<>();
+        int i = 2;
+
+        while (i <= 8){
+            if (i == 2 || i == 5 || i == 8){
+                if (daus.get(i) == 2){
+                    valors.add(-1);
+                } else if (daus.get(i) >= 3 && daus.get(i) <= 5) {
+                    valors.add(0);
+                } else if (daus.get(i) >= 6 && daus.get(i) <= 9) {
+                    valors.add(1);
+                } else if (daus.get(i) == 10 || daus.get(i) == 11) {
+                    valors.add(2);
+                } else {
+                    valors.add(3);
+                }
+            }
+            i++;
         }
+
+        return valors;
     }
 
     public ArrayList<Integer> dausEstadistiques() {
@@ -113,6 +130,14 @@ public class CharacterManager {
         statisticsNumbers.add(num2);
         statisticsNumbers.add(suma);
         return statisticsNumbers;
+    }
+
+    public ArrayList<Integer> dausResult(){
+        ArrayList<Integer> daus = new ArrayList<>();
+        daus.addAll(dausEstadistiques());
+        daus.addAll(dausEstadistiques());
+        daus.addAll(dausEstadistiques());
+        return daus;
     }
 
     public void deleteCharacter(String name, ArrayList<Character> characters) {
@@ -171,12 +196,17 @@ public class CharacterManager {
             return false;
         }
         name = capitalizeString(name);
-        while (characters.size() > i){
-            if (characters.get(i).getName().equals(name)){
-                return false;
+        try {
+            while (characters.size() > i){
+                if (characters.get(i).getName().equals(name)){
+                    return false;
+                }
+                i++;
             }
-            i++;
+        } catch (NullPointerException npe) {
+            return true;
         }
+
         return true;
     }
 
