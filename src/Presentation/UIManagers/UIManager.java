@@ -31,7 +31,7 @@ public class UIManager {
 
     public void printMainMenu(){
         System.out.println("""
-                The tavern keeper looks at you and says:
+                \nThe tavern keeper looks at you and says:
                 “Welcome adventurer! How can I help you?”
                 """);
         System.out.print("""
@@ -39,6 +39,20 @@ public class UIManager {
                     2) List characters
                     3) Create an adventure
                     4) Start an adventure
+                    5) Exit
+                \nYour answer:\040""");
+    }
+
+    public void printMainMenuWoCharacters(){
+        System.out.println("""
+                The tavern keeper looks at you and says:
+                “Welcome adventurer! How can I help you?”
+                """);
+        System.out.print("""
+                    1) Character creation
+                    2) List characters
+                    3) Create an adventure
+                    4) Start an adventure (disabled: create 3 characters first)
                     5) Exit
                 \nYour answer:\040""");
     }
@@ -262,6 +276,10 @@ public class UIManager {
                 "-> Choose an adventure: ");
     }
 
+    public void printAdventuresError() {
+        System.out.print("This adventure does not exist, please, introduce a valid number: ");
+    }
+
     public void printPlayAdventureNumCharacters(String name) {
         System.out.print("Tavern keeper: “" + name + "”\n" +
                 "“And how many people shall join you?”\n" +
@@ -287,10 +305,12 @@ public class UIManager {
             System.out.println(chosenCharacters.get(j).getName());
             j++;
         }
+
         j = 0;
         if (!(chosenCharacters.size() == numCharacters)) {
             while ((numCharacters - chosenCharacters.size()) > j) {
                 System.out.println(j + 1 + ". Empty");
+                j++;
             }
         }
         System.out.println("""
@@ -302,7 +322,7 @@ public class UIManager {
             System.out.println(j + 1 + ". " + totalCharacters.get(j).getName());
             j++;
         }
-        System.out.println("-> Choose character " + i + " in your party: ");
+        System.out.print("\n-> Choose character " + i + " in your party: ");
     }
 
     public void printPlayAdventureEnd (String name){

@@ -44,11 +44,16 @@ public class Controller {
 
     public void mainMenu() {
         Scanner sc = new Scanner(System.in);
+        ArrayList<Character> characters = characterManager.listCharacters();
         String option;
 
         while (true) {
+            if (characters.size() < 3) {
+                uiManager.printMainMenuWoCharacters();
+            } else {
+                uiManager.printMainMenu();
+            }
 
-            uiManager.printMainMenu();
             option = sc.nextLine();
 
             if (Objects.equals(option, "1")){
@@ -185,7 +190,7 @@ public class Controller {
 
                         uiManager.printDeleteMonster();
                         monsterIndex = sc.nextLine();
-                        while (!monsterManager.isValidOption(monsterIndex, monstersFightList.size())){
+                        while (monsterManager.isValidOption(monsterIndex, monstersFightList.size())){
                             uiManager.printMonsterChosenError();
                             uiManager.printDeleteMonster();
                             monsterIndex = sc.nextLine();
@@ -211,7 +216,7 @@ public class Controller {
                         uiManager.printAdventureAddMonster(monsters);
                         monsterIndex = sc.nextLine();
 
-                        while (!monsterManager.isValidOption(monsterIndex, monsters.size())){
+                        while (monsterManager.isValidOption(monsterIndex, monsters.size())){
                             uiManager.printMonsterChosenError();
                             uiManager.printAdventureAddMonster(monsters);
                             monsterIndex = sc.nextLine();
@@ -241,13 +246,23 @@ public class Controller {
 
     public void startAdventure() {
         Scanner sc = new Scanner(System.in);
-        String adventureIndex, adventureName;
-        int numCharcaters;
+        String adventureIndex, adventureName, characterIndex;
+        int numCharcaters, i = 0, j = 0, k = 0;
         ArrayList<Adventure> adventures = adventureManager.listAdventures();
         ArrayList<Character> mainCharacters = characterManager.listCharacters();
+        ArrayList<Character> chosenCharacters = new ArrayList<>();
 
         uiManager.printPlayAdventureMenu(adventures);
         adventureIndex = sc.nextLine();
+        try {
+            while (parseInt(adventureIndex) > adventures.size()){
+                uiManager.printAdventuresError();
+                adventureIndex = sc.nextLine();
+            }
+        } catch (NumberFormatException | IndexOutOfBoundsException nfe){
+            uiManager.invalidOption();
+            return;
+        }
         adventureName = adventures.get(parseInt(adventureIndex) - 1).getName();
 
         try {
@@ -266,6 +281,39 @@ public class Controller {
 
         uiManager.printNumOfCharacters(numCharcaters);
 
+        while (i < numCharcaters){
+            uiManager.printPlayAdventureChooseCharacters(mainCharacters, chosenCharacters, numCharcaters, (i + 1));
+            characterIndex = sc.next();
+            try {
+                if (parseInt(characterIndex) <= mainCharacters.size()) {
+                    chosenCharacters.add(mainCharacters.get(parseInt(characterIndex) - 1));
+                    i++;
+                } else {
+                    uiManager.invalidOption();
+                }
+
+            } catch (NumberFormatException | IndexOutOfBoundsException nfe) {
+                uiManager.invalidOption();
+            }
+
+        }
+
+
+        ArrayList<Integer> totalPoints = new ArrayList<>(characterManager.calculateTotalHitPoints(chosenCharacters));
+        ArrayList<Integer> actualPoints = new ArrayList<>(characterManager.calculateTotalHitPoints(chosenCharacters));
+
+        uiManager.printPlayAdventureEnd(adventureName);
+
+        while (j < adventures.get(parseInt(adventureIndex) - 1).getNumFights()){
+            ArrayList<Monster> monsters = adventures.get(parseInt(adventureIndex) - 1).getFights().get(j).getMonsters();
+            int numId = adventures.get(parseInt(adventureIndex) - 1).getFights().get(j).getId();
+            uiManager.printIncreaseSpirit(monsters, numId, chosenCharacters);
+            uiManager.printMonstersInitiative(monsters);
+            uiManager.printCombatStageIntroduction(numId, chosenCharacters, actualPoints, totalPoints);
+
+
+            j++;
+        }
     }
 
     public void exitMainMenu() {

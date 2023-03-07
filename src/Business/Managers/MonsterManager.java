@@ -4,7 +4,6 @@ import Business.Entities.Monster;
 import Persistance.JSONMonsters;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import static java.lang.Integer.parseInt;
 
@@ -26,10 +25,10 @@ public class MonsterManager {
     public boolean isValidOption(String option, int size) {
         int validOption;
         if (!option.matches("[0-9]*")){
-            return false;
+            return true;
         }
         validOption = parseInt(option);
-        return validOption >= 1 && validOption <= size;
+        return validOption < 1 || validOption > size;
     }
 
 }
