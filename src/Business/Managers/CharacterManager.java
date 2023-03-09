@@ -2,6 +2,7 @@ package Business.Managers;
 
 import Business.Entities.Adventurer;
 import Business.Entities.Character;
+import Business.Entities.Monster;
 import Persistance.JSONCharacters;
 
 import java.io.IOException;
@@ -238,10 +239,6 @@ public class CharacterManager {
 
     }
 
-    public String capitalizeString(String chain) {
-        return toUpperCase(chain.charAt(0)) + chain.substring(1);
-    }
-
     public Character nameToCharacter(String name) {
         JSONCharacters jsonCharacters = new JSONCharacters();
         ArrayList<Character> characters = jsonCharacters.getCharactersFromFile();
@@ -257,4 +254,27 @@ public class CharacterManager {
         return null;
     }
 
+    public int attackDamage (Character character) {
+        Random random1 = new Random();
+        int num = random1.nextInt(6) + 1;
+        if (character instanceof Adventurer) {
+            return num + character.getBody();
+        } else return 0;
+    }
+
+    public boolean isHitting(){
+        Random random1 = new Random();
+        int num = random1.nextInt(15) + 1;
+        return num <= 7;
+    }
+
+    public boolean isCriticalDamage(int num){
+        return num >= 10;
+    }
+
+    public Character whichCharacter(ArrayList<Character> characters, int size){
+        Random random1 = new Random();
+        int num = random1.nextInt(size);
+        return characters.get(num);
+    }
 }

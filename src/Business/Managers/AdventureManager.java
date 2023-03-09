@@ -5,6 +5,7 @@ import Business.Entities.Fight;
 import Persistance.JSONAdventures;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * This class is related about Adventures, it manages all of it, you can create,
@@ -62,6 +63,11 @@ public class AdventureManager {
     public ArrayList<Adventure> listAdventures(){
         JSONAdventures jsonAdventures = new JSONAdventures();
         return jsonAdventures.getAdventuresFromFile();
+    }
+
+    public int howManyAttacks() {
+        Random random1 = new Random();
+        return random1.nextInt(15) + 1;
     }
 
 
