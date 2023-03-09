@@ -354,9 +354,9 @@ public class UIManager {
 
     public void printMonstersInitiative(ArrayList<Monster> monsters) {
         int i = 0;
-        System.out.println("\nRolling initiative...");
+        System.out.println("\nRolling initiative...\n");
         while (monsters.size() > i) {
-            System.out.println("\n- " + monsters.get(i).getInitiative() + "\t" + monsters.get(i).getName());
+            System.out.println("\t- " + monsters.get(i).getInitiative() + "\t" + monsters.get(i).getName());
             i++;
         }
         System.out.println("""
@@ -386,7 +386,7 @@ public class UIManager {
             } else if (criticalDamage) {
                 System.out.println("Critical hit and deals " + damage + " " + monster.getDamageType() + ".");
             } else {
-                System.out.println("Fails and deals 0 " + monster.getDamageType() + ".");
+                System.out.println("Fails and deals 0 " + monster.getDamageType() + " damage.");
             }
         } else {
             if (character instanceof Adventurer) {
@@ -396,7 +396,7 @@ public class UIManager {
                 } else if (criticalDamage) {
                     System.out.println("Critical hit and deals " + damage + " physical damage.");
                 } else {
-                    System.out.println("Fails and deals 0 physical damage.");
+                    System.out.println("Fails and deals 0 Physical damage.");
                 }
 
             } else {

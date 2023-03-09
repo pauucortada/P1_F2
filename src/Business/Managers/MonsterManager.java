@@ -39,7 +39,7 @@ public class MonsterManager {
 
     public Monster whichMonster(ArrayList<Monster> monsters, int size){
         Random random1 = new Random();
-        int num = random1.nextInt(size) + 1;
+        int num = random1.nextInt(size);
         return monsters.get(num);
     }
 
