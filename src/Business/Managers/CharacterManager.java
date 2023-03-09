@@ -4,6 +4,7 @@ import Business.Entities.Adventurer;
 import Business.Entities.Character;
 import Persistance.JSONCharacters;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.regex.Pattern;
@@ -244,6 +245,7 @@ public class CharacterManager {
     public Character nameToCharacter(String name) {
         JSONCharacters jsonCharacters = new JSONCharacters();
         ArrayList<Character> characters = jsonCharacters.getCharactersFromFile();
+
         int i = 0;
 
         while (characters.size() > i) {

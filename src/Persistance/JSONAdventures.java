@@ -71,7 +71,7 @@ public class JSONAdventures {
             e.printStackTrace();
         }
     }
-
+/*
     public ArrayList<Adventure> getAdventuresFromFile() {
 
         ArrayList<Adventure> adventuresList = new ArrayList<>();
@@ -97,7 +97,6 @@ public class JSONAdventures {
 
         return adventuresList;
     }
-}
 
     public ArrayList<Fight> getAdventuresFromFile (){
 
@@ -112,7 +111,6 @@ public class JSONAdventures {
             for (JSONObject object : (Iterable<JSONObject>) adventuresJSONList) {
 
                 Fight fight = new Fight();
-
                 fight.setId(Integer.parseInt(object.get("id").toString()));
 
                 // TODO: AGAFAR ARRAYLIST DE MONSTRES DE CADA FIGHT
@@ -124,8 +122,36 @@ public class JSONAdventures {
 
         } catch (IOException | ParseException e) {
             e.printStackTrace();
+        }*/
+
+    public ArrayList<Adventure> getAdventuresFromFile() {
+
+        ArrayList<Adventure> adventuresList = new ArrayList<>();
+        JSONParser jsonParser = new JSONParser();
+
+        try {
+
+            Object obj = jsonParser.parse(new FileReader(jsonAdventuresFile));
+            JSONArray adventuresJSONList = (JSONArray) obj;
+
+            Iterator<JSONObject> adventuresListJSON_iterator = adventuresJSONList.iterator();
+
+            while (adventuresListJSON_iterator.hasNext()) {
+
+                JSONObject object = adventuresListJSON_iterator.next();
+                //fight.setId(Integer.parseInt(object.get("id").toString()));
+
+                // TODO: AGAFAR ARRAYLIST DE MONSTRES DE CADA FIGHT
+                Gson g = new Gson();
+                JsonReader reader = new JsonReader(new FileReader(jsonAdventuresFile));
+                Adventure adventure = g.fromJson(reader, Adventure.class);
+                adventuresList.add(adventure);
+            }
+
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
         }
 
         return adventuresList;
-    }*/
+    }
 }

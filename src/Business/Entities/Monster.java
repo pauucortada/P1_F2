@@ -1,5 +1,9 @@
 package Business.Entities;
 
+/**
+ * Class entity of a Monter, it contains all the getters, setters of a Monster with his
+ * related attributes
+ */
 public class Monster {
 
     private String name;

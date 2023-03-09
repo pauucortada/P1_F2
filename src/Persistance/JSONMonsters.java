@@ -17,6 +17,9 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+/**
+ * This class saves and takes the Monster's data from the json
+ */
 public class JSONMonsters {
 
     File jsonMonstersFile = new File("Files/JSONMonstersFile.json");
@@ -32,6 +35,11 @@ public class JSONMonsters {
         }
     }*/
 
+    /**
+     * In this method we get the Montser data from the json of monsters, we recive this data in
+     * an ArrayList of Monsters
+     * @return ArrayList
+     */
     public ArrayList<Monster> getMonstersFromFile (){
         Gson gson = new Gson();
 
