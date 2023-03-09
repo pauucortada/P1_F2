@@ -4,6 +4,7 @@ import Business.Entities.Monster;
 import Persistance.JSONMonsters;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import static java.lang.Integer.parseInt;
 
@@ -29,6 +30,17 @@ public class MonsterManager {
         }
         validOption = parseInt(option);
         return validOption < 1 || validOption > size;
+    }
+
+    public int isMonsterAttacking() {
+        Random random1 = new Random();
+        return random1.nextInt(10) + 1;
+    }
+
+    public Monster whichMonster(ArrayList<Monster> monsters, int size){
+        Random random1 = new Random();
+        int num = random1.nextInt(size) + 1;
+        return monsters.get(num);
     }
 
 }

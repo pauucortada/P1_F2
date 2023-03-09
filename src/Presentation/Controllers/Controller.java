@@ -311,9 +311,28 @@ public class Controller {
             uiManager.printMonstersInitiative(monsters);
             uiManager.printCombatStageIntroduction(numId, chosenCharacters, actualPoints, totalPoints);
 
+            while (adventureManager.howManyAttacks() > k) {
+                Monster monster = monsterManager.whichMonster(monsters, monsters.size());
+                Character character = characterManager.whichCharacter(chosenCharacters, chosenCharacters.size());
+                int damage = characterManager.attackDamage(character);
+                uiManager.printAttacks(
+                        monster,
+                        character,
+                        damage,
+                        isMonsterAttacking(monsterManager.isMonsterAttacking()),
+                        characterManager.isHitting(),
+                        characterManager.isCriticalDamage(damage)
+                );
+                k++;
+            }
+
 
             j++;
         }
+    }
+
+    public boolean isMonsterAttacking(int num){
+        return num < 2;
     }
 
     public void exitMainMenu() {
