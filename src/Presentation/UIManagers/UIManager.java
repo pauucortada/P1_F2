@@ -29,7 +29,6 @@ public class UIManager {
 
     /**
      * This method says if the data entred has been loaded correctly
-     * @param dataLoaded
      */
     public void loadDataSuccessfully(boolean dataLoaded){
         System.out.println("Loading data...");
@@ -266,7 +265,7 @@ public class UIManager {
      * This method is shown when has been a problem with there is not a number
      */
     public void printNumberFormatError(){
-        System.out.print("This is not even a number!");
+        System.out.println("\nThis is not even a number!");
     }
 
     /**
@@ -382,7 +381,7 @@ public class UIManager {
      * This method shows that an option entred is not correct
      */
     public void invalidOption() {
-        System.out.println("This is not a valid option.");
+        System.out.println("\nThis is not a valid option.");
     }
 
 
@@ -567,6 +566,7 @@ public class UIManager {
             } else {
                 System.out.println("Fails and deals 0 " + monster.getDamageType() + " damage.");
             }
+            System.out.println();
         } else {
             if (character instanceof Adventurer) {
                 System.out.println(character.getName() + " attacks " + monster.getName() + " with " + ((Adventurer) character).getTypeAttack() + "\n");
@@ -577,7 +577,7 @@ public class UIManager {
                 } else {
                     System.out.println("Fails and deals 0 Physical damage.");
                 }
-
+                System.out.println();
             } else {
                 System.out.println("Something went wrong");
             }

@@ -221,12 +221,17 @@ public class CharacterManager {
     }
 
     public boolean isLevelValid(String strlevel) {
-        int level;
-        if (!strlevel.matches("[0-9]*")){
+        try {
+            int level;
+            if (!strlevel.matches("[0-9]*")){
+                return false;
+            }
+            level = parseInt(strlevel);
+            return level >= 1 && level <= 10;
+        } catch (NumberFormatException nfe) {
             return false;
         }
-        level = parseInt(strlevel);
-        return level >= 1 && level <= 10;
+
     }
 
     public boolean isOptionValid(String strOption) {

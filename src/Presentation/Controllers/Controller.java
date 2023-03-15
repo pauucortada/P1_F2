@@ -48,11 +48,16 @@ public class Controller {
         String option;
 
         while (true) {
-            if (characters.size() < 3) {
+            try {
+                if (characters.size() < 3) {
+                    uiManager.printMainMenuWoCharacters();
+                } else {
+                    uiManager.printMainMenu();
+                }
+            } catch (NullPointerException npe) {
                 uiManager.printMainMenuWoCharacters();
-            } else {
-                uiManager.printMainMenu();
             }
+
 
             option = sc.nextLine();
 
@@ -66,7 +71,16 @@ public class Controller {
                 createAdventure();
 
             } else if (Objects.equals(option, "4")) {
-                startAdventure();
+                try {
+                    if (characters.size() < 3) {
+                        uiManager.invalidOption();
+                    } else {
+                        startAdventure();
+                    }
+                } catch (NullPointerException npe) {
+                    uiManager.invalidOption();
+                }
+
 
             } else if (Objects.equals(option, "5")) {
                 exitMainMenu();
@@ -86,15 +100,27 @@ public class Controller {
         uiManager.printCreateCharacterName();
         name = sc.nextLine();
         if (!characterManager.isNameValid(name)){
-            uiManager.printUserExist();
+            uiManager.invalidOption();
             return;
         } else {
             name  = name.toLowerCase();
-            name = capitalizeString(name);
+            try {
+                name = capitalizeString(name);
+            } catch (StringIndexOutOfBoundsException sioobe) {
+                uiManager.invalidOption();
+                return;
+            }
+
         }
+
 
         uiManager.printCreateCharacterPlayer(name);
         namePlayer = sc.nextLine();
+
+        if (namePlayer.equals("")){
+            uiManager.invalidOption();
+            return;
+        }
 
         uiManager.printCreateCharacterLevel();
         strlevel = sc.nextLine();
@@ -155,7 +181,7 @@ public class Controller {
     public void createAdventure() {
         Scanner sc = new Scanner(System.in);
         String name, numFights, option, nameMonster, monsterIndex, monstersToAdd;
-        int countFights = 1, monstersToDel;
+        int countFights = 1;
         ArrayList<Monster> monsters = monsterManager.listMonsters();
         ArrayList<Monster> monstersFightList = new ArrayList<>();
         ArrayList<Fight> fights = new ArrayList<>();
@@ -182,6 +208,11 @@ public class Controller {
                     case "3" -> {
                         fights.add(fightManager.createFight(monstersFightList, countFights));
                         countFights++;
+                        if (countFights > parseInt(numFights)){
+                            adventureManager.createAdventure(name, parseInt(numFights), fights);
+                        } else {
+                            monstersFightList.clear();
+                        }
                     }
                     case "2" -> {
                         int j = 0, size = monstersFightList.size(), counter = 0;
@@ -234,7 +265,6 @@ public class Controller {
                     default -> uiManager.invalidOptionAdventure();
                 }
             }
-            adventureManager.createAdventure(name, parseInt(numFights), fights);
 
             uiManager.printAdventureCreated(name);
 
@@ -247,7 +277,7 @@ public class Controller {
     public void startAdventure() {
         Scanner sc = new Scanner(System.in);
         String adventureIndex, adventureName, characterIndex;
-        int numCharcaters, i = 0, j = 0, k = 0;
+        int numCharcaters, i = 0, j = 0, k = 0, z = 0;
         ArrayList<Adventure> adventures = adventureManager.listAdventures();
         ArrayList<Character> mainCharacters = characterManager.listCharacters();
         ArrayList<Character> chosenCharacters = new ArrayList<>();
@@ -308,6 +338,11 @@ public class Controller {
             ArrayList<Monster> monsters = adventures.get(parseInt(adventureIndex) - 1).getFights().get(j).getMonsters();
             int numId = adventures.get(parseInt(adventureIndex) - 1).getFights().get(j).getId();
             uiManager.printIncreaseSpirit(monsters, numId, chosenCharacters);
+            while (chosenCharacters.size() > z){
+                int spirit = chosenCharacters.get(z).getSpirit() + 1;
+                chosenCharacters.get(z).setSpirit(spirit);
+                z++;
+            }
             uiManager.printMonstersInitiative(monsters);
             uiManager.printCombatStageIntroduction(numId, chosenCharacters, actualPoints, totalPoints);
 
@@ -339,7 +374,7 @@ public class Controller {
         uiManager.printExit();
     }
 
-    public String capitalizeString(String chain) {
+    public String capitalizeString(String chain) throws StringIndexOutOfBoundsException {
         return toUpperCase(chain.charAt(0)) + chain.substring(1);
     }
 }

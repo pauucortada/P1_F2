@@ -1,6 +1,7 @@
 package Business.Managers;
 
 import Business.Entities.Adventure;
+import Business.Entities.Character;
 import Business.Entities.Fight;
 import Persistance.JSONAdventures;
 
@@ -29,8 +30,16 @@ public class AdventureManager {
         adventure.setName(name);
         adventure.setNumFights(numFights);
         adventure.setFights(fights);
-        adventures.add(adventure);
-        jsonAdventures.savAdventuresToFile(adventures);
+
+        try {
+            adventures.add(adventure);
+            jsonAdventures.savAdventuresToFile(adventures);
+        } catch (NullPointerException npe) {
+            ArrayList<Adventure> adventures1 = new ArrayList<>();
+            adventures1.add(adventure);
+            jsonAdventures.savAdventuresToFile(adventures1);
+        }
+        
     }
 
     /**
@@ -49,7 +58,7 @@ public class AdventureManager {
                 }
                 i++;
             }
-            return true;
+            return !name.equals("");
         } catch (NullPointerException npe) {
             return true;
         }
