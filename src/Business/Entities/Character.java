@@ -12,6 +12,8 @@ public class Character {
     private int body;
     private int mind;
     private int spirit;
+    private int actualPoints;
+    private int totalPoints;
 
     private String classe;
 
@@ -146,10 +148,27 @@ public class Character {
         this.spirit = spirit;
     }
 
+    public int getActualPoints() {
+        return actualPoints;
+    }
+
+    public void setActualPoints(int actualPoints) {
+        this.actualPoints = actualPoints;
+    }
+
+    public int getTotalPoints() {
+        return totalPoints;
+    }
+
+    public void setTotalPoints(int totalPoints) {
+        this.totalPoints = totalPoints;
+    }
+
     /**
      * Setter of the class type
      * @param classe
      */
+
     public void setClasse(String classe) {
         this.classe = classe;
     }

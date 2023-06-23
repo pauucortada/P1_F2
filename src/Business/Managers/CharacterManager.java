@@ -262,15 +262,37 @@ public class CharacterManager {
     public int attackDamage (Character character) {
         Random random1 = new Random();
         int num = random1.nextInt(6) + 1;
-        if (character instanceof Adventurer) {
-            return num + character.getBody();
-        } else return 0;
+
+        return num + character.getBody();
+
     }
 
     public boolean isHitting(){
         Random random1 = new Random();
         int num = random1.nextInt(15) + 1;
         return num <= 7;
+    }
+
+    public boolean levelHasChanged(int auxExp, int actualExp) {
+        if (actualExp < 100){
+            return false;
+        }else {
+            int previousLevel = (auxExp / 100) + 1;
+            int currentLevel = (actualExp / 100) + 1;
+            return previousLevel != currentLevel;
+        }
+    }
+
+    public int getLevel(int experience) {
+        return (experience / 100) + 1;
+    }
+
+
+
+    public int bandageTime(){
+        Random random1 = new Random();
+        int num = random1.nextInt(8) + 1;
+        return num;
     }
 
     public boolean isCriticalDamage(int num){
@@ -281,5 +303,19 @@ public class CharacterManager {
         Random random1 = new Random();
         int num = random1.nextInt(size);
         return characters.get(num);
+    }
+
+    public boolean areCharactersAlive(ArrayList<Character> characers){
+        boolean alive = false;
+
+        for (int i = 0; i < characers.size(); i++) {
+            if (characers.get(i).getActualPoints() <= 0){
+                alive = false;
+            }else{
+                alive = true;
+                break;
+            }
+        }
+        return alive;
     }
 }

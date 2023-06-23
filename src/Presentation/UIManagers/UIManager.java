@@ -110,6 +110,15 @@ public class UIManager {
     }
 
     /**
+     * Prints the end of the party
+     * @param adventureName
+     */
+    public void printShortStageEnd(String adventureName){
+        System.out.println();
+        System.out.println("Congratulations, your party completed “" + adventureName + "“.");
+    }
+
+    /**
      * This alert method is related when the option entred before is not correct
      */
     public void printLevelError() {
@@ -542,9 +551,10 @@ public class UIManager {
         System.out.println("Party:");
         while (characters.size() > i) {
             System.out.println("\t-" + characters.get(i).getName() + "\t\t" +
-                    actualPoints.get(i) + " / " + totalPoints.get(i) + " hit points");
+                    characters.get(i).getActualPoints() + " / " + characters.get(i).getTotalPoints() + " hit points");
             i++;
         }
+        System.out.println();
     }
 
     /**
@@ -557,8 +567,8 @@ public class UIManager {
      * @param criticalDamage
      */
     public void printAttacks(Monster monster, Character character, int damage, boolean isMonsterAttacking, boolean isHitting, boolean criticalDamage) {
-        if (isMonsterAttacking) {
-            System.out.println(monster.getName() + " attacks " + character.getName() + ".\n");
+        if (isMonsterAttacking ) {
+            System.out.println(monster.getName() + " attacks " + character.getName() + ".");
             if (isHitting) {
                 System.out.println("Hits and deals " + damage + " " + monster.getDamageType() + ".");
             } else if (criticalDamage) {
@@ -594,10 +604,18 @@ public class UIManager {
     }
 
     /**
-     * This method prints all the enemies defeated in the fights
-     * @param monsters
+     * This method prints when a monster is unconsious
+     * @param monster
      */
-    public void printAllEnemiesDefeated(ArrayList<Monster> monsters) {
+    public void printMonsterUnconscious (Monster monster) {
+        System.out.println(monster.getName() + "dies.");
+    }
+
+
+    /**
+     * This method prints all the enemies defeated in the fights
+     */
+    public void printAllEnemiesDefeated() {
         System.out.println("All enemies are defeated.");
     }
 
@@ -614,7 +632,9 @@ public class UIManager {
      * @param round
      */
     public void printEndOfRound(int round) {
+        System.out.println();
         System.out.println("End of round " + round + ".");
+        System.out.println();
     }
 
     /**
@@ -636,12 +656,16 @@ public class UIManager {
      * @param level
      */
     public void printShortStageGainPoints(Character character, int experience, boolean levelUp, int level) {
-        System.out.print(character.getName() + " gains " + experience + " xp.");
+        if (character.getActualPoints() == 0){
+            System.out.println(character.getName() + "is unconscious.");
+        }else {
+            System.out.print(character.getName() + " gains " + experience + " xp.");
 
-        if (levelUp) {
-            System.out.println(" " + character.getName() + " levels up. They are now lvl " + level + "!");
-        } else {
-            System.out.println();
+            if (levelUp) {
+                System.out.println(" " + character.getName() + " levels up. They are now lvl " + level + "!");
+            } else {
+                System.out.println();
+            }
         }
     }
 

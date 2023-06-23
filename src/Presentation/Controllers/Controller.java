@@ -331,10 +331,13 @@ public class Controller {
 
         ArrayList<Integer> totalPoints = new ArrayList<>(characterManager.calculateTotalHitPoints(chosenCharacters));
         ArrayList<Integer> actualPoints = new ArrayList<>(characterManager.calculateTotalHitPoints(chosenCharacters));
-
+        for (int l = 0; l < chosenCharacters.size(); l++) {
+            chosenCharacters.get(l).setTotalPoints(totalPoints.get(l));
+            chosenCharacters.get(l).setActualPoints(totalPoints.get(l));
+        }
         uiManager.printPlayAdventureEnd(adventureName);
 
-        while (j < adventures.get(parseInt(adventureIndex) - 1).getNumFights()){
+        /*while (j < adventures.get(parseInt(adventureIndex) - 1).getNumFights()){
             ArrayList<Monster> monsters = adventures.get(parseInt(adventureIndex) - 1).getFights().get(j).getMonsters();
             int numId = adventures.get(parseInt(adventureIndex) - 1).getFights().get(j).getId();
             uiManager.printIncreaseSpirit(monsters, numId, chosenCharacters);
@@ -360,10 +363,73 @@ public class Controller {
                 );
                 k++;
             }
-
-
             j++;
+        }*/
+
+
+        // PREPARATION STAGE
+        ArrayList<Monster> monsters = adventures.get(parseInt(adventureIndex) - 1).getFights().get(j).getMonsters();
+        int numId = adventures.get(parseInt(adventureIndex) - 1).getFights().get(j).getId();
+        uiManager.printIncreaseSpirit(monsters, numId, chosenCharacters);
+        while (chosenCharacters.size() > z){
+            int spirit = chosenCharacters.get(z).getSpirit() + 1;
+            chosenCharacters.get(z).setSpirit(spirit);
+            z++;
         }
+
+        // COMBAT STAGE
+        uiManager.printMonstersInitiative(monsters);
+        boolean attacking;
+        while (j < adventures.get(parseInt(adventureIndex) - 1).getNumFights()){
+            uiManager.printCombatStageIntroduction(j + 1, chosenCharacters, actualPoints, totalPoints);
+
+            while (adventureManager.howManyAttacks() > k) {
+                Monster monster = monsterManager.whichMonster(monsters, monsters.size());
+                Character character = characterManager.whichCharacter(chosenCharacters, chosenCharacters.size());
+                int damage = characterManager.attackDamage(character);
+
+                if (monsterManager.isMonsterAttacking() > 1){
+                    attacking = true;
+                    character.setActualPoints(character.getActualPoints() - damage - monsterManager.isMonsterAttacking());
+                }else{
+                    attacking = false;
+                }
+
+                //System.out.println("Damage : " + damage + "Attacking: " + monsterManager.isMonsterAttacking()) ;
+                uiManager.printAttacks(monster, character, damage,
+                        attacking, // aqui ara es retorna un bool el qual et diu si ataca o no, abans retornava random de 0 al 10
+                        characterManager.isHitting(),
+                        characterManager.isCriticalDamage(damage)
+                );
+                k++;
+            }
+
+            uiManager.printEndOfRound(j + 1);
+            j++;
+            if (characterManager.areCharactersAlive(chosenCharacters)){
+                uiManager.printAllEnemiesDefeated();
+            }
+        }
+
+
+        // SHORT STAGE
+        uiManager.printShortStageTitle();
+        for (int l = 0; l < chosenCharacters.size(); l++) {
+            int bandage = characterManager.bandageTime();
+
+            int curation = bandage + chosenCharacters.get(l).getMind();
+            int auxExperience = chosenCharacters.get(l).getExperience();
+            int actualExperience = curation + chosenCharacters.get(l).getActualPoints();
+            chosenCharacters.get(l).setActualPoints(actualExperience);
+
+            if (characterManager.levelHasChanged(auxExperience, actualExperience)) {
+                uiManager.printShortStageGainPoints(chosenCharacters.get(l), bandage, true, characterManager.getLevel(chosenCharacters.get(l).getActualPoints()));
+            }else{
+                uiManager.printShortStageGainPoints(chosenCharacters.get(l), bandage, false, characterManager.getLevel(chosenCharacters.get(l).getActualPoints()));
+            }
+        }
+        uiManager.printShortStageEnd(adventureName);
+
     }
 
     public boolean isMonsterAttacking(int num){
