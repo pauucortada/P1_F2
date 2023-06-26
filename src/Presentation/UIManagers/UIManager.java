@@ -39,6 +39,16 @@ public class UIManager {
         }
     }
 
+    public void printAskData(){
+
+        System.out.println("Do you want to use your local or cloud data?");
+        System.out.println(" 1) Local data");
+        System.out.println(" 2) Cloud data");
+        System.out.println();
+        System.out.print("    -> Answer: ");
+    }
+
+
     /**
      * This method prints the menu to choose the action you want to do
      */

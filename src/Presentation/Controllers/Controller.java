@@ -39,8 +39,19 @@ public class Controller {
 
     public void loadDataSuccess() {
         uiManager.printLogo();
-        uiManager.loadDataSuccessfully(monsterManager.dataLoaded());
+        uiManager.printAskData();
+        Scanner sc = new Scanner(System.in);
+        String option;
+        option = sc.nextLine();
+        if (option.equals("1")){
+            uiManager.loadDataSuccessfully(monsterManager.dataLoaded());
+        }else if (option.equals("2")){
+            //uiManager.loadDataCloudSuccessfully();
+            
+        }
+
     }
+
 
     public void mainMenu() {
         Scanner sc = new Scanner(System.in);
@@ -91,6 +102,7 @@ public class Controller {
         }
 
     }
+
     public void createCharacter() {
         Scanner sc = new Scanner(System.in);
         String name, namePlayer, strlevel;
@@ -331,6 +343,7 @@ public class Controller {
 
         ArrayList<Integer> totalPoints = new ArrayList<>(characterManager.calculateTotalHitPoints(chosenCharacters));
         ArrayList<Integer> actualPoints = new ArrayList<>(characterManager.calculateTotalHitPoints(chosenCharacters));
+
         for (int l = 0; l < chosenCharacters.size(); l++) {
             chosenCharacters.get(l).setTotalPoints(totalPoints.get(l));
             chosenCharacters.get(l).setActualPoints(totalPoints.get(l));
@@ -388,14 +401,23 @@ public class Controller {
                 Character character = characterManager.whichCharacter(chosenCharacters, chosenCharacters.size());
                 int damage = characterManager.attackDamage(character);
 
-                if (monsterManager.isMonsterAttacking() > 1){
-                    attacking = true;
-                    character.setActualPoints(character.getActualPoints() - damage - monsterManager.isMonsterAttacking());
+                if (damage != 0){
+                    if (monsterManager.isMonsterAttacking() > 1){
+                        attacking = true;
+                        character.setActualPoints(character.getActualPoints() - (damage + monsterManager.isMonsterAttacking()));
+                    }else{
+                        attacking = false;
+                    }
                 }else{
                     attacking = false;
                 }
 
+
                 //System.out.println("Damage : " + damage + "Attacking: " + monsterManager.isMonsterAttacking()) ;
+                if (character.getActualPoints() <= 0){
+                    character.setActualPoints(0);
+                }
+
                 uiManager.printAttacks(monster, character, damage,
                         attacking, // aqui ara es retorna un bool el qual et diu si ataca o no, abans retornava random de 0 al 10
                         characterManager.isHitting(),
@@ -406,7 +428,7 @@ public class Controller {
 
             uiManager.printEndOfRound(j + 1);
             j++;
-            if (characterManager.areCharactersAlive(chosenCharacters)){
+            if (!characterManager.areCharactersAlive(chosenCharacters)){
                 uiManager.printAllEnemiesDefeated();
             }
         }

@@ -3,8 +3,10 @@ package Business.Managers;
 import Business.Entities.Monster;
 import Persistance.JSONMonsters;
 
+import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.Executor;
 
 import static java.lang.Integer.parseInt;
 
@@ -60,5 +62,7 @@ public class MonsterManager {
         int num = random1.nextInt(size);
         return monsters.get(num);
     }
+
+
 
 }
