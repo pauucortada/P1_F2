@@ -6,7 +6,6 @@ import Persistance.Cloud.CloudCharacters;
 import Persistance.JSON.JSONCharacters;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.regex.Pattern;
@@ -25,9 +24,10 @@ public class CharacterManager {
      * @param level: level of the adventurer
      * @param daus: random number for adventurer
      */
-    public void createAdventurer(String name, String namePlayer, int level, ArrayList<Integer> daus) {
+    public void createAdventurer(String name, String namePlayer, int level, ArrayList<Integer> daus, int option) throws IOException {
         Adventurer adventurer = new Adventurer();
         JSONCharacters jsonCharacters = new JSONCharacters();
+        CloudCharacters cloudCharacters = new CloudCharacters();
         ArrayList<Integer> valors = valorEstadistiques(daus);
         ArrayList<Character> characters = jsonCharacters.getCharactersFromFile();
 
@@ -41,13 +41,24 @@ public class CharacterManager {
         adventurer.setTypeAttack("Sword Slash");
         adventurer.setClasse("Adventurer");
 
-        try {
-            characters.add(adventurer);
-            jsonCharacters.savCharactersToFile(characters);
-        } catch (NullPointerException npe) {
-            ArrayList<Character> characterArrayList = new ArrayList<>();
-            characterArrayList.add(adventurer);
-            jsonCharacters.savCharactersToFile(characterArrayList);
+        if (option == 1) {
+            try {
+                characters.add(adventurer);
+                jsonCharacters.savCharactersToFile(characters);
+            } catch (NullPointerException npe) {
+                ArrayList<Character> characterArrayList = new ArrayList<>();
+                characterArrayList.add(adventurer);
+                jsonCharacters.savCharactersToFile(characterArrayList);
+            }
+        }else{
+            try {
+                characters.add(adventurer);
+                cloudCharacters.savCharactersToFileCloud(characters);
+            } catch (NullPointerException | IOException npe) {
+                ArrayList<Character> characterArrayList = new ArrayList<>();
+                characterArrayList.add(adventurer);
+                cloudCharacters.savCharactersToFileCloud(characterArrayList);
+            }
         }
     }
 
@@ -58,9 +69,10 @@ public class CharacterManager {
      * @param level: level of the warrior
      * @param daus: random number for warrior
      */
-    public void createWarrior(String name, String namePlayer, int level, ArrayList<Integer> daus) {
+    public void createWarrior(String name, String namePlayer, int level, ArrayList<Integer> daus, int option) throws IOException {
         Warrior warrior = new Warrior();
         JSONCharacters jsonCharacters = new JSONCharacters();
+        CloudCharacters cloudCharacters = new CloudCharacters();
         ArrayList<Integer> valors = valorEstadistiques(daus);
         ArrayList<Character> characters = jsonCharacters.getCharactersFromFile();
 
@@ -74,14 +86,26 @@ public class CharacterManager {
         warrior.setTypeAttack("Improved Sword Slash");
         warrior.setClasse("Warrior");
 
-        try {
-            characters.add(warrior);
-            jsonCharacters.savCharactersToFile(characters);
-        } catch (NullPointerException npe) {
-            ArrayList<Character> characterArrayList = new ArrayList<>();
-            characterArrayList.add(warrior);
-            jsonCharacters.savCharactersToFile(characterArrayList);
+        if (option == 1){
+            try {
+                characters.add(warrior);
+                jsonCharacters.savCharactersToFile(characters);
+            } catch (NullPointerException npe) {
+                ArrayList<Character> characterArrayList = new ArrayList<>();
+                characterArrayList.add(warrior);
+                jsonCharacters.savCharactersToFile(characterArrayList);
+            }
+        }else{
+            try {
+                characters.add(warrior);
+                cloudCharacters.savCharactersToFileCloud(characters);
+            } catch (NullPointerException | IOException npe) {
+                ArrayList<Character> characterArrayList = new ArrayList<>();
+                characterArrayList.add(warrior);
+                cloudCharacters.savCharactersToFileCloud(characterArrayList);
+            }
         }
+
     }
 
     /**
@@ -91,9 +115,10 @@ public class CharacterManager {
      * @param level: level of the champion
      * @param daus: random number for champion
      */
-    public void createChampion(String name, String namePlayer, int level, ArrayList<Integer> daus) {
+    public void createChampion(String name, String namePlayer, int level, ArrayList<Integer> daus, int option) throws IOException {
         Champion champion = new Champion();
         JSONCharacters jsonCharacters = new JSONCharacters();
+        CloudCharacters cloudCharacters = new CloudCharacters();
         ArrayList<Integer> valors = valorEstadistiques(daus);
         ArrayList<Character> characters = jsonCharacters.getCharactersFromFile();
 
@@ -107,13 +132,24 @@ public class CharacterManager {
         champion.setTypeAttack("Improved Sword Slash");
         champion.setClasse("Champion");
 
-        try {
-            characters.add(champion);
-            jsonCharacters.savCharactersToFile(characters);
-        } catch (NullPointerException npe) {
-            ArrayList<Character> characterArrayList = new ArrayList<>();
-            characterArrayList.add(champion);
-            jsonCharacters.savCharactersToFile(characterArrayList);
+        if (option == 1){
+            try {
+                characters.add(champion);
+                jsonCharacters.savCharactersToFile(characters);
+            } catch (NullPointerException npe) {
+                ArrayList<Character> characterArrayList = new ArrayList<>();
+                characterArrayList.add(champion);
+                jsonCharacters.savCharactersToFile(characterArrayList);
+            }
+        }else{
+            try {
+                characters.add(champion);
+                cloudCharacters.savCharactersToFileCloud(characters);
+            } catch (NullPointerException | IOException npe) {
+                ArrayList<Character> characterArrayList = new ArrayList<>();
+                characterArrayList.add(champion);
+                cloudCharacters.savCharactersToFileCloud(characterArrayList);
+            }
         }
     }
 

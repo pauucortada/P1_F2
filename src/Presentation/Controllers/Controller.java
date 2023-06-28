@@ -22,95 +22,97 @@ import static java.lang.Integer.parseInt;
  */
 public class Controller {
 
-    private CharacterManager characterManager = new CharacterManager();
-    private AdventureManager adventureManager = new AdventureManager();
-    private FightManager fightManager = new FightManager();
-    private MonsterManager monsterManager = new MonsterManager();
-    private UIManager uiManager = new UIManager();
+    private final CharacterManager characterManager = new CharacterManager();
+    private final AdventureManager adventureManager = new AdventureManager();
+    private final FightManager fightManager = new FightManager();
+    private final MonsterManager monsterManager = new MonsterManager();
+    private final UIManager uiManager = new UIManager();
     private int option;
 
-    public Controller(CharacterManager characterManager, AdventureManager adventureManager, FightManager fightManager, MonsterManager monsterManager, UIManager uiManager) {
-        this.characterManager = characterManager;
-        this.adventureManager = adventureManager;
-        this.fightManager = fightManager;
-        this.monsterManager = monsterManager;
-        this.uiManager = uiManager;
-    }
-
     public Controller() {
-
     }
 
     /**
      * Method that checks if the data loaded is success
      */
-    public void loadDataSuccess() throws IOException {
-        uiManager.printLogo();
-        uiManager.printAskData();
-        Scanner sc = new Scanner(System.in);
-        String option = null;
-        option = sc.nextLine();
+    public void loadDataSuccess(){
+        try{
+            uiManager.printLogo();
+            uiManager.printAskData();
+            Scanner sc = new Scanner(System.in);
+            String option = null;
+            option = sc.nextLine();
 
-        if (Objects.equals(option, "1")){
-            uiManager.loadDataSuccessfully(monsterManager.dataLoaded(1));
-            this.option = 1;
-        }else if (Objects.equals(option, "2")){
-            uiManager.loadDattaSuccessfullyCloud(monsterManager.dataLoaded(2));
-            this.option = 2;
+            if (Objects.equals(option, "1")){
+                uiManager.loadDataSuccessfully(monsterManager.dataLoaded(1));
+                this.option = 1;
+            }else if (Objects.equals(option, "2")){
+                uiManager.loadDattaSuccessfullyCloud(monsterManager.dataLoaded(2));
+                this.option = 2;
 
+            }
+
+        }catch(IOException ioException){
+            uiManager.printError();
         }
+
     }
 
 
     /**
      * Method that checks which option of the menu is choosen
      */
-    public void mainMenu() throws IOException {
-        Scanner sc = new Scanner(System.in);
-        ArrayList<Character> characters = characterManager.listCharacters(this.option);
-        String option;
+    public void mainMenu(){
 
-        while (true) {
-            try {
-                if (characters.size() < 3) {
-                    uiManager.printMainMenuWoCharacters();
-                } else {
-                    uiManager.printMainMenu();
-                }
-            } catch (NullPointerException npe) {
-                uiManager.printMainMenuWoCharacters();
-            }
+        try {
+            Scanner sc = new Scanner(System.in);
+            ArrayList<Character> characters = characterManager.listCharacters(this.option);
+            String option;
 
-
-            option = sc.nextLine();
-
-            if (Objects.equals(option, "1")){
-                createCharacter();
-
-            } else if (Objects.equals(option, "2")) {
-                listCharacters();
-
-            } else if (Objects.equals(option, "3")) {
-                createAdventure();
-
-            } else if (Objects.equals(option, "4")) {
+            while (true) {
                 try {
                     if (characters.size() < 3) {
-                        uiManager.invalidOption();
+                        uiManager.printMainMenuWoCharacters();
                     } else {
-                        startAdventure();
+                        uiManager.printMainMenu();
                     }
                 } catch (NullPointerException npe) {
-                    uiManager.invalidOption();
+                    uiManager.printMainMenuWoCharacters();
                 }
 
 
-            } else if (Objects.equals(option, "5")) {
-                exitMainMenu();
-                break;
-            } else {
-                uiManager.printErrorMainMenu();
+                option = sc.nextLine();
+
+                if (Objects.equals(option, "1")) {
+                    createCharacter();
+
+                } else if (Objects.equals(option, "2")) {
+                    listCharacters();
+
+                } else if (Objects.equals(option, "3")) {
+                    createAdventure();
+
+                } else if (Objects.equals(option, "4")) {
+                    try {
+                        if (characters.size() < 3) {
+                            uiManager.invalidOption();
+                        } else {
+                            startAdventure();
+                        }
+                    } catch (NullPointerException npe) {
+                        uiManager.invalidOption();
+                    }
+
+
+                } else if (Objects.equals(option, "5")) {
+                    exitMainMenu();
+                    break;
+                } else {
+                    uiManager.printErrorMainMenu();
+                }
             }
+        }catch(IOException ioe){
+            uiManager.printError();
         }
 
     }
@@ -169,11 +171,11 @@ public class Controller {
         switch (typeOfCharacter) {
             case "Adventurer":
                 if (level <= 3) {
-                    characterManager.createAdventurer(name, namePlayer, level, dausResults);
+                    characterManager.createAdventurer(name, namePlayer, level, dausResults, this.option);
                 } else if (level > 3 && level <= 7) {
-                    characterManager.createWarrior(name, namePlayer, level, dausResults);
+                    characterManager.createWarrior(name, namePlayer, level, dausResults, this.option);
                 } else {
-                    characterManager.createChampion(name, namePlayer, level, dausResults);
+                    characterManager.createChampion(name, namePlayer, level, dausResults, this.option);
                 }
 
                 break;

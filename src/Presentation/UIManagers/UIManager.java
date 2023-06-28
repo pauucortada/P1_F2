@@ -223,7 +223,7 @@ public class UIManager {
         System.out.println(
                 "* Name: " + character.getName() + "\n" +
                 "* Player: " + character.getNamePlayer() + "\n" +
-                "* Class: " + "Adventurer" + "\n" +
+                "* Class: " + character.getClasse() + "\n" +
                 "* Level: " + level + "\n" +
                 "* XP: " + character.getExperience() + "\n" +
                 "* Body: " + character.getBody() + "\n" +

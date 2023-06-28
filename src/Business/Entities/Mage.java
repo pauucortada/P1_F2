@@ -42,22 +42,13 @@ public class Mage extends Character {
         this.shield = shield;
     }
 
-    /**
-     * Method that calculate the max life points of a character
-     * @param character: character to calculate
-     * @param level: level to calculate
-     * @return: points
-     */
+
     @Override
     public int calculateMaxLifePoints(Character character, int level){
         return (10 + character.getBody()) * level;
     }
 
-    /**
-     * Method that returns the total amount of damage
-     * @param character: character that attacks
-     * @return: total damage
-     */
+
     @Override
     public int attackDamage (Character character) {
         Random random1 = new Random();
