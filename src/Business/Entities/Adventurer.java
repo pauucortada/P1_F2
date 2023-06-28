@@ -8,6 +8,12 @@ import java.util.Random;
 
 public class Adventurer extends Character {
 
+    /**
+     * Method that calculate the max life points of a character
+     * @param character: character to calculate
+     * @param level: level to calculate
+     * @return: points
+     */
     @Override
     public int calculateMaxLifePoints(Character character, int level){
         if (level == 1) {
@@ -33,6 +39,11 @@ public class Adventurer extends Character {
         }
     }
 
+    /**
+     * Method that returns the total amount of damage
+     * @param character: character that attacks
+     * @return: total damage
+     */
     @Override
     public int attackDamage (Character character) {
         Random random1 = new Random();
@@ -40,6 +51,11 @@ public class Adventurer extends Character {
         return num + character.getBody();
     }
 
+    /**
+     * This method is about when a character has to evolve
+     * @param character: character to evolve
+     * @return: character or warrior if it has evolved or not
+     */
     @Override
     public Character evolve(Character character){
         Warrior warrior;
@@ -52,6 +68,11 @@ public class Adventurer extends Character {
         }
     }
 
+    /**
+     * Method that gets the preparation time of a character
+     * @param character: character
+     * @return: preparation time
+     */
     @Override
     public String getPreparationType(Character character){
         return ("");

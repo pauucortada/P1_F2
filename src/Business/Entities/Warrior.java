@@ -2,8 +2,18 @@ package Business.Entities;
 
 import java.util.Random;
 
+/**
+ * Class entity of a Warrior, it contains all the getters, setters of a Warrior with his
+ * related attributes
+ */
 public class Warrior extends Adventurer{
 
+    /**
+     * Method that calculate the max life points of a character
+     * @param character: character to calculate
+     * @param level: level to calculate
+     * @return: points
+     */
     @Override
     public int calculateMaxLifePoints(Character character, int level){
         if (level == 4) {
@@ -17,6 +27,11 @@ public class Warrior extends Adventurer{
         }
     }
 
+    /**
+     * Method that returns the total amount of damage
+     * @param character: character that attacks
+     * @return: total damage
+     */
     @Override
     public int attackDamage(Character character) {
         Random random1 = new Random();
@@ -24,6 +39,11 @@ public class Warrior extends Adventurer{
         return num + character.getBody();
     }
 
+    /**
+     * This method is about when a character has to evolve
+     * @param character: character to evolve
+     * @return: character or warrior if it has evolved or not
+     */
     @Override
     public Character evolve(Character character){
         Champion champion;
