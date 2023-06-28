@@ -1,9 +1,8 @@
 package Business.Managers;
 
 import Business.Entities.Adventure;
-import Business.Entities.Character;
 import Business.Entities.Fight;
-import Persistance.JSONAdventures;
+import Persistance.JSON.JSONAdventures;
 
 import java.util.ArrayList;
 import java.util.Random;

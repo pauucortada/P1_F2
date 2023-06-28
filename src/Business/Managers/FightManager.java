@@ -22,25 +22,6 @@ public class FightManager {
         fight.setId(id);
         fight.setMonsters(monsters);
         return fight;
-    } // Invocar en controller y hacer lista de fights para pasarsela a createAdventure
-
-    /**
-     * This method counts the number of monsters of the game
-     * @param monster
-     * @param monsters
-     * @return
-     */
-    public int countMonsterName(String monster, ArrayList<Monster> monsters) {
-        int i = 0, count = 0;
-        while (monsters.size() > i){
-            if (monsters.get(i).getName().equals(monster)){
-                count++;
-            }
-            i++;
-        }
-        return count;
-    } //Mostrar numero de monstruos iguales
-
-
+    }
 
 }

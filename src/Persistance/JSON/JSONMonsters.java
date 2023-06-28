@@ -1,4 +1,4 @@
-package Persistance;
+package Persistance.JSON;
 
 import Business.Entities.Character;
 import Business.Entities.Monster;
@@ -24,16 +24,6 @@ public class JSONMonsters {
 
     File jsonMonstersFile = new File("Files/JSONMonstersFile.json");
     private static final Type REVIEW_TYPE = new TypeToken<ArrayList<Monster>>() {}.getType();
-
-    /*public void saveMonstersFile(ArrayList<Monster> monstersList) {
-        try {
-            FileWriter f = new FileWriter(jsonMonstersFile,false);
-            f.write(new Gson().toJson(monstersList));
-            f.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }*/
 
     /**
      * In this method we get the Montser data from the json of monsters, we recive this data in

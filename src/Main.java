@@ -10,7 +10,6 @@ public class Main {
         Controller controller = new Controller();
         controller.loadDataSuccess();
         controller.mainMenu();
-        // System.out.println("Hello wor1ld!");
 
     }
 }

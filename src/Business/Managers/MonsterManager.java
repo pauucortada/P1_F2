@@ -1,13 +1,12 @@
 package Business.Managers;
 
 import Business.Entities.Monster;
-import Persistance.JSONMonsters;
+import Persistance.Cloud.CloudMonsters;
+import Persistance.JSON.JSONMonsters;
 
-import java.net.http.HttpResponse;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.concurrent.Executor;
-
 import static java.lang.Integer.parseInt;
 
 /**
@@ -20,22 +19,31 @@ public class MonsterManager {
      * This method is the one that talks with the persistance json
      * @return: ArrayList of monsters from the persistance
      */
-    public ArrayList<Monster> listMonsters() {
-        JSONMonsters jsonMonsters = new JSONMonsters();
-        return jsonMonsters.getMonstersFromFile();
+    public ArrayList<Monster> listMonsters(int option) throws IOException {
+
+        if (option == 1){
+            JSONMonsters jsonMonsters = new JSONMonsters();
+            return jsonMonsters.getMonstersFromFile();
+
+        }else if(option == 2){
+            CloudMonsters cloudMonsters = new CloudMonsters();
+            return cloudMonsters.getMonstersFromCloud();
+        }
+        return null;
     }
 
     /**
      * This method returns if the data has been loaded correctly
      * @return: boolean
      */
-    public boolean dataLoaded() {
+    public boolean dataLoaded(int option) throws IOException {
         boolean isDataLoaded = false;
-        if (listMonsters().size() == 0) {
+        if (listMonsters(option).size() == 0) {
             return isDataLoaded;
         }
         return !isDataLoaded;
     }
+
 
     /**
      * This method very similar to the one before says if the option is correct
@@ -52,11 +60,21 @@ public class MonsterManager {
         return validOption < 1 || validOption > size;
     }
 
+    /**
+     * Returns the attack of the nonster
+     * @return: int
+     */
     public int isMonsterAttacking() {
         Random random1 = new Random();
         return random1.nextInt(10) + 1;
     }
 
+    /**
+     * Returns a random monster of the list
+     * @param monsters: arraylist of monsters
+     * @param size: size of the arraylist
+     * @return: monster choosen
+     */
     public Monster whichMonster(ArrayList<Monster> monsters, int size){
         Random random1 = new Random();
         int num = random1.nextInt(size);

@@ -4,7 +4,7 @@ import Business.Entities.Adventurer;
 import Business.Entities.Character;
 import Business.Entities.Cleric;
 import Business.Entities.Mage;
-import Persistance.JSONCharacters;
+import Persistance.JSON.JSONCharacters;
 
 import java.util.ArrayList;
 import java.util.Random;

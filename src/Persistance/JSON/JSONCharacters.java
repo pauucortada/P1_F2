@@ -1,4 +1,4 @@
-package Persistance;
+package Persistance.JSON;
 
 import Business.Entities.Character;
 import com.google.gson.Gson;
@@ -33,7 +33,7 @@ public class JSONCharacters {
         String json = gson.toJson(charactersList);
         try {
             FileWriter fileWriter = new FileWriter(jsonCharactersFile ,false);
-            fileWriter.write(json);
+            fileWriter.write(json); /// post to url
             fileWriter.close();
         } catch (IOException e) {
             e.printStackTrace();

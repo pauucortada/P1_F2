@@ -10,6 +10,7 @@ import Business.Managers.FightManager;
 import Business.Managers.MonsterManager;
 import Presentation.UIManagers.UIManager;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
@@ -17,6 +18,9 @@ import java.util.Scanner;
 import static java.lang.Character.toUpperCase;
 import static java.lang.Integer.parseInt;
 
+/**
+ * This class is the one that manages all the program and implements the funcitons that are needed
+ */
 public class Controller {
 
     private CharacterManager characterManager = new CharacterManager();
@@ -24,6 +28,7 @@ public class Controller {
     private FightManager fightManager = new FightManager();
     private MonsterManager monsterManager = new MonsterManager();
     private UIManager uiManager = new UIManager();
+    private int option;
 
     public Controller(CharacterManager characterManager, AdventureManager adventureManager, FightManager fightManager, MonsterManager monsterManager, UIManager uiManager) {
         this.characterManager = characterManager;
@@ -37,23 +42,31 @@ public class Controller {
 
     }
 
-    public void loadDataSuccess() {
+    /**
+     * Method that checks if the data loaded is success
+     */
+    public void loadDataSuccess() throws IOException {
         uiManager.printLogo();
         uiManager.printAskData();
         Scanner sc = new Scanner(System.in);
-        String option;
+        String option = null;
         option = sc.nextLine();
-        if (option.equals("1")){
-            uiManager.loadDataSuccessfully(monsterManager.dataLoaded());
-        }else if (option.equals("2")){
-            //uiManager.loadDataCloudSuccessfully();
-            
-        }
 
+        if (Objects.equals(option, "1")){
+            uiManager.loadDataSuccessfully(monsterManager.dataLoaded(1));
+            this.option = 1;
+        }else if (Objects.equals(option, "2")){
+            uiManager.loadDataSuccessfully(monsterManager.dataLoaded(2));
+            this.option = 2;
+
+        }
     }
 
 
-    public void mainMenu() {
+    /**
+     * Method that checks which option of the menu is choosen
+     */
+    public void mainMenu() throws IOException {
         Scanner sc = new Scanner(System.in);
         ArrayList<Character> characters = characterManager.listCharacters();
         String option;
@@ -103,6 +116,9 @@ public class Controller {
 
     }
 
+    /**
+     * Method related to create a new Character
+     */
     public void createCharacter() {
         Scanner sc = new Scanner(System.in);
         String name, namePlayer, strlevel, typeOfCharacter;
@@ -159,6 +175,9 @@ public class Controller {
 
     }
 
+    /**
+     * Method choosed to list all the characters created before
+     */
     public void listCharacters() {
         Scanner sc = new Scanner(System.in);
         String name, stroption, deleteName;
@@ -200,11 +219,14 @@ public class Controller {
 
     }
 
-    public void createAdventure() {
+    /**
+     * Method that is choosen when the user wants to create a new adventure
+     */
+    public void createAdventure() throws IOException {
         Scanner sc = new Scanner(System.in);
         String name, numFights, option, nameMonster, monsterIndex, monstersToAdd;
         int countFights = 1;
-        ArrayList<Monster> monsters = monsterManager.listMonsters();
+        ArrayList<Monster> monsters = monsterManager.listMonsters(this.option);
         ArrayList<Monster> monstersFightList = new ArrayList<>();
         ArrayList<Fight> fights = new ArrayList<>();
 
@@ -295,6 +317,9 @@ public class Controller {
 
     }
 
+    /**
+     * This method is the one that starts a new adventure when the user wants to play one
+     */
     public void startAdventure() {
         Scanner sc = new Scanner(System.in);
         String adventureIndex, adventureName, characterIndex;
@@ -358,36 +383,6 @@ public class Controller {
             chosenCharacters.get(l).setActualPoints(totalPoints.get(l));
         }
         uiManager.printPlayAdventureEnd(adventureName);
-
-        /*while (j < adventures.get(parseInt(adventureIndex) - 1).getNumFights()){
-            ArrayList<Monster> monsters = adventures.get(parseInt(adventureIndex) - 1).getFights().get(j).getMonsters();
-            int numId = adventures.get(parseInt(adventureIndex) - 1).getFights().get(j).getId();
-            uiManager.printIncreaseSpirit(monsters, numId, chosenCharacters);
-            while (chosenCharacters.size() > z){
-                int spirit = chosenCharacters.get(z).getSpirit() + 1;
-                chosenCharacters.get(z).setSpirit(spirit);
-                z++;
-            }
-            uiManager.printMonstersInitiative(monsters);
-            uiManager.printCombatStageIntroduction(numId, chosenCharacters, actualPoints, totalPoints);
-
-            while (adventureManager.howManyAttacks() > k) {
-                Monster monster = monsterManager.whichMonster(monsters, monsters.size());
-                Character character = characterManager.whichCharacter(chosenCharacters, chosenCharacters.size());
-                int damage = characterManager.attackDamage(character);
-                uiManager.printAttacks(
-                        monster,
-                        character,
-                        damage,
-                        isMonsterAttacking(monsterManager.isMonsterAttacking()),
-                        characterManager.isHitting(),
-                        characterManager.isCriticalDamage(damage)
-                );
-                k++;
-            }
-            j++;
-        }*/
-
 
         // PREPARATION STAGE
         ArrayList<Monster> monsters = adventures.get(parseInt(adventureIndex) - 1).getFights().get(j).getMonsters();
@@ -459,14 +454,19 @@ public class Controller {
 
     }
 
-    public boolean isMonsterAttacking(int num){
-        return num < 2;
-    }
-
+    /**
+     * Method that is used when the user wants to get out
+     */
     public void exitMainMenu() {
         uiManager.printExit();
     }
 
+    /**
+     * Mehtod that puts the first letter of each word capital
+     * @param chain
+     * @return
+     * @throws StringIndexOutOfBoundsException
+     */
     public String capitalizeString(String chain) throws StringIndexOutOfBoundsException {
         return toUpperCase(chain.charAt(0)) + chain.substring(1);
     }

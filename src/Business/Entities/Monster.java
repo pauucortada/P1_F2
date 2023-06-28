@@ -14,62 +14,36 @@ public class Monster {
     private String damageDice;
     private String damageType;
 
-
-    //Getters and Setters
+    /**
+     * Retrieves the name of the object.
+     * @return The name of the object.
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Retrieves the challenge of the object.
+     * @return The challenge of the object.
+     */
     public String getChallenge() {
         return challenge;
     }
 
-    public int getExperience() {
-        return experience;
-    }
-
-    public int getHitPoints() {
-        return hitPoints;
-    }
-
+    /**
+     * Retrieves the initiative of the object.
+     * @return The initiative of the object.
+     */
     public int getInitiative() {
         return initiative;
     }
 
-    public String getDamageDice() {
-        return damageDice;
-    }
-
+    /**
+     * Retrieves the damage type of the object.
+     * @return The damage type of the object.
+     */
     public String getDamageType() {
         return damageType;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setChallenge(String challenge) {
-        this.challenge = challenge;
-    }
-
-    public void setExperience(int experience) {
-        this.experience = experience;
-    }
-
-    public void setHitPoints(int hitPoints) {
-        this.hitPoints = hitPoints;
-    }
-
-    public void setInitiative(int initiative) {
-        this.initiative = initiative;
-    }
-
-    public void setDamageDice(String damageDice) {
-        this.damageDice = damageDice;
-    }
-
-    public void setDamageType(String damageType) {
-        this.damageType = damageType;
     }
 
 }

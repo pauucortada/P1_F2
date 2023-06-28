@@ -39,6 +39,15 @@ public class UIManager {
         }
     }
 
+    public void loadDattaSuccessfullyCloud(boolean dataLoadedCloud){
+        System.out.println("Loading data...");
+        if (dataLoadedCloud){
+            System.out.println("Data was successfully loaded.\n");
+        } else {
+            System.out.println("Error: The monsters.json file can’t be accessed.\n");
+        }
+    }
+
     public void printAskData(){
 
         System.out.println("Do you want to use your local or cloud data?");

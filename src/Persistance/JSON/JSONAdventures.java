@@ -1,4 +1,4 @@
-package Persistance;
+package Persistance.JSON;
 
 import Business.Entities.Adventure;
 import Business.Entities.Character;
@@ -19,12 +19,19 @@ import org.json.simple.parser.ParseException;
 import java.io.FileReader;
 import java.util.Iterator;
 
+/**
+ * Class that is the one that uses Json Adventures
+ */
 public class JSONAdventures {
 
     File jsonAdventuresFile = new File("Files/JSONAdventuresFile.json");
 
     private static final Type REVIEW_TYPE = new TypeToken<ArrayList<Adventure>>() {}.getType();
 
+    /**
+     * Method that saves at the json the Adventures
+     * @param adventureList
+     */
     public void savAdventuresToFile(ArrayList<Adventure> adventureList) {
         Gson gson = new Gson();
         String json = gson.toJson(adventureList);
@@ -37,6 +44,10 @@ public class JSONAdventures {
         }
     }
 
+    /**
+     * Method that gets the adventures of the json
+     * @return
+     */
     public ArrayList<Adventure> getAdventuresFromFile (){
         Gson gson = new Gson();
 
