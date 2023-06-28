@@ -206,4 +206,8 @@ public class Character {
     public int calculateMaxLifePoints(Character character, int level){
         return 0;
     }
+
+    public int calculateInitiativeValue(Character character){
+        return 0;
+    }
 }

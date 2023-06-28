@@ -22,6 +22,11 @@ public class Mage extends Character {
     }
 
     @Override
+    public int calculateMaxLifePoints(Character character, int level){
+        return (10 + character.getBody()) * level;
+    }
+
+    @Override
     public int attackDamage (Character character) {
         Random random1 = new Random();
         int num = random1.nextInt(4) + 1;
