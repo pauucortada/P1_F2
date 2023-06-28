@@ -56,7 +56,7 @@ public class Controller {
             uiManager.loadDataSuccessfully(monsterManager.dataLoaded(1));
             this.option = 1;
         }else if (Objects.equals(option, "2")){
-            uiManager.loadDataSuccessfully(monsterManager.dataLoaded(2));
+            uiManager.loadDattaSuccessfullyCloud(monsterManager.dataLoaded(2));
             this.option = 2;
 
         }
@@ -119,7 +119,7 @@ public class Controller {
     /**
      * Method related to create a new Character
      */
-    public void createCharacter() {
+    public void createCharacter() throws IOException {
         Scanner sc = new Scanner(System.in);
         String name, namePlayer, strlevel, typeOfCharacter;
         ArrayList<Integer> dausResults = new ArrayList<>(characterManager.dausResult());
@@ -258,7 +258,7 @@ public class Controller {
 
         uiManager.printCreateAdventureName();
         name = sc.nextLine();
-        while (!adventureManager.checkAdventureName(name)) {
+        while (!adventureManager.checkAdventureName(name, this.option)) {
             uiManager.printAdventureNameError(name);
             uiManager.printCreateAdventureName();
             name = sc.nextLine();
@@ -279,7 +279,7 @@ public class Controller {
                         fights.add(fightManager.createFight(monstersFightList, countFights));
                         countFights++;
                         if (countFights > parseInt(numFights)){
-                            adventureManager.createAdventure(name, parseInt(numFights), fights);
+                            adventureManager.createAdventure(name, parseInt(numFights), fights, this.option);
                         } else {
                             monstersFightList.clear();
                         }
@@ -346,11 +346,11 @@ public class Controller {
     /**
      * This method is the one that starts a new adventure when the user wants to play one
      */
-    public void startAdventure() {
+    public void startAdventure() throws IOException {
         Scanner sc = new Scanner(System.in);
         String adventureIndex, adventureName, characterIndex;
         int numCharcaters, i = 0, j = 0, k = 0, z = 0;
-        ArrayList<Adventure> adventures = adventureManager.listAdventures();
+        ArrayList<Adventure> adventures = adventureManager.listAdventures(this.option);
         ArrayList<Character> mainCharacters = characterManager.listCharacters();
         ArrayList<Character> chosenCharacters = new ArrayList<>();
 

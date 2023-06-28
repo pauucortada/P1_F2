@@ -2,8 +2,10 @@ package Business.Managers;
 
 import Business.Entities.Adventure;
 import Business.Entities.Fight;
+import Persistance.Cloud.CloudAdventures;
 import Persistance.JSON.JSONAdventures;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -19,24 +21,36 @@ public class AdventureManager {
      * @param numFights: number of fights of the adventure
      * @param fights; arrayList of fights where you need to add the next adventure
      */
-    public void createAdventure(String name, int numFights, ArrayList<Fight> fights) {
+    public void createAdventure(String name, int numFights, ArrayList<Fight> fights, int option) throws IOException {
         Adventure adventure = new Adventure();
         JSONAdventures jsonAdventures = new JSONAdventures();
+        CloudAdventures cloudAdventures = new CloudAdventures();
         ArrayList<Adventure> adventures = jsonAdventures.getAdventuresFromFile();
 
         adventure.setName(name);
         adventure.setNumFights(numFights);
         adventure.setFights(fights);
 
-        try {
-            adventures.add(adventure);
-            jsonAdventures.savAdventuresToFile(adventures);
-        } catch (NullPointerException npe) {
-            ArrayList<Adventure> adventures1 = new ArrayList<>();
-            adventures1.add(adventure);
-            jsonAdventures.savAdventuresToFile(adventures1);
+        if (option == 1){
+            try {
+                adventures.add(adventure);
+                jsonAdventures.savAdventuresToFile(adventures);
+            } catch (NullPointerException npe) {
+                ArrayList<Adventure> adventures1 = new ArrayList<>();
+                adventures1.add(adventure);
+                jsonAdventures.savAdventuresToFile(adventures1);
+            }
+
+        }else if (option == 2){
+            try {
+                adventures.add(adventure);
+                cloudAdventures.savAdventuresToFileCloud(adventures);
+            } catch (NullPointerException | IOException npe) {
+                ArrayList<Adventure> adventures1 = new ArrayList<>();
+                adventures1.add(adventure);
+                cloudAdventures.savAdventuresToFileCloud(adventures1);
+            }
         }
-        
     }
 
     /**
@@ -44,9 +58,17 @@ public class AdventureManager {
      * @param name: name of the adventure
      * @return
      */
-    public boolean checkAdventureName(String name) {
+    public boolean checkAdventureName(String name, int option) throws IOException {
         JSONAdventures jsonAdventures = new JSONAdventures();
-        ArrayList<Adventure> adventures = jsonAdventures.getAdventuresFromFile();
+        CloudAdventures cloudAdventures = new CloudAdventures();
+        ArrayList<Adventure> adventures = new ArrayList<>();
+
+        if (option == 1) {
+            adventures = jsonAdventures.getAdventuresFromFile();
+        }else if (option == 2){
+            adventures = cloudAdventures.getAdventuresFromFileCloud();
+        }
+
         int i = 0;
         try {
             while (adventures.size() > i){
@@ -66,9 +88,15 @@ public class AdventureManager {
      * This method lists the adventure to the related persistance of the adventures
      * @return:
      */
-    public ArrayList<Adventure> listAdventures(){
+    public ArrayList<Adventure> listAdventures(int option) throws IOException {
         JSONAdventures jsonAdventures = new JSONAdventures();
-        return jsonAdventures.getAdventuresFromFile();
+        CloudAdventures cloudAdventures = new CloudAdventures();
+
+        if (option == 1){
+            return jsonAdventures.getAdventuresFromFile();
+        }else{
+            return cloudAdventures.getAdventuresFromFileCloud();
+        }
     }
 
     public int howManyAttacks() {
