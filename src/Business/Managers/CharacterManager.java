@@ -25,6 +25,7 @@ public class CharacterManager {
         adventurer.setMind(valors.get(1));
         adventurer.setSpirit(valors.get(2));
         adventurer.setTypeAttack("Sword Slash");
+        adventurer.setClasse("Adventurer");
 
         try {
             characters.add(adventurer);
@@ -49,6 +50,7 @@ public class CharacterManager {
         warrior.setMind(valors.get(1));
         warrior.setSpirit(valors.get(2));
         warrior.setTypeAttack("Improved Sword Slash");
+        warrior.setClasse("Warrior");
 
         try {
             characters.add(warrior);
@@ -73,6 +75,7 @@ public class CharacterManager {
         champion.setMind(valors.get(1));
         champion.setSpirit(valors.get(2));
         champion.setTypeAttack("Improved Sword Slash");
+        champion.setClasse("Champion");
 
         try {
             characters.add(champion);
@@ -98,6 +101,7 @@ public class CharacterManager {
         cleric.setSpirit(valors.get(2));
         cleric.setTypeAttack("Not on my watch");
         cleric.setTypeAttack2("Prayer of healing");
+        cleric.setClasse("Cleric");
 
         try {
             characters.add(cleric);
@@ -123,6 +127,7 @@ public class CharacterManager {
         paladin.setSpirit(valors.get(2));
         paladin.setTypeAttack("Not on my watch");
         paladin.setTypeAttack2("Prayer of mass healing");
+        paladin.setClasse("Paladin");
 
         try {
             characters.add(paladin);
@@ -148,6 +153,7 @@ public class CharacterManager {
         mage.setSpirit(valors.get(2));
         mage.setTypeAttack("Fireball");
         mage.setTypeAttack2("Arcane missile");
+        mage.setClasse("Mage");
 
         try {
             characters.add(mage);

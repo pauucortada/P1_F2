@@ -33,4 +33,16 @@ public class Cleric extends Character {
         int num = random1.nextInt(10) + 1;
         return num + cleric.getMind();
     }
+
+    @Override
+    public Character evolve(Character character){
+        Paladin paladin;
+        if (character instanceof Cleric cleric) {
+            paladin = (Paladin) cleric;
+            setClasse("Paladin");
+            return paladin;
+        } else {
+            return character;
+        }
+    }
 }

@@ -194,4 +194,8 @@ public class Character {
     public int attackDamage (Character character){
         return 0;
     }
+
+    public Character evolve(Character character) {
+        return character;
+    }
 }
