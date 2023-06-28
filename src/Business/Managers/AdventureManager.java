@@ -14,8 +14,6 @@ import java.util.Random;
  */
 public class AdventureManager {
 
-    private FightManager fightManager;
-
     /**
      * This method is about to create a new adventure to the list
      * @param name: nme of the adventure

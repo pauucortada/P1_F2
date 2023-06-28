@@ -230,7 +230,6 @@ public class Controller {
                         int j = 0, size = monstersFightList.size(), counter = 0;
                         String nameM;
 
-
                         uiManager.printDeleteMonster();
                         monsterIndex = sc.nextLine();
                         while (monsterManager.isValidOption(monsterIndex, monstersFightList.size())){

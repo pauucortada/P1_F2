@@ -291,8 +291,7 @@ public class CharacterManager {
 
     public int bandageTime(){
         Random random1 = new Random();
-        int num = random1.nextInt(8) + 1;
-        return num;
+        return random1.nextInt(8) + 1;
     }
 
     public boolean isCriticalDamage(int num){
@@ -308,10 +307,8 @@ public class CharacterManager {
     public boolean areCharactersAlive(ArrayList<Character> characers){
         boolean alive = false;
 
-        for (int i = 0; i < characers.size(); i++) {
-            if (characers.get(i).getActualPoints() <= 0){
-                alive = false;
-            }else{
+        for (Character characer : characers) {
+            if (!(characer.getActualPoints() <= 0)) {
                 alive = true;
                 break;
             }
