@@ -1,16 +1,13 @@
 package Business.Managers;
 
-import Business.Entities.Adventurer;
+import Business.Entities.*;
 import Business.Entities.Character;
-import Business.Entities.Cleric;
-import Business.Entities.Mage;
 import Persistance.JSONCharacters;
 
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.regex.Pattern;
 
-import static java.lang.Character.toUpperCase;
 import static java.lang.Integer.parseInt;
 
 public class CharacterManager {
@@ -39,6 +36,54 @@ public class CharacterManager {
         }
     }
 
+    public void createWarrior(String name, String namePlayer, int level, ArrayList<Integer> daus) {
+        Warrior warrior = new Warrior();
+        JSONCharacters jsonCharacters = new JSONCharacters();
+        ArrayList<Integer> valors = valorEstadistiques(daus);
+        ArrayList<Character> characters = jsonCharacters.getCharactersFromFile();
+
+        warrior.setName(name);
+        warrior.setNamePlayer(namePlayer);
+        warrior.setExperience(levelExperience(level));
+        warrior.setBody(valors.get(0));
+        warrior.setMind(valors.get(1));
+        warrior.setSpirit(valors.get(2));
+        warrior.setTypeAttack("Improved Sword Slash");
+
+        try {
+            characters.add(warrior);
+            jsonCharacters.savCharactersToFile(characters);
+        } catch (NullPointerException npe) {
+            ArrayList<Character> characterArrayList = new ArrayList<>();
+            characterArrayList.add(warrior);
+            jsonCharacters.savCharactersToFile(characterArrayList);
+        }
+    }
+
+    public void createChampion(String name, String namePlayer, int level, ArrayList<Integer> daus) {
+        Champion champion = new Champion();
+        JSONCharacters jsonCharacters = new JSONCharacters();
+        ArrayList<Integer> valors = valorEstadistiques(daus);
+        ArrayList<Character> characters = jsonCharacters.getCharactersFromFile();
+
+        champion.setName(name);
+        champion.setNamePlayer(namePlayer);
+        champion.setExperience(levelExperience(level));
+        champion.setBody(valors.get(0));
+        champion.setMind(valors.get(1));
+        champion.setSpirit(valors.get(2));
+        champion.setTypeAttack("Improved Sword Slash");
+
+        try {
+            characters.add(champion);
+            jsonCharacters.savCharactersToFile(characters);
+        } catch (NullPointerException npe) {
+            ArrayList<Character> characterArrayList = new ArrayList<>();
+            characterArrayList.add(champion);
+            jsonCharacters.savCharactersToFile(characterArrayList);
+        }
+    }
+
     public void createCleric(String name, String namePlayer, int level, ArrayList<Integer> daus) {
         Cleric cleric = new Cleric();
         JSONCharacters jsonCharacters = new JSONCharacters();
@@ -51,7 +96,8 @@ public class CharacterManager {
         cleric.setBody(valors.get(0));
         cleric.setMind(valors.get(1));
         cleric.setSpirit(valors.get(2));
-        cleric.setTypeAttack("Prayer Of Healing");
+        cleric.setTypeAttack("Not on my watch");
+        cleric.setTypeAttack2("Prayer of healing");
 
         try {
             characters.add(cleric);
@@ -59,6 +105,31 @@ public class CharacterManager {
         } catch (NullPointerException npe) {
             ArrayList<Character> characterArrayList = new ArrayList<>();
             characterArrayList.add(cleric);
+            jsonCharacters.savCharactersToFile(characterArrayList);
+        }
+    }
+
+    public void createPaladin(String name, String namePlayer, int level, ArrayList<Integer> daus) {
+        Paladin paladin = new Paladin();
+        JSONCharacters jsonCharacters = new JSONCharacters();
+        ArrayList<Integer> valors = valorEstadistiques(daus);
+        ArrayList<Character> characters = jsonCharacters.getCharactersFromFile();
+
+        paladin.setName(name);
+        paladin.setNamePlayer(namePlayer);
+        paladin.setExperience(levelExperience(level));
+        paladin.setBody(valors.get(0));
+        paladin.setMind(valors.get(1));
+        paladin.setSpirit(valors.get(2));
+        paladin.setTypeAttack("Not on my watch");
+        paladin.setTypeAttack2("Prayer of mass healing");
+
+        try {
+            characters.add(paladin);
+            jsonCharacters.savCharactersToFile(characters);
+        } catch (NullPointerException npe) {
+            ArrayList<Character> characterArrayList = new ArrayList<>();
+            characterArrayList.add(paladin);
             jsonCharacters.savCharactersToFile(characterArrayList);
         }
     }
@@ -75,7 +146,8 @@ public class CharacterManager {
         mage.setBody(valors.get(0));
         mage.setMind(valors.get(1));
         mage.setSpirit(valors.get(2));
-        mage.setTypeAttack("Prayer Of Healing");
+        mage.setTypeAttack("Fireball");
+        mage.setTypeAttack2("Arcane missile");
 
         try {
             characters.add(mage);
@@ -86,6 +158,9 @@ public class CharacterManager {
             jsonCharacters.savCharactersToFile(characterArrayList);
         }
     }
+
+
+
 
     public ArrayList <Character> listCharacters(){
         JSONCharacters jsonCharacters = new JSONCharacters();

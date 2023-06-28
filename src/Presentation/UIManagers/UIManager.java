@@ -697,4 +697,8 @@ public class UIManager {
         System.out.print("This is not a valid option. Please, introduce a valid type of character." +
                 "\n-> Enter the character’s initial class [Adventurer, Cleric, Mage]: ");
     }
+
+    public void printError() {
+        System.out.println("Error");
+    }
 }
