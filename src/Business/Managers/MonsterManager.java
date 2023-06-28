@@ -21,11 +21,11 @@ public class MonsterManager {
      */
     public ArrayList<Monster> listMonsters(int option) throws IOException {
 
-        if (option == 1){
+        if (option == 1) {
             JSONMonsters jsonMonsters = new JSONMonsters();
             return jsonMonsters.getMonstersFromFile();
 
-        }else if(option == 2){
+        } else if(option == 2) {
             CloudMonsters cloudMonsters = new CloudMonsters();
             return cloudMonsters.getMonstersFromCloud();
         }

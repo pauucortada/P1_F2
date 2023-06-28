@@ -2,7 +2,7 @@ package Business.Managers;
 
 import Business.Entities.*;
 import Business.Entities.Character;
-import Persistance.JSONCharacters;
+import Persistance.JSON.JSONCharacters;
 
 import java.util.ArrayList;
 import java.util.Random;
