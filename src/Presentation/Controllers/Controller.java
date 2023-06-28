@@ -68,7 +68,7 @@ public class Controller {
      */
     public void mainMenu() throws IOException {
         Scanner sc = new Scanner(System.in);
-        ArrayList<Character> characters = characterManager.listCharacters();
+        ArrayList<Character> characters = characterManager.listCharacters(this.option);
         String option;
 
         while (true) {
@@ -127,7 +127,7 @@ public class Controller {
 
         uiManager.printCreateCharacterName();
         name = sc.nextLine();
-        if (!characterManager.isNameValid(name)){
+        if (!characterManager.isNameValid(name, this.option)){
             uiManager.invalidOption();
             return;
         } else {
@@ -180,20 +180,20 @@ public class Controller {
                 break;
             case "Cleric":
                 if (level >= 5) {
-                    characterManager.createPaladin(name, namePlayer, level, dausResults);
+                    characterManager.createPaladin(name, namePlayer, level, dausResults, this.option);
                 } else {
-                    characterManager.createCleric(name, namePlayer, level, dausResults);
+                    characterManager.createCleric(name, namePlayer, level, dausResults, this.option);
                 }
                 break;
             case "Mage":
-                characterManager.createMage(name, namePlayer, level, dausResults);
+                characterManager.createMage(name, namePlayer, level, dausResults, this.option);
                 break;
             default:
                 uiManager.printError();
                 break;
         }
 
-        Character character = characterManager.nameToCharacter(name);
+        Character character = characterManager.nameToCharacter(name, this.option);
         uiManager.printCreateCharacterStatistics(dausResults, characterManager.stats(character), name);
         uiManager.printFinishType(character);
 
@@ -212,7 +212,7 @@ public class Controller {
         uiManager.printListCharactersMenu();
         name = sc.nextLine();
         try {
-            uiManager.printListCharactersPlayer(characterManager.listChosenCharactersByName(name));
+            uiManager.printListCharactersPlayer(characterManager.listChosenCharactersByName(name, this.option));
             stroption = sc.nextLine();
 
             if (characterManager.isOptionValid(stroption)){
@@ -222,16 +222,16 @@ public class Controller {
                 return;
             }
 
-            int listSize = characterManager.listChosenCharactersByName(name).size();
+            int listSize = characterManager.listChosenCharactersByName(name, this.option).size();
             if (option == 0) {
                 uiManager.printExit();
             } else if (option < 0 || option > listSize) {
                 uiManager.printErrorMainMenu();
             } else {
-                uiManager.printCharacter(characterManager.listChosenCharactersByName(name).get(option - 1), characterManager.whichLevel(characterManager.listChosenCharactersByName(name).get(option - 1)));
+                uiManager.printCharacter(characterManager.listChosenCharactersByName(name, this.option).get(option - 1), characterManager.whichLevel(characterManager.listChosenCharactersByName(name, this.option).get(option - 1)));
                 deleteName = sc.nextLine();
-                if (deleteName.equals(characterManager.listChosenCharactersByName(name).get(option - 1).getName())){
-                    characterManager.deleteCharacter(deleteName);
+                if (deleteName.equals(characterManager.listChosenCharactersByName(name, this.option).get(option - 1).getName())){
+                    characterManager.deleteCharacter(deleteName, this.option);
                     uiManager.printdeleteCharacter(deleteName);
                 }
 
@@ -241,6 +241,8 @@ public class Controller {
             uiManager.printThereAreNoCharacters();
         } catch (NumberFormatException nfe) {
             uiManager.invalidOption();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
     }
@@ -351,7 +353,7 @@ public class Controller {
         String adventureIndex, adventureName, characterIndex;
         int numCharcaters, i = 0, j = 0, k = 0, z = 0;
         ArrayList<Adventure> adventures = adventureManager.listAdventures(this.option);
-        ArrayList<Character> mainCharacters = characterManager.listCharacters();
+        ArrayList<Character> mainCharacters = characterManager.listCharacters(this.option);
         ArrayList<Character> chosenCharacters = new ArrayList<>();
 
         uiManager.printPlayAdventureMenu(adventures);

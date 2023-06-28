@@ -2,8 +2,11 @@ package Business.Managers;
 
 import Business.Entities.*;
 import Business.Entities.Character;
+import Persistance.Cloud.CloudCharacters;
 import Persistance.JSON.JSONCharacters;
 
+import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.regex.Pattern;
@@ -87,9 +90,11 @@ public class CharacterManager {
         }
     }
 
-    public void createCleric(String name, String namePlayer, int level, ArrayList<Integer> daus) {
+    public void createCleric(String name, String namePlayer, int level, ArrayList<Integer> daus, int option) throws IOException {
         Cleric cleric = new Cleric();
         JSONCharacters jsonCharacters = new JSONCharacters();
+        CloudCharacters cloudCharacters = new CloudCharacters();
+
         ArrayList<Integer> valors = valorEstadistiques(daus);
         ArrayList<Character> characters = jsonCharacters.getCharactersFromFile();
 
@@ -103,19 +108,32 @@ public class CharacterManager {
         cleric.setTypeAttack2("Prayer of healing");
         cleric.setClasse("Cleric");
 
-        try {
-            characters.add(cleric);
-            jsonCharacters.savCharactersToFile(characters);
-        } catch (NullPointerException npe) {
-            ArrayList<Character> characterArrayList = new ArrayList<>();
-            characterArrayList.add(cleric);
-            jsonCharacters.savCharactersToFile(characterArrayList);
+        if (option == 1){
+            try {
+                characters.add(cleric);
+                jsonCharacters.savCharactersToFile(characters);
+            } catch (NullPointerException npe) {
+                ArrayList<Character> characterArrayList = new ArrayList<>();
+                characterArrayList.add(cleric);
+                jsonCharacters.savCharactersToFile(characterArrayList);
+            }
+        }else if (option == 2){
+            try {
+                characters.add(cleric);
+                cloudCharacters.savCharactersToFileCloud(characters);
+            } catch (NullPointerException npe) {
+                ArrayList<Character> characterArrayList = new ArrayList<>();
+                characterArrayList.add(cleric);
+                cloudCharacters.savCharactersToFileCloud(characterArrayList);
+            }
         }
+
     }
 
-    public void createPaladin(String name, String namePlayer, int level, ArrayList<Integer> daus) {
+    public void createPaladin(String name, String namePlayer, int level, ArrayList<Integer> daus, int option) throws IOException {
         Paladin paladin = new Paladin();
         JSONCharacters jsonCharacters = new JSONCharacters();
+        CloudCharacters cloudCharacters = new CloudCharacters();
         ArrayList<Integer> valors = valorEstadistiques(daus);
         ArrayList<Character> characters = jsonCharacters.getCharactersFromFile();
 
@@ -129,19 +147,32 @@ public class CharacterManager {
         paladin.setTypeAttack2("Prayer of mass healing");
         paladin.setClasse("Paladin");
 
-        try {
-            characters.add(paladin);
-            jsonCharacters.savCharactersToFile(characters);
-        } catch (NullPointerException npe) {
-            ArrayList<Character> characterArrayList = new ArrayList<>();
-            characterArrayList.add(paladin);
-            jsonCharacters.savCharactersToFile(characterArrayList);
+        if (option == 1){
+            try {
+                characters.add(paladin);
+                jsonCharacters.savCharactersToFile(characters);
+            } catch (NullPointerException npe) {
+                ArrayList<Character> characterArrayList = new ArrayList<>();
+                characterArrayList.add(paladin);
+                jsonCharacters.savCharactersToFile(characterArrayList);
+            }
+        }else if (option == 2){
+            try {
+                characters.add(paladin);
+                cloudCharacters.savCharactersToFileCloud(characters);
+            } catch (NullPointerException | IOException npe) {
+                ArrayList<Character> characterArrayList = new ArrayList<>();
+                characterArrayList.add(paladin);
+                cloudCharacters.savCharactersToFileCloud(characterArrayList);
+            }
         }
+
     }
 
-    public void createMage(String name, String namePlayer, int level, ArrayList<Integer> daus) {
+    public void createMage(String name, String namePlayer, int level, ArrayList<Integer> daus, int option) throws IOException {
         Mage mage = new Mage();
         JSONCharacters jsonCharacters = new JSONCharacters();
+        CloudCharacters cloudCharacters = new CloudCharacters();
         ArrayList<Integer> valors = valorEstadistiques(daus);
         ArrayList<Character> characters = jsonCharacters.getCharactersFromFile();
 
@@ -155,27 +186,45 @@ public class CharacterManager {
         mage.setTypeAttack2("Arcane missile");
         mage.setClasse("Mage");
 
-        try {
-            characters.add(mage);
-            jsonCharacters.savCharactersToFile(characters);
-        } catch (NullPointerException npe) {
-            ArrayList<Character> characterArrayList = new ArrayList<>();
-            characterArrayList.add(mage);
-            jsonCharacters.savCharactersToFile(characterArrayList);
+        if (option == 1){
+            try {
+                characters.add(mage);
+                jsonCharacters.savCharactersToFile(characters);
+            } catch (NullPointerException npe) {
+                ArrayList<Character> characterArrayList = new ArrayList<>();
+                characterArrayList.add(mage);
+                jsonCharacters.savCharactersToFile(characterArrayList);
+            }
+        }else if (option == 2){
+            try {
+                characters.add(mage);
+                cloudCharacters.savCharactersToFileCloud(characters);
+            } catch (NullPointerException | IOException npe) {
+                ArrayList<Character> characterArrayList = new ArrayList<>();
+                characterArrayList.add(mage);
+                cloudCharacters.savCharactersToFileCloud(characterArrayList);
+            }
+        }
+
+    }
+
+
+
+
+    public ArrayList <Character> listCharacters(int option) throws IOException {
+        CloudCharacters cloudCharacters = new CloudCharacters();
+        JSONCharacters jsonCharacters = new JSONCharacters();
+        if (option == 1){
+            return jsonCharacters.getCharactersFromFile();
+        }else{
+            return cloudCharacters.getCharactersFromFileCloud();
         }
     }
 
-
-
-
-    public ArrayList <Character> listCharacters(){
-        JSONCharacters jsonCharacters = new JSONCharacters();
-        return jsonCharacters.getCharactersFromFile();
-    }
-
-    public ArrayList <Character> listChosenCharactersByName(String namePlayer) {
-        ArrayList<Character> characters = listCharacters();
+    public ArrayList <Character> listChosenCharactersByName(String namePlayer, int option) throws IOException {
+        ArrayList<Character> characters = listCharacters(option);
         ArrayList<Character> charactersFiltered = new ArrayList<>();
+
         int i = 0;
 
         if (namePlayer.equals("")){
@@ -244,17 +293,27 @@ public class CharacterManager {
         return daus;
     }
 
-    public void deleteCharacter(String name) {
+    public void deleteCharacter(String name, int option) throws IOException {
         int i = 0;
         String nameC;
+        ArrayList<Character> characters= new ArrayList<>();
         JSONCharacters jsonCharacters = new JSONCharacters();
-        ArrayList<Character> characters = jsonCharacters.getCharactersFromFile();
+        CloudCharacters cloudCharacters = new CloudCharacters();
 
+        if (option == 1) {
+            characters = jsonCharacters.getCharactersFromFile();
+        }else if (option == 2){
+            characters = cloudCharacters.getCharactersFromFileCloud();
+        }
         while (characters.size() > i) {
             nameC = characters.get(i).getName();
             if (nameC.equals(name)){
                 characters.remove(i);
-                jsonCharacters.savCharactersToFile(characters);
+                if(option == 1) {
+                    jsonCharacters.savCharactersToFile(characters);
+                }else{
+                    cloudCharacters.savCharactersToFileCloud(characters);
+                }
             }
             i++;
         }
@@ -297,9 +356,18 @@ public class CharacterManager {
         return hitPoints;
     }
 
-    public boolean isNameValid(String chain) {
+    public boolean isNameValid(String chain, int option) throws IOException {
         JSONCharacters jsonCharacters = new JSONCharacters();
-        ArrayList<Character> characters = jsonCharacters.getCharactersFromFile();
+        CloudCharacters cloudCharacters = new CloudCharacters();
+        ArrayList<Character> characters = new ArrayList<>();
+
+        if (option == 1){
+            jsonCharacters.getCharactersFromFile();
+        }else{
+            cloudCharacters.getCharactersFromFileCloud();
+        }
+
+
         int i = 0;
         String name = chain.toLowerCase();
 
@@ -346,9 +414,16 @@ public class CharacterManager {
 
     }
 
-    public Character nameToCharacter(String name) {
+    public Character nameToCharacter(String name, int option) throws IOException {
         JSONCharacters jsonCharacters = new JSONCharacters();
-        ArrayList<Character> characters = jsonCharacters.getCharactersFromFile();
+        CloudCharacters cloudCharacters = new CloudCharacters();
+        ArrayList<Character> characters = new ArrayList<>();
+
+        if (option == 1){
+            jsonCharacters.getCharactersFromFile();
+        }else{
+            cloudCharacters.getCharactersFromFileCloud();
+        }
 
         int i = 0;
 
