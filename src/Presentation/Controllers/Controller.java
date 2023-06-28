@@ -142,38 +142,46 @@ public class Controller {
         }
 
         level = parseInt(strlevel);
+        uiManager.printLevel(level);
 
         uiManager.printWhichTypeOfCharacter();
         typeOfCharacter = sc.nextLine();
-        while (characterManager.isTypeCorrect(typeOfCharacter)){
+        while (!characterManager.isTypeCorrect(typeOfCharacter)){
             uiManager.printTypeError();
             typeOfCharacter = sc.nextLine();
         }
 
-        if (typeOfCharacter.equals("Adventurer")){
-            if (level <= 3) {
-                characterManager.createAdventurer(name, namePlayer, level, dausResults);
-            } else if (level > 3 && level <= 7) {
-                characterManager.createWarrior(name, namePlayer, level, dausResults);
-            } else {
+        switch (typeOfCharacter) {
+            case "Adventurer":
+                if (level <= 3) {
+                    characterManager.createAdventurer(name, namePlayer, level, dausResults);
+                } else if (level > 3 && level <= 7) {
+                    characterManager.createWarrior(name, namePlayer, level, dausResults);
+                } else {
+                    characterManager.createChampion(name, namePlayer, level, dausResults);
+                }
 
-            }
-
-        } else if (typeOfCharacter.equals("Cleric")) {
-            if (level >= 5){
-                characterManager.createPaladin(name, namePlayer, level, dausResults);
-            } else {
-                characterManager.createCleric(name, namePlayer, level, dausResults);
-            }
-        } else if (typeOfCharacter.equals("Mage")) {
-            characterManager.createMage(name, namePlayer, level, dausResults);
-        } else {
-            uiManager.printError();
-            return;
+                break;
+            case "Cleric":
+                if (level >= 5) {
+                    characterManager.createPaladin(name, namePlayer, level, dausResults);
+                } else {
+                    characterManager.createCleric(name, namePlayer, level, dausResults);
+                }
+                break;
+            case "Mage":
+                characterManager.createMage(name, namePlayer, level, dausResults);
+                break;
+            default:
+                uiManager.printError();
+                break;
         }
 
         Character character = characterManager.nameToCharacter(name);
-        uiManager.printCreateCharacterStatistics(level, dausResults, characterManager.stats(character), name);
+        uiManager.printCreateCharacterStatistics(dausResults, characterManager.stats(character), name);
+        uiManager.printFinishType(character);
+
+
 
     }
 

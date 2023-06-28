@@ -119,6 +119,10 @@ public class UIManager {
                 -> Enter the character’s level [1..10]:\040""");
     }
 
+    public void printLevel(int level){
+        System.out.println("Tavern keeper: “Oh, so you are level " + level + "!”\n");
+    }
+
     /**
      * Prints the end of the party
      * @param adventureName
@@ -138,13 +142,12 @@ public class UIManager {
 
     /**
      * This method prints a summary of the statitics of the character
-     * @param level
      * @param dacesResults
      * @param stats
      * @param name
      */
-    public void printCreateCharacterStatistics(int level, ArrayList<Integer> dacesResults, ArrayList<Integer> stats, String name) {
-        System.out.println("Tavern keeper: “Oh, so you are level " + level + "!”\n" +
+    public void printCreateCharacterStatistics(ArrayList<Integer> dacesResults, ArrayList<Integer> stats, String name) {
+        System.out.println(
                 "“Great, let me get a closer look at you...”\n" +
                 "Generating your stats...\n" +
                 "\nBody:   You rolled " + dacesResults.get (2) + " ("+ dacesResults.get (0) + " and " + dacesResults.get (1) + ").\n" +
@@ -153,8 +156,7 @@ public class UIManager {
                 "\nYour stats are:\n" +
                 "  - Body: " + stats.get(0) + "\n" +
                 "  - Mind: " + stats.get(1) + "\n" +
-                "  - Spirit: " + stats.get(2) + "\n" +
-                "The new character " + name + " has been created.\n");
+                "  - Spirit: " + stats.get(2) + "\n");
     }
 
 
@@ -689,8 +691,14 @@ public class UIManager {
     }
 
     public void printWhichTypeOfCharacter() {
-        System.out.println("“And, lastly, ?”\n" +
+        System.out.print("“And, lastly, ?”\n" +
                 "-> Enter the character’s initial class [Adventurer, Cleric, Mage]: ");
+    }
+
+    public void printFinishType(Character character){
+        System.out.println("Tavern keeper: “Any decent party needs one of those.”\n" +
+                "“I guess that means you’re a " + character.getClasse() +" by now, nice!”\n" +
+                "The new character " + character.getName() + " has been created.\n");
     }
 
     public void printTypeError() {
