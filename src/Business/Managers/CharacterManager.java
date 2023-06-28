@@ -253,6 +253,17 @@ public class CharacterManager {
         }
 
     }
+    
+    public String evolveCharacter(Character character, int level){
+        if (character instanceof Adventurer adventurer && level > 3){
+            adventurer.evolve(character);
+        } else if (character instanceof Warrior warrior && level > 7) {
+            warrior.evolve(character);
+        } else if (character instanceof Cleric cleric && level > 4) {
+            cleric.evolve(character);
+        }
+        return character.getClasse();
+    }
 
 
 
@@ -447,12 +458,12 @@ public class CharacterManager {
     public boolean isNameValid(String chain, int option) throws IOException {
         JSONCharacters jsonCharacters = new JSONCharacters();
         CloudCharacters cloudCharacters = new CloudCharacters();
-        ArrayList<Character> characters = new ArrayList<>();
+        ArrayList<Character> characters;
 
-        if (option == 1){
-            jsonCharacters.getCharactersFromFile();
-        }else{
-            cloudCharacters.getCharactersFromFileCloud();
+        if (option == 1) {
+            characters = jsonCharacters.getCharactersFromFile();
+        } else {
+            characters = cloudCharacters.getCharactersFromFileCloud();
         }
 
 
@@ -520,12 +531,12 @@ public class CharacterManager {
     public Character nameToCharacter(String name, int option) throws IOException {
         JSONCharacters jsonCharacters = new JSONCharacters();
         CloudCharacters cloudCharacters = new CloudCharacters();
-        ArrayList<Character> characters = new ArrayList<>();
+        ArrayList<Character> characters;
 
         if (option == 1){
-            jsonCharacters.getCharactersFromFile();
-        }else{
-            cloudCharacters.getCharactersFromFileCloud();
+            characters = jsonCharacters.getCharactersFromFile();
+        } else {
+            characters = cloudCharacters.getCharactersFromFileCloud();
         }
 
         int i = 0;

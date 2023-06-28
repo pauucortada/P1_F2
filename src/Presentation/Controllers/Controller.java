@@ -450,11 +450,27 @@ public class Controller {
                     character.setActualPoints(0);
                 }
 
-                uiManager.printAttacks(monster, character, damage,
-                        attacking, // aqui ara es retorna un bool el qual et diu si ataca o no, abans retornava random de 0 al 10
-                        characterManager.isHitting(),
-                        characterManager.isCriticalDamage(damage)
-                );
+                if (monster.getChallenge().equals("Boss")){
+                    int h = 0;
+                    uiManager.printBossAttack(monster);
+                    while (chosenCharacters.size() > h){
+                        uiManager.printBossAttack1(monster, chosenCharacters);
+                        uiManager.printAttacks(monster, character, damage,
+                                attacking, // aqui ara es retorna un bool el qual et diu si ataca o no, abans retornava random de 0 al 10
+                                characterManager.isHitting(),
+                                characterManager.isCriticalDamage(damage)
+                        );
+                        h++;
+                    }
+                    h = 0;
+                } else {
+                    uiManager.printAttacks(monster, character, damage,
+                            attacking, // aqui ara es retorna un bool el qual et diu si ataca o no, abans retornava random de 0 al 10
+                            characterManager.isHitting(),
+                            characterManager.isCriticalDamage(damage)
+                    );
+                }
+
                 k++;
             }
 
@@ -477,6 +493,11 @@ public class Controller {
             chosenCharacter.setActualPoints(actualExperience);
 
             uiManager.printShortStageGainPoints(chosenCharacter, bandage, characterManager.levelHasChanged(auxExperience, actualExperience), characterManager.getLevel(chosenCharacter.getActualPoints()));
+            for (Character character : chosenCharacters){
+                characterManager.evolveCharacter(character, characterManager.getLevel(chosenCharacter.getActualPoints()));
+                uiManager.printEvolve(character);
+            }
+
         }
         uiManager.printShortStageEnd(adventureName);
 

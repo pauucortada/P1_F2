@@ -91,31 +91,6 @@ public final class ApiHelper {
     }
 
     /**
-     * Method that removes the contents from a URL using the HTTPS protocol. Specifically, a DELETE request is sent.
-     * Any parameters should be included in the URL.
-     *
-     * @param url A String representation of the URL to delete from, which will be assumed to use HTTP/HTTPS.
-     * @return The contents of the response, in case the server sends anything back after deleting the content.
-     * @throws IOException If the URL is malformed or the server can't be reached.
-     */
-    public String deleteFromUrl(String url) throws IOException {
-        try {
-            // Define the request
-            // The default method is GET, so we don't need to specify it (but we could do so by calling .GET() before .build()
-            // The HttpRequest.Builder pattern offers a ton of customization for the request (headers, body, HTTP version...)
-            HttpRequest request = HttpRequest.newBuilder().uri(new URI(url)).DELETE().build();
-
-            // We use the default BodyHandler for Strings (so we can get the body of the response as a String)
-            // Note we could also send the request asynchronously, but things would escalate in terms of coding complexity
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            return response.body();
-        } catch (URISyntaxException | IOException | InterruptedException e) {
-            // Exceptions are simplified for any classes that need to catch them
-            throw new IOException(e);
-        }
-    }
-
-    /**
      * Helper function that sets up a SSLContext designed to ignore certificates, accepting anything by default
      * NOT TO BE USED IN REAL PRODUCTION ENVIRONMENTS
      *

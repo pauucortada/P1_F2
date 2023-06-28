@@ -1,9 +1,7 @@
 package Presentation.UIManagers;
 
-import Business.Entities.Adventure;
-import Business.Entities.Adventurer;
+import Business.Entities.*;
 import Business.Entities.Character;
-import Business.Entities.Monster;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -578,6 +576,17 @@ public class UIManager {
         System.out.println();
     }
 
+    public void  printBossAttack(Monster monster){
+        System.out.print(monster.getName() + " attacks ");
+    }
+
+    public void printBossAttack1(Monster monster, ArrayList<Character> characters){
+        int i = 0;
+        while (characters.size() > i){
+            System.out.print(characters.get(i) + ", ");
+        }
+    }
+
     /**
      * This method prints an attack
      * @param monster
@@ -588,8 +597,10 @@ public class UIManager {
      * @param criticalDamage
      */
     public void printAttacks(Monster monster, Character character, int damage, boolean isMonsterAttacking, boolean isHitting, boolean criticalDamage) {
-        if (isMonsterAttacking ) {
-            System.out.println(monster.getName() + " attacks " + character.getName() + ".");
+        if (isMonsterAttacking) {
+            if (!monster.getChallenge().equals("Boss")){
+                System.out.println(monster.getName() + " attacks " + character.getName() + ".");
+            }
             if (isHitting) {
                 System.out.println("Hits and deals " + damage + " " + monster.getDamageType() + ".");
             } else if (criticalDamage) {
@@ -717,5 +728,9 @@ public class UIManager {
 
     public void printError() {
         System.out.println("Error");
+    }
+
+    public void printEvolve(Character character){
+        System.out.println(character.getName() + " evolves to " + character.getClasse() + "!");
     }
 }
