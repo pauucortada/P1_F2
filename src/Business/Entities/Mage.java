@@ -4,6 +4,7 @@ import java.util.Random;
 
 public class Mage extends Character {
     private String typeAttack2;
+    private int shield;
 
     /**
      * Getter of the type of attack of the adventurer
@@ -19,6 +20,14 @@ public class Mage extends Character {
      */
     public void setTypeAttack2(String typeAttack) {
         this.typeAttack2 = typeAttack;
+    }
+
+    public int getShield() {
+        return shield;
+    }
+
+    public void setShield(int shield) {
+        this.shield = shield;
     }
 
     @Override
@@ -37,5 +46,12 @@ public class Mage extends Character {
         Random random1 = new Random();
         int num = random1.nextInt(6) + 1;
         return num + character.getMind();
+    }
+
+    public int calculateShield(int level) {
+        Random random1 = new Random();
+        int num = (random1.nextInt() + getMind()) * level;
+        setShield(num);
+        return num;
     }
 }

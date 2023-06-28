@@ -531,9 +531,23 @@ public class UIManager {
                 -------------------------
                 *** Preparation stage ***
                 -------------------------""");
-        j = 0;
+    }
+
+    public void printIncreaseSpiritFinal(ArrayList<Character> characters, int diceValue){
+        int j = 0;
         while (characters.size() > j) {
-            System.out.println(characters.get(j).getName() + " uses "+ characters.get(j) + ". Their Spirit increases in +1.");
+            if (characters.get(j) instanceof Adventurer || characters.get(j) instanceof Warrior){
+                System.out.println(characters.get(j).getName() + " uses "+ characters.get(j).getTypePreparation() + ". Their Spirit increases in +1.");
+            } else if (characters.get(j) instanceof Champion) {
+                System.out.println(characters.get(j).getName() + " uses "+ characters.get(j).getTypePreparation() + ". Everyone’s Spirit increases in +1.");
+            } else if (characters.get(j) instanceof Cleric) {
+                System.out.println(characters.get(j).getName() + " uses "+ characters.get(j).getTypePreparation() + ". Everyone’s Mind increases in +1.");
+            } else if (characters.get(j) instanceof Paladin) {
+                System.out.println(characters.get(j).getName() + " uses "+ characters.get(j).getTypePreparation() + ". Everyone’s Mind increases in +" + diceValue+".");
+            } else {
+                Mage mage = (Mage) characters.get(j);
+                System.out.println(mage.getName() + " uses "+ mage.getTypePreparation() + ". Shield recharges to " + mage.getShield() +".");
+            }
             j++;
         }
     }

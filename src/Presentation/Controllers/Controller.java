@@ -1,9 +1,7 @@
 package Presentation.Controllers;
 
-import Business.Entities.Adventure;
+import Business.Entities.*;
 import Business.Entities.Character;
-import Business.Entities.Fight;
-import Business.Entities.Monster;
 import Business.Managers.AdventureManager;
 import Business.Managers.CharacterManager;
 import Business.Managers.FightManager;
@@ -11,8 +9,10 @@ import Business.Managers.MonsterManager;
 import Presentation.UIManagers.UIManager;
 
 import java.io.IOException;
+import java.lang.Character;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Random;
 import java.util.Scanner;
 
 import static java.lang.Character.toUpperCase;
@@ -416,11 +416,35 @@ public class Controller {
         ArrayList<Monster> monsters = adventures.get(parseInt(adventureIndex) - 1).getFights().get(j).getMonsters();
         int numId = adventures.get(parseInt(adventureIndex) - 1).getFights().get(j).getId();
         uiManager.printIncreaseSpirit(monsters, numId, chosenCharacters);
+
+        Random random1 = new Random();
+        int num = random1.nextInt(3) + 1;
+
         while (chosenCharacters.size() > z){
-            int spirit = chosenCharacters.get(z).getSpirit() + 1;
-            chosenCharacters.get(z).setSpirit(spirit);
+            int spirit;
+            if (chosenCharacters.get(j) instanceof Adventurer || chosenCharacters.get(j) instanceof Warrior){
+                spirit = chosenCharacters.get(z).getSpirit() + 1;
+                chosenCharacters.get(z).setSpirit(spirit);
+            } else if (chosenCharacters.get(j) instanceof Champion) {
+                for (Character character : chosenCharacters) {
+                    spirit = character.getSpirit() + 1;
+                    character.setSpirit(spirit);
+                }
+            } else if (chosenCharacters.get(j) instanceof Cleric) {
+                for (Character character : chosenCharacters){
+                    spirit = character.getMind() + 1;
+                    character.setMind(spirit);
+                }
+            } else if (chosenCharacters.get(j) instanceof Paladin) {
+                for (Character character : chosenCharacters){
+                    spirit = character.getMind() + num;
+                    character.setMind(spirit);
+                }
+            }
             z++;
         }
+
+        uiManager.printIncreaseSpiritFinal(chosenCharacters, num);
 
         // COMBAT STAGE
         uiManager.printMonstersInitiative(monsters);

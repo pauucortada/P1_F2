@@ -15,6 +15,8 @@ public class Character {
     private int actualPoints;
     private int totalPoints;
 
+    private String typePreparation;
+
     private String classe;
     private String typeAttack;
 
@@ -103,10 +105,16 @@ public class Character {
         return classe;
     }
 
+    public String getTypePreparation() {
+        return typePreparation;
+    }
+
     /**
      * Setter of the name of the character
      * @param name
      */
+
+
     public void setName(String name) {
         this.name = name;
     }
@@ -189,6 +197,10 @@ public class Character {
      */
     public void setTypeAttack(String typeAttack) {
         this.typeAttack = typeAttack;
+    }
+
+    public void setTypePreparation(String typePreparation) {
+        this.typePreparation = typePreparation;
     }
 
     public int attackDamage (Character character){

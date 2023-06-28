@@ -37,6 +37,7 @@ public class CharacterManager {
         adventurer.setMind(valors.get(1));
         adventurer.setSpirit(valors.get(2));
         adventurer.setExperience(adventurer.calculateMaxLifePoints(adventurer, level));
+        adventurer.setTypePreparation("Self-motivated");
         adventurer.setTypeAttack("Sword Slash");
         adventurer.setClasse("Adventurer");
 
@@ -69,6 +70,7 @@ public class CharacterManager {
         warrior.setMind(valors.get(1));
         warrior.setSpirit(valors.get(2));
         warrior.setExperience(warrior.calculateMaxLifePoints(warrior, level));
+        warrior.setTypePreparation("Self-motivated");
         warrior.setTypeAttack("Improved Sword Slash");
         warrior.setClasse("Warrior");
 
@@ -101,6 +103,7 @@ public class CharacterManager {
         champion.setMind(valors.get(1));
         champion.setSpirit(valors.get(2));
         champion.setExperience(champion.calculateMaxLifePoints(champion, level));
+        champion.setTypePreparation("Motivational speech");
         champion.setTypeAttack("Improved Sword Slash");
         champion.setClasse("Champion");
 
@@ -135,6 +138,7 @@ public class CharacterManager {
         cleric.setMind(valors.get(1));
         cleric.setSpirit(valors.get(2));
         cleric.setExperience(cleric.calculateMaxLifePoints(cleric, level));
+        cleric.setTypePreparation("Prayer of good luck");
         cleric.setTypeAttack("Not on my watch");
         cleric.setTypeAttack2("Prayer of healing");
         cleric.setClasse("Cleric");
@@ -182,6 +186,7 @@ public class CharacterManager {
         paladin.setMind(valors.get(1));
         paladin.setSpirit(valors.get(2));
         paladin.setExperience(paladin.calculateMaxLifePoints(paladin, level));
+        paladin.setTypePreparation("Blessing of good luck");
         paladin.setTypeAttack("Not on my watch");
         paladin.setTypeAttack2("Prayer of mass healing");
         paladin.setClasse("Paladin");
@@ -228,6 +233,8 @@ public class CharacterManager {
         mage.setMind(valors.get(1));
         mage.setSpirit(valors.get(2));
         mage.setExperience(mage.calculateMaxLifePoints(mage, level));
+        mage.calculateShield(level);
+        mage.setTypePreparation("Mage shield");
         mage.setTypeAttack("Fireball");
         mage.setTypeAttack2("Arcane missile");
         mage.setClasse("Mage");
