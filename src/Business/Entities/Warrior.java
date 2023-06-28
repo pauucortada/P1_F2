@@ -3,7 +3,6 @@ package Business.Entities;
 import java.util.Random;
 
 public class Warrior extends Adventurer{
-
     @Override
     public int attackDamage(Character character) {
         Random random1 = new Random();

@@ -3,6 +3,7 @@ package Business.Entities;
 import java.util.Random;
 
 public class Cleric extends Character {
+
     private String typeAttack2;
 
     /**
@@ -19,6 +20,11 @@ public class Cleric extends Character {
      */
     public void setTypeAttack2(String typeAttack) {
         this.typeAttack2 = typeAttack;
+    }
+
+    @Override
+    public int calculateMaxLifePoints(Character character, int level){
+        return (10 + character.getBody()) * level;
     }
 
     @Override

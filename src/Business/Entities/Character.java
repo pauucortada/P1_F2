@@ -198,4 +198,12 @@ public class Character {
     public Character evolve(Character character) {
         return character;
     }
+
+    public String getPreparationType(Character character){
+        return ("");
+    }
+
+    public int calculateMaxLifePoints(Character character, int level){
+        return 0;
+    }
 }

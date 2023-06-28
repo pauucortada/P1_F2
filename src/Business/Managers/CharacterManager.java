@@ -20,10 +20,10 @@ public class CharacterManager {
 
         adventurer.setName(name);
         adventurer.setNamePlayer(namePlayer);
-        adventurer.setExperience(levelExperience(level));
         adventurer.setBody(valors.get(0));
         adventurer.setMind(valors.get(1));
         adventurer.setSpirit(valors.get(2));
+        adventurer.setExperience(adventurer.calculateMaxLifePoints(adventurer, level));
         adventurer.setTypeAttack("Sword Slash");
         adventurer.setClasse("Adventurer");
 
@@ -45,10 +45,10 @@ public class CharacterManager {
 
         warrior.setName(name);
         warrior.setNamePlayer(namePlayer);
-        warrior.setExperience(levelExperience(level));
         warrior.setBody(valors.get(0));
         warrior.setMind(valors.get(1));
         warrior.setSpirit(valors.get(2));
+        warrior.setExperience(warrior.calculateMaxLifePoints(warrior, level));
         warrior.setTypeAttack("Improved Sword Slash");
         warrior.setClasse("Warrior");
 
@@ -70,10 +70,10 @@ public class CharacterManager {
 
         champion.setName(name);
         champion.setNamePlayer(namePlayer);
-        champion.setExperience(levelExperience(level));
         champion.setBody(valors.get(0));
         champion.setMind(valors.get(1));
         champion.setSpirit(valors.get(2));
+        champion.setExperience(champion.calculateMaxLifePoints(champion, level));
         champion.setTypeAttack("Improved Sword Slash");
         champion.setClasse("Champion");
 
@@ -95,10 +95,10 @@ public class CharacterManager {
 
         cleric.setName(name);
         cleric.setNamePlayer(namePlayer);
-        cleric.setExperience(levelExperience(level));
         cleric.setBody(valors.get(0));
         cleric.setMind(valors.get(1));
         cleric.setSpirit(valors.get(2));
+        cleric.setExperience(cleric.calculateMaxLifePoints(cleric, level));
         cleric.setTypeAttack("Not on my watch");
         cleric.setTypeAttack2("Prayer of healing");
         cleric.setClasse("Cleric");
@@ -121,10 +121,10 @@ public class CharacterManager {
 
         paladin.setName(name);
         paladin.setNamePlayer(namePlayer);
-        paladin.setExperience(levelExperience(level));
         paladin.setBody(valors.get(0));
         paladin.setMind(valors.get(1));
         paladin.setSpirit(valors.get(2));
+        paladin.setExperience(paladin.calculateMaxLifePoints(paladin, level));
         paladin.setTypeAttack("Not on my watch");
         paladin.setTypeAttack2("Prayer of mass healing");
         paladin.setClasse("Paladin");
@@ -147,10 +147,10 @@ public class CharacterManager {
 
         mage.setName(name);
         mage.setNamePlayer(namePlayer);
-        mage.setExperience(levelExperience(level));
         mage.setBody(valors.get(0));
         mage.setMind(valors.get(1));
         mage.setSpirit(valors.get(2));
+        mage.setExperience(mage.calculateMaxLifePoints(mage, level));
         mage.setTypeAttack("Fireball");
         mage.setTypeAttack2("Arcane missile");
         mage.setClasse("Mage");
@@ -189,30 +189,6 @@ public class CharacterManager {
                 i++;
             }
             return charactersFiltered;
-        }
-    }
-
-    public int levelExperience(int level) {
-        if (level == 1) {
-            return 0;
-        } else if (level == 2) {
-            return 100;
-        } else if (level == 3) {
-            return 200;
-        } else if (level == 4) {
-            return 300;
-        } else if (level == 5) {
-            return 400;
-        } else if (level == 6) {
-            return 500;
-        } else if (level == 7) {
-            return 600;
-        } else if (level == 8) {
-            return 700;
-        } else if (level == 9) {
-            return 800;
-        } else {
-            return 900;
         }
     }
 

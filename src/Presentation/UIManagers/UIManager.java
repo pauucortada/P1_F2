@@ -535,7 +535,7 @@ public class UIManager {
                 -------------------------""");
         j = 0;
         while (characters.size() > j) {
-            System.out.println(characters.get(j).getName() + " uses Self-Motivated. Their Spirit increases in +1.");
+            System.out.println(characters.get(j).getName() + " uses "+ characters.get(j) + ". Their Spirit increases in +1.");
             j++;
         }
     }
