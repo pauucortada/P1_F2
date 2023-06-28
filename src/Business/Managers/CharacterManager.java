@@ -2,21 +2,20 @@ package Business.Managers;
 
 import Business.Entities.Adventurer;
 import Business.Entities.Character;
-import Business.Entities.Monster;
+import Business.Entities.Cleric;
+import Business.Entities.Mage;
 import Persistance.JSONCharacters;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.regex.Pattern;
 
-import static java.lang.Character.getName;
 import static java.lang.Character.toUpperCase;
 import static java.lang.Integer.parseInt;
 
 public class CharacterManager {
 
-    public void createCharacter(String name, String namePlayer, int level, ArrayList<Integer> daus) {
+    public void createAdventurer(String name, String namePlayer, int level, ArrayList<Integer> daus) {
         Adventurer adventurer = new Adventurer();
         JSONCharacters jsonCharacters = new JSONCharacters();
         ArrayList<Integer> valors = valorEstadistiques(daus);
@@ -38,8 +37,54 @@ public class CharacterManager {
             characterArrayList.add(adventurer);
             jsonCharacters.savCharactersToFile(characterArrayList);
         }
+    }
 
+    public void createCleric(String name, String namePlayer, int level, ArrayList<Integer> daus) {
+        Cleric cleric = new Cleric();
+        JSONCharacters jsonCharacters = new JSONCharacters();
+        ArrayList<Integer> valors = valorEstadistiques(daus);
+        ArrayList<Character> characters = jsonCharacters.getCharactersFromFile();
 
+        cleric.setName(name);
+        cleric.setNamePlayer(namePlayer);
+        cleric.setExperience(levelExperience(level));
+        cleric.setBody(valors.get(0));
+        cleric.setMind(valors.get(1));
+        cleric.setSpirit(valors.get(2));
+        cleric.setTypeAttack("Prayer Of Healing");
+
+        try {
+            characters.add(cleric);
+            jsonCharacters.savCharactersToFile(characters);
+        } catch (NullPointerException npe) {
+            ArrayList<Character> characterArrayList = new ArrayList<>();
+            characterArrayList.add(cleric);
+            jsonCharacters.savCharactersToFile(characterArrayList);
+        }
+    }
+
+    public void createMage(String name, String namePlayer, int level, ArrayList<Integer> daus) {
+        Mage mage = new Mage();
+        JSONCharacters jsonCharacters = new JSONCharacters();
+        ArrayList<Integer> valors = valorEstadistiques(daus);
+        ArrayList<Character> characters = jsonCharacters.getCharactersFromFile();
+
+        mage.setName(name);
+        mage.setNamePlayer(namePlayer);
+        mage.setExperience(levelExperience(level));
+        mage.setBody(valors.get(0));
+        mage.setMind(valors.get(1));
+        mage.setSpirit(valors.get(2));
+        mage.setTypeAttack("Prayer Of Healing");
+
+        try {
+            characters.add(mage);
+            jsonCharacters.savCharactersToFile(characters);
+        } catch (NullPointerException npe) {
+            ArrayList<Character> characterArrayList = new ArrayList<>();
+            characterArrayList.add(mage);
+            jsonCharacters.savCharactersToFile(characterArrayList);
+        }
     }
 
     public ArrayList <Character> listCharacters(){
@@ -260,11 +305,23 @@ public class CharacterManager {
     }
 
     public int attackDamage (Character character) {
-        Random random1 = new Random();
-        int num = random1.nextInt(6) + 1;
+        if (character instanceof Adventurer adventurer){
+            return adventurer.attackDamage(character);
+        } else if (character instanceof Cleric cleric) {
+            return cleric.attackDamage(character);
+        } else if (character instanceof Mage mage){
+            return mage.attackDamage(character);
+        } else {
+            return 0;
+        }
+    }
 
-        return num + character.getBody();
-
+    public int arcaneMisile(Character character){
+        if (character instanceof Mage mage){
+            return mage.arcaneMisile(character);
+        } else {
+            return 0;
+        }
     }
 
     public boolean isHitting(){
@@ -287,7 +344,9 @@ public class CharacterManager {
         return (experience / 100) + 1;
     }
 
-
+    public boolean isTypeCorrect(String typeOfCharacter) {
+        return typeOfCharacter.equals("Adventurer") || typeOfCharacter.equals("Cleric") || typeOfCharacter.equals("Mage");
+    }
 
     public int bandageTime(){
         Random random1 = new Random();

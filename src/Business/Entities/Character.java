@@ -16,6 +16,7 @@ public class Character {
     private int totalPoints;
 
     private String classe;
+    private String typeAttack;
 
     /**
      * void contructor of a character
@@ -33,7 +34,7 @@ public class Character {
      * @param spirit: spirit o the character (int)
      * @param clas: class type of the character (string)
      */
-    public Character(String name, String namePlayer, int experience, int body, int mind, int spirit, String clas) {
+    public Character(String name, String namePlayer, int experience, int body, int mind, int spirit, String clas, String typeAttack) {
         this.name = name;
         this.namePlayer = namePlayer;
         this.experience = experience;
@@ -41,6 +42,7 @@ public class Character {
         this.mind = mind;
         this.spirit = spirit;
         this.classe = clas;
+        this.typeAttack = typeAttack;
     }
 
 // Getters and Setters
@@ -171,5 +173,25 @@ public class Character {
 
     public void setClasse(String classe) {
         this.classe = classe;
+    }
+
+    /**
+     * Getter of the type of attack of the adventurer
+     * @return: type of attack of the adventurer
+     */
+    public String getTypeAttack() {
+        return typeAttack;
+    }
+
+    /**
+     * Setter of the type of attack of the adventurer
+     * @param typeAttack: type of attack of the adventurer
+     */
+    public void setTypeAttack(String typeAttack) {
+        this.typeAttack = typeAttack;
+    }
+
+    public int attackDamage (Character character){
+        return 0;
     }
 }

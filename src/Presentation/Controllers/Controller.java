@@ -105,7 +105,7 @@ public class Controller {
 
     public void createCharacter() {
         Scanner sc = new Scanner(System.in);
-        String name, namePlayer, strlevel;
+        String name, namePlayer, strlevel, typeOfCharacter;
         ArrayList<Integer> dausResults = new ArrayList<>(characterManager.dausResult());
         int level;
 
@@ -142,9 +142,19 @@ public class Controller {
         }
 
         level = parseInt(strlevel);
-        characterManager.createCharacter(name, namePlayer, level, dausResults);
-        Character character = characterManager.nameToCharacter(name);
 
+        uiManager.printWhichTypeOfCharacter();
+        typeOfCharacter = sc.nextLine();
+        while (characterManager.isTypeCorrect(typeOfCharacter)){
+            uiManager.printTypeError();
+            typeOfCharacter = sc.nextLine();
+        }
+
+        if (typeOfCharacter.equals("Adventurer")){
+            characterManager.createAdventurer(name, namePlayer, level, dausResults);
+        }
+
+        Character character = characterManager.nameToCharacter(name);
         uiManager.printCreateCharacterStatistics(level, dausResults, characterManager.stats(character), name);
 
     }
@@ -404,10 +414,10 @@ public class Controller {
                     if (monsterManager.isMonsterAttacking() > 1){
                         attacking = true;
                         character.setActualPoints(character.getActualPoints() - (damage + monsterManager.isMonsterAttacking()));
-                    }else{
+                    } else {
                         attacking = false;
                     }
-                }else{
+                } else {
                     attacking = false;
                 }
 
@@ -435,19 +445,15 @@ public class Controller {
 
         // SHORT STAGE
         uiManager.printShortStageTitle();
-        for (int l = 0; l < chosenCharacters.size(); l++) {
+        for (Character chosenCharacter : chosenCharacters) {
             int bandage = characterManager.bandageTime();
 
-            int curation = bandage + chosenCharacters.get(l).getMind();
-            int auxExperience = chosenCharacters.get(l).getExperience();
-            int actualExperience = curation + chosenCharacters.get(l).getActualPoints();
-            chosenCharacters.get(l).setActualPoints(actualExperience);
+            int curation = bandage + chosenCharacter.getMind();
+            int auxExperience = chosenCharacter.getExperience();
+            int actualExperience = curation + chosenCharacter.getActualPoints();
+            chosenCharacter.setActualPoints(actualExperience);
 
-            if (characterManager.levelHasChanged(auxExperience, actualExperience)) {
-                uiManager.printShortStageGainPoints(chosenCharacters.get(l), bandage, true, characterManager.getLevel(chosenCharacters.get(l).getActualPoints()));
-            }else{
-                uiManager.printShortStageGainPoints(chosenCharacters.get(l), bandage, false, characterManager.getLevel(chosenCharacters.get(l).getActualPoints()));
-            }
+            uiManager.printShortStageGainPoints(chosenCharacter, bandage, characterManager.levelHasChanged(auxExperience, actualExperience), characterManager.getLevel(chosenCharacter.getActualPoints()));
         }
         uiManager.printShortStageEnd(adventureName);
 

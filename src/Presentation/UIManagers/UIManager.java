@@ -688,4 +688,13 @@ public class UIManager {
         System.out.println(character.getName() + " uses Bandage time. Heals " + pointsHealed + " hit points.");
     }
 
+    public void printWhichTypeOfCharacter() {
+        System.out.println("“And, lastly, ?”\n" +
+                "-> Enter the character’s initial class [Adventurer, Cleric, Mage]: ");
+    }
+
+    public void printTypeError() {
+        System.out.print("This is not a valid option. Please, introduce a valid type of character." +
+                "\n-> Enter the character’s initial class [Adventurer, Cleric, Mage]: ");
+    }
 }

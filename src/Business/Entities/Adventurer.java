@@ -1,24 +1,17 @@
 package Business.Entities;
 
+import java.util.Random;
+
 /**
  * Class related to the entity of an Adventurer that is a type of Character
  */
+
 public class Adventurer extends Character {
-    private String typeAttack;
-
-    /**
-     * Getter of the type of attack of the adventurer
-     * @return: type of attack of the adventurer
-     */
-    public String getTypeAttack() {
-        return typeAttack;
+    @Override
+    public int attackDamage (Character character) {
+        Random random1 = new Random();
+        int num = random1.nextInt(6) + 1;
+        return num + character.getBody();
     }
 
-    /**
-     * Setter of the type of attack of the adventurer
-     * @param typeAttack: type of attack of the adventurer
-     */
-    public void setTypeAttack(String typeAttack) {
-        this.typeAttack = typeAttack;
-    }
 }
