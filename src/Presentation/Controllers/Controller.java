@@ -167,7 +167,25 @@ public class Controller {
         }
 
         if (typeOfCharacter.equals("Adventurer")){
-            characterManager.createAdventurer(name, namePlayer, level, dausResults);
+            if (level <= 3) {
+                characterManager.createAdventurer(name, namePlayer, level, dausResults);
+            } else if (level > 3 && level <= 7) {
+                characterManager.createWarrior(name, namePlayer, level, dausResults);
+            } else {
+
+            }
+
+        } else if (typeOfCharacter.equals("Cleric")) {
+            if (level >= 5){
+                characterManager.createPaladin(name, namePlayer, level, dausResults);
+            } else {
+                characterManager.createCleric(name, namePlayer, level, dausResults);
+            }
+        } else if (typeOfCharacter.equals("Mage")) {
+            characterManager.createMage(name, namePlayer, level, dausResults);
+        } else {
+            uiManager.printError();
+            return;
         }
 
         Character character = characterManager.nameToCharacter(name);
