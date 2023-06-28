@@ -56,7 +56,7 @@ public class AdventureManager {
     /**
      * This method can tell you if there is already an adventure with an specific name
      * @param name: name of the adventure
-     * @return
+     * @return: true if its correct, false if its false
      */
     public boolean checkAdventureName(String name, int option) throws IOException {
         JSONAdventures jsonAdventures = new JSONAdventures();
@@ -99,6 +99,10 @@ public class AdventureManager {
         }
     }
 
+    /**
+     * This methods returns the random of the attack
+     * @return: random of an attack
+     */
     public int howManyAttacks() {
         Random random1 = new Random();
         return random1.nextInt(15) + 1;

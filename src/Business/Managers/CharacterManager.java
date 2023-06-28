@@ -13,8 +13,18 @@ import java.util.regex.Pattern;
 
 import static java.lang.Integer.parseInt;
 
+/**
+ * This class manages all stuff related with characters logic
+ */
 public class CharacterManager {
 
+    /**
+     * This method is about to create a new adventurer
+     * @param name: name of the adventurer
+     * @param namePlayer: player's name of the adventurer
+     * @param level: level of the adventurer
+     * @param daus: random number for adventurer
+     */
     public void createAdventurer(String name, String namePlayer, int level, ArrayList<Integer> daus) {
         Adventurer adventurer = new Adventurer();
         JSONCharacters jsonCharacters = new JSONCharacters();
@@ -40,6 +50,13 @@ public class CharacterManager {
         }
     }
 
+    /**
+     * This method is about to create a new warrior
+     * @param name: name of the warrior
+     * @param namePlayer: player's name of the warrior
+     * @param level: level of the warrior
+     * @param daus: random number for warrior
+     */
     public void createWarrior(String name, String namePlayer, int level, ArrayList<Integer> daus) {
         Warrior warrior = new Warrior();
         JSONCharacters jsonCharacters = new JSONCharacters();
@@ -65,6 +82,13 @@ public class CharacterManager {
         }
     }
 
+    /**
+     * This method is about to create a new champion
+     * @param name: name of the champion
+     * @param namePlayer: player's name of the champion
+     * @param level: level of the champion
+     * @param daus: random number for champion
+     */
     public void createChampion(String name, String namePlayer, int level, ArrayList<Integer> daus) {
         Champion champion = new Champion();
         JSONCharacters jsonCharacters = new JSONCharacters();
@@ -90,6 +114,13 @@ public class CharacterManager {
         }
     }
 
+    /**
+     * This method is about to create a new cleric
+     * @param name: name of the cleric
+     * @param namePlayer: player's name of the cleric
+     * @param level: level of the cleric
+     * @param daus: random number for cleric
+     */
     public void createCleric(String name, String namePlayer, int level, ArrayList<Integer> daus, int option) throws IOException {
         Cleric cleric = new Cleric();
         JSONCharacters jsonCharacters = new JSONCharacters();
@@ -130,6 +161,14 @@ public class CharacterManager {
 
     }
 
+    /**
+     * This method is about to create a new paladin
+     * @param name: name of the paladin
+     * @param namePlayer: player's name of the paladin
+     * @param level: level of the paladin
+     * @param daus: random number for paladin
+     *
+     */
     public void createPaladin(String name, String namePlayer, int level, ArrayList<Integer> daus, int option) throws IOException {
         Paladin paladin = new Paladin();
         JSONCharacters jsonCharacters = new JSONCharacters();
@@ -168,7 +207,14 @@ public class CharacterManager {
         }
 
     }
-
+    /**
+     * This method is about to create a new mage
+     * @param name: name of the mage
+     * @param namePlayer: player's name of the mage
+     * @param level: level of the mage
+     * @param daus: random number for mage
+     *
+     */
     public void createMage(String name, String namePlayer, int level, ArrayList<Integer> daus, int option) throws IOException {
         Mage mage = new Mage();
         JSONCharacters jsonCharacters = new JSONCharacters();
@@ -210,7 +256,11 @@ public class CharacterManager {
 
 
 
-
+    /**
+     * This method returns the json of the characters in a list
+     * @param option: if its from json or API
+     * @return: list of characters
+     */
     public ArrayList <Character> listCharacters(int option) throws IOException {
         CloudCharacters cloudCharacters = new CloudCharacters();
         JSONCharacters jsonCharacters = new JSONCharacters();
@@ -220,7 +270,12 @@ public class CharacterManager {
             return cloudCharacters.getCharactersFromFileCloud();
         }
     }
-
+    /**
+     * THis class is the one that choose the character to play
+     * @param namePlayer: name of the player
+     * @param option: if its from cloud or json
+     * @return
+     */
     public ArrayList <Character> listChosenCharactersByName(String namePlayer, int option) throws IOException {
         ArrayList<Character> characters = listCharacters(option);
         ArrayList<Character> charactersFiltered = new ArrayList<>();
@@ -241,6 +296,7 @@ public class CharacterManager {
         }
     }
 
+
     public ArrayList<Integer> stats (Character character){
         ArrayList<Integer> stats = new ArrayList<>();
         stats.add(character.getBody());
@@ -249,6 +305,11 @@ public class CharacterManager {
         return stats;
     }
 
+    /**
+     * This method looks the random of statistics
+     * @param daus
+     * @return: random number
+     */
     public ArrayList<Integer> valorEstadistiques(ArrayList<Integer> daus){
         ArrayList<Integer> valors = new ArrayList<>();
         int i = 2;
@@ -273,6 +334,10 @@ public class CharacterManager {
         return valors;
     }
 
+    /**
+     * This method returns a random of statistics
+     * @return
+     */
     public ArrayList<Integer> dausEstadistiques() {
         ArrayList<Integer> statisticsNumbers = new ArrayList<>();
         Random random1 = new Random();
@@ -285,6 +350,10 @@ public class CharacterManager {
         return statisticsNumbers;
     }
 
+    /**
+     * This method returns the result of "daus"
+     * @return
+     */
     public ArrayList<Integer> dausResult(){
         ArrayList<Integer> daus = new ArrayList<>();
         daus.addAll(dausEstadistiques());
@@ -293,6 +362,10 @@ public class CharacterManager {
         return daus;
     }
 
+    /**
+     * This method is about to implement when a character wants to be deleted
+     * @param name
+     */
     public void deleteCharacter(String name, int option) throws IOException {
         int i = 0;
         String nameC;
@@ -320,6 +393,11 @@ public class CharacterManager {
 
     }
 
+    /**
+     * Return the level of a characeter depending the experience
+     * @param character: character to look the level
+     * @return: level of the character
+     */
     public int whichLevel(Character character) {
         int exp = character.getExperience();
 
@@ -345,6 +423,11 @@ public class CharacterManager {
         return 10;
     }
 
+    /**
+     * This method calculates the total hitpoints of the character
+     * @param characters
+     * @return
+     */
     public ArrayList<Integer> calculateTotalHitPoints(ArrayList<Character> characters) {
         int i = 0, maxHitPoints;
         ArrayList<Integer> hitPoints = new ArrayList<>();
@@ -356,6 +439,11 @@ public class CharacterManager {
         return hitPoints;
     }
 
+    /**
+     * This method checks if the name of a character is correct
+     * @param chain: name
+     * @return: 1 if is correct, 0 if not
+     */
     public boolean isNameValid(String chain, int option) throws IOException {
         JSONCharacters jsonCharacters = new JSONCharacters();
         CloudCharacters cloudCharacters = new CloudCharacters();
@@ -390,6 +478,11 @@ public class CharacterManager {
         return true;
     }
 
+    /**
+     * This method checks if the level of a character is correct
+     * @param strlevel: level
+     * @return: 1 if is correct, 0 if not
+     */
     public boolean isLevelValid(String strlevel) {
         try {
             int level;
@@ -404,6 +497,11 @@ public class CharacterManager {
 
     }
 
+    /**
+     * This method checks if the option is correct
+     * @param strOption: option
+     * @return: 1 if is correct, 0 if not
+     */
     public boolean isOptionValid(String strOption) {
 
         try {
@@ -414,6 +512,11 @@ public class CharacterManager {
 
     }
 
+    /**
+     * This method checks the character list and gets the one that is choosen
+     * @param name: name of the one to choose
+     * @return: character choosen
+     */
     public Character nameToCharacter(String name, int option) throws IOException {
         JSONCharacters jsonCharacters = new JSONCharacters();
         CloudCharacters cloudCharacters = new CloudCharacters();
@@ -436,6 +539,11 @@ public class CharacterManager {
         return null;
     }
 
+    /**
+     * This method returns the randonm of damage
+     * @param character
+     * @return
+     */
     public int attackDamage (Character character) {
         if (character instanceof Adventurer adventurer){
             return adventurer.attackDamage(character);
@@ -456,12 +564,22 @@ public class CharacterManager {
         }
     }
 
+    /**
+     * Returns the random of a character to hit
+     * @return
+     */
     public boolean isHitting(){
         Random random1 = new Random();
         int num = random1.nextInt(15) + 1;
         return num <= 7;
     }
 
+    /**
+     * This method checks if a level of a character has changed
+     * @param auxExp
+     * @param actualExp
+     * @return
+     */
     public boolean levelHasChanged(int auxExp, int actualExp) {
         if (actualExp < 100){
             return false;
@@ -472,29 +590,59 @@ public class CharacterManager {
         }
     }
 
+    /**
+     * Calculates the level based on the experience points.
+     * @param experience The experience points.
+     * @return The calculated level.
+     */
     public int getLevel(int experience) {
         return (experience / 100) + 1;
     }
 
+    /**
+     * This method looks if the type of the character is correct
+     * @param typeOfCharacter: type of the character
+     * @return
+     */
     public boolean isTypeCorrect(String typeOfCharacter) {
         return typeOfCharacter.equals("Adventurer") || typeOfCharacter.equals("Cleric") || typeOfCharacter.equals("Mage");
     }
 
+    /**
+     * Generates a random time value for bandage application.
+     * @return The random time value.
+     */
     public int bandageTime(){
         Random random1 = new Random();
         return random1.nextInt(8) + 1;
     }
 
+    /**
+     * Determines if a damage roll is critical based on the roll value.
+     * @param num The damage roll value.
+     * @return true if the damage is critical, false otherwise.
+     */
     public boolean isCriticalDamage(int num){
         return num >= 10;
     }
 
+    /**
+     * Selects a random character from the provided list.
+     * @param characters The list of characters.
+     * @param size       The size of the list.
+     * @return The randomly selected character.
+     */
     public Character whichCharacter(ArrayList<Character> characters, int size){
         Random random1 = new Random();
         int num = random1.nextInt(size);
         return characters.get(num);
     }
 
+    /**
+     * Checks if any characters in the provided list are alive.
+     * @param characers The list of characters.
+     * @return true if any characters are alive, false otherwise.
+     */
     public boolean areCharactersAlive(ArrayList<Character> characers){
         boolean alive = false;
 

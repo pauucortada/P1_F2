@@ -17,6 +17,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+/**
+ * Class that implements the monsters to the API
+ */
 public class CloudMonsters {
 
     private static final Type REVIEW_TYPE = new TypeToken<ArrayList<Monster>>() {}.getType();
@@ -26,7 +29,7 @@ public class CloudMonsters {
     }
 
     /**
-     * In this method we get the Montser data from the json of monsters, we recive this data in
+     * In this method we get the Montser data from the API's cloud of monsters, we recive this data in
      * an ArrayList of Monsters
      * @return ArrayList
      */

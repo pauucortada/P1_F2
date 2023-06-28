@@ -12,13 +12,14 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
+
 public class CloudCharacters {
 
     String url = "https://balandrau.salle.url.edu/dpoo/S1-Project_30/characters";
     private static final Type REVIEW_TYPE = new TypeToken<ArrayList<Character>>() {}.getType();
 
     /**
-     * We use this method to save the Characters data in a json, the parameter that recives
+     * We use this method to save the Characters data in a API, the parameter that recives
      * is an ArrayList of Characters
      * @param charactersList
      */
@@ -39,7 +40,7 @@ public class CloudCharacters {
     }
 
     /**
-     * This method returs an ArrayList of Characters of the json, we read the json in this method
+     * This method returs an ArrayList of Characters of the Cloud API, we read the json in this method
      * @return ArrayList
      */
     public ArrayList<Character> getCharactersFromFileCloud () throws IOException {

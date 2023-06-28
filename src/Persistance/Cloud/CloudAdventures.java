@@ -12,11 +12,19 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
+/**
+ * Class thet implements the save and get adventures of the Cloud
+ */
 public class CloudAdventures {
 
     String url = "https://balandrau.salle.url.edu/dpoo/S1-Project_30/characters";
     private static final Type REVIEW_TYPE = new TypeToken<ArrayList<Character>>() {}.getType();
 
+    /**
+     * Saves the adventures to the cloud API
+     * @param adventureList
+     * @throws IOException
+     */
     public void savAdventuresToFileCloud(ArrayList<Adventure> adventureList) throws IOException {
             Gson gson = new Gson();
             ApiHelper apiHelper = new ApiHelper();
@@ -34,7 +42,7 @@ public class CloudAdventures {
         }
 
     /**
-     * Method that gets the adventures of the json
+     * Method that gets the adventures of the cloud
      * @return
      */
     public ArrayList<Adventure> getAdventuresFromFileCloud () throws IOException {
