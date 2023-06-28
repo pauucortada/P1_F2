@@ -20,9 +20,9 @@ import java.net.URL;
 public class CloudMonsters {
 
     private static final Type REVIEW_TYPE = new TypeToken<ArrayList<Monster>>() {}.getType();
-    URL url = new URL("https://balandrau.salle.url.edu/dpoo/shared/monsters");
+    String url ="https://balandrau.salle.url.edu/dpoo/shared/monsters";
 
-    public CloudMonsters() throws MalformedURLException, IOException {
+    public CloudMonsters(){
     }
 
     /**
@@ -30,42 +30,18 @@ public class CloudMonsters {
      * an ArrayList of Monsters
      * @return ArrayList
      */
-    public ArrayList<Monster> getMonstersFromCloud () {
+    public ArrayList<Monster> getMonstersFromCloud () throws IOException {
         Gson gson = new Gson();
+        ApiHelper apiHelper = new ApiHelper();
 
         try {
+            JsonReader jsonReader = new JsonReader(new FileReader(apiHelper.getFromUrl(url)));
+            return gson.fromJson(jsonReader, REVIEW_TYPE);
 
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-
-            int responseCode = connection.getResponseCode();
-            if (responseCode == HttpURLConnection.HTTP_OK) {
-
-                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                String inputLine;
-                StringBuilder response = new StringBuilder();
-
-                while ((inputLine = reader.readLine()) != null) {
-                    response.append(inputLine);
-                }
-                reader.close();
-
-
-                try {
-                    JsonReader jsonReader = new JsonReader(new FileReader(String.valueOf(url)));
-                    return gson.fromJson(String.valueOf(response), REVIEW_TYPE);
-
-                } catch (NullPointerException e) {
-                    return new ArrayList<>();
-                }
-
-            } else {
-                // Manejar el error de la solicitud
-                System.out.println("Error number: " + responseCode);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException | NullPointerException e) {
+            return new ArrayList<>();
         }
-        return null;
+
     }
+
 }
