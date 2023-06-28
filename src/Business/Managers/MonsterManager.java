@@ -37,11 +37,7 @@ public class MonsterManager {
      * @return: boolean
      */
     public boolean dataLoaded(int option) throws IOException {
-        boolean isDataLoaded = false;
-        if (listMonsters(option).size() == 0) {
-            return isDataLoaded;
-        }
-        return !isDataLoaded;
+        return listMonsters(option).size() == 0;
     }
 
 
